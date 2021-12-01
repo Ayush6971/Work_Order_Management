@@ -31,7 +31,7 @@ User.findOne({phoneNo: '9406561244'}).exec(async function (err, findFirstUser) {
 
 Item.findOne({itemName: 'Borewell Digging'}).exec(async function (err, findFirstItem) {
     if(!findFirstItem){
-    Item.insertMany([
+    await Item.insertMany([
         {itemName: 'Borewell Digging'},
         {itemName: 'Casing Pipe'},
         {itemName: 'Submersible Pump'}
