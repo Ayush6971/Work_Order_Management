@@ -4,46 +4,14 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
-const User = require('./models/user')
-const Item = require('./models/item')
-const createDocument = async () =>{
-    try{
-        const createUser = new User({
-            firstName: 'Ayush',
-            lastName: 'Sahu',
-            phoneNo: '09406561244',
-            password: '12345',
-            email: 'ayushsahu76@gmail.com',
-            role:1
-        });
-        const result = await createUser.save();
-        console.info(result);
-    }catch(e){
-        console.error(e)
-    }
-}
-const createItemDocument = async () =>{
-  try{
-      const createItem = new Item({
-          itemName: 'Borewell Digging'
-      });
-      const result = await createItem.save();
-      console.info(result);
-  }catch(e){
-      console.error(e)
-  }
-}
 
-createDocument();
-createItemDocument();
 
 mongoose.connect(process.env.DATABASE, {
-    useNewUrlParser: true,
+  useNewUrlParser: true,
 	useUnifiedTopology: true,
   }, (err) => {
     if (!err) {
       console.log("Successfully Established Connection with MongoDB");
-      
     } else {
       console.log(
         "Failed to Establish Connection with MongoDB with Error: " + err
@@ -60,6 +28,8 @@ const PORT = process.env.PORT;
 
 //routes
 // require("./routes/r-index")(app);
+
+require('./config/bootstrap')
 
 
 

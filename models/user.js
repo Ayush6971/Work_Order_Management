@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-console.log("callded")
+const { ObjectID } = require('bson');
+
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String, 
@@ -30,8 +31,8 @@ const userSchema = new mongoose.Schema({
         lowercase: true
     },
     role: {
-        type: Number,
-        default: 0,
+        type: ObjectID,
+        ref:'Role'
     },
 },{ timestamps: true });
 
