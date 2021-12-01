@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
-
 const User = require('./models/user')
+const Item = require('./models/item')
 const createDocument = async () =>{
     try{
         const createUser = new User({
@@ -22,8 +22,20 @@ const createDocument = async () =>{
         console.error(e)
     }
 }
+const createItemDocument = async () =>{
+  try{
+      const createItem = new Item({
+          itemName: 'Borewell Digging'
+      });
+      const result = await createItem.save();
+      console.info(result);
+  }catch(e){
+      console.error(e)
+  }
+}
 
 createDocument();
+createItemDocument();
 
 mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,

@@ -1,0 +1,28 @@
+const { ObjectID } = require('bson');
+const mongoose = require('mongoose');
+
+const estimateSchema = new mongoose.Schema({
+    itemId: {
+        type: ObjectID, 
+        ref: 'Item'
+    },
+    quantity : { 
+        type: Number,
+        required: true, 
+        max: [10, "Max Length is 10 digits"] 
+    },
+    rate: {
+        type: Number,
+        required: true
+    },
+    amount:{
+        type: Number,
+        required: true
+    },
+    total:{
+        type: Number,
+        required: true
+    }
+},{ timestamps: true });
+
+module.exports = mongoose.model("Estimate", estimateSchema);
