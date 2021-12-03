@@ -9,33 +9,44 @@ Role.findOne({authority: "ROLE_ADMIN"}).exec(async function (err, foundRole) {
         {authority: "ROLE_CUSTOMER"},
         {authority: "ROLE_ADMIN"},
       ]);
+
+      User.findOne({phoneNo: '9406561244'}).exec(async function (err, findFirstUser) {
+        const findAdminRole = await Role.findOne({authority: "ROLE_ADMIN"});
+        console.log("🚀 ~ file: bootstrap.js ~ line 8 ~ createDocument ~ findFirstUser", findAdminRole.id)
+        if(!findFirstUser){
+        await User.insertMany([
+            {
+            firstName: 'Ayush',
+            lastName: 'Sahu',
+            phoneNo: 9406561244,
+            password: '12345',
+            email: 'ayushsahu76@gmail.com',
+            role:findAdminRole.id
+            }]
+            );        
+        }
+    });
     }
 });
 
-User.findOne({phoneNo: '9406561244'}).exec(async function (err, findFirstUser) {
-    const findAdminRole = await Role.findOne({authority: "ROLE_ADMIN"});
-    console.log("🚀 ~ file: bootstrap.js ~ line 8 ~ createDocument ~ findFirstUser", findAdminRole.id)
-    if(!findFirstUser){
-    await User.insertMany([
-        {
-        firstName: 'Ayush',
-        lastName: 'Sahu',
-        phoneNo: 9406561244,
-        password: '12345',
-        email: 'ayushsahu76@gmail.com',
-        role:findAdminRole.id
-        }]
-        );        
-    }
-});
+
 
 Item.findOne({itemName: 'Borewell Digging'}).exec(async function (err, findFirstItem) {
     if(!findFirstItem){
     await Item.insertMany([
         {itemName: 'Borewell Digging'},
         {itemName: 'Casing Pipe'},
-        {itemName: 'Submersible Pump'}
-
+        {itemName: 'Submersible Pump'},
+        {itemName: 'HDPE Pipe'},
+        {itemName: 'Fitting Equipments'},
+        {itemName: 'Gravel'},
+        {itemName: 'Yellow Soil'},
+        {itemName: 'Boring Pit by JCB'},
+        {itemName: 'Fitting charges'},
+        {itemName: 'Water tankers'},
+        {itemName: 'Pipe Slotting Charges'},
+        {itemName: 'Transportation Charges'},
+        {itemName: 'Other/Miscellaneous Charges'}
     ]);
 }
 });
