@@ -6,6 +6,10 @@ const estimateSchema = new mongoose.Schema({
         type: ObjectID, 
         ref: 'Item'
     },
+    itemDescription:{
+        type:'String',
+        required: true
+    },
     quantity : { 
         type: Number,
         required: true, 
@@ -16,10 +20,6 @@ const estimateSchema = new mongoose.Schema({
         required: true
     },
     amount:{
-        type: Number,
-        required: true
-    },
-    total:{
         type: Number,
         required: true
     }
