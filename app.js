@@ -27,12 +27,13 @@ app.use(cookieParser());
 const PORT = process.env.PORT;
 
 //routes
-// require("./routes/r-index")(app);
+require("./routes/r-index")(app);
 
+//pre loaded data
 require('./config/bootstrap')
 
 
 
 app.listen(PORT, () => {
-  console.log(`App is Running on the PORT ${PORT}`);
+  console.log(`App is Running at http://localhost:${PORT}`);
 });
