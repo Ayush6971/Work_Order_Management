@@ -1,19 +1,25 @@
 const express = require("express");
 const router = express.Router();
-const { check } = require("express-validator");
 const Auth = require("../controller/AuthController");
+const passport = require('passport')
 
 
 //login route
-router.post(
-    "/login",
-    [
-      check("phoneNo")
-        .isLength({ min: 10 })
-        .withMessage("phoneNo must be at least of 10 digits"),
-      check("password").isLength({ min: 5 }),
-    ],
-    Auth.login
-  );
+router.post('/login', passport.authenticate('local', { failureRedirect: '/login-failure', successRedirect: 'login-success' }));
+
+// Visiting this route logs the user out
+router.get('/logout', (req, res, next) => {
+  req.logout();
+  res.redirect('/protected-route');
+});
+
+router.get('/login-success', (req, res, next) => {
+  res.send('<p>You successfully logged in. --> <a href="/protected-route">Go to protected route</a></p>');
+});
+
+router.get('/login-failure', (req, res, next) => {
+  res.send('You entered the wrong password.');
+});
+
 
   module.exports = router;

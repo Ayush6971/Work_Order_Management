@@ -1,8 +1,7 @@
-//const baseUrl = "http://localhost:1338";
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
-const User = require('../models/user')
+const { userFindOne } = require('../controller/CommonController')
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -10,8 +9,7 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (id, done) {
   let existingUser = {};
-  User.findOne({ id: id })
-    .populate("role")
+  userFindOne({ id: id })
     .exec(async function (err, user) {
         if (user) {
             existingUser.firstName = user ? user.firstName : user.email;
@@ -20,7 +18,6 @@ passport.deserializeUser(function (id, done) {
             existingUser.email = user ? user.email : '';
             existingUser.id = user ? user.id : '';
             existingUser.role = user ? user.role : [];
-            existingUser.tokenType = 'JWT ';
             done(err, existingUser);
           }else{
             done(null,false);
@@ -28,14 +25,14 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-passport.use(
+passport.use('local',
   new LocalStrategy(
     {
       usernameField: "phoneNo",
       passwordField: "password",
     },
     async function (phoneNo, password, done) {
-      let user = await User.findOne({ phoneNo: phoneNo }).populate("role");
+      let user = await userFindOne({ phoneNo: phoneNo });
       console.log("🚀 ~ file: passport.js ~ line 39 ~ user", user)
 
       if (!user) {
@@ -60,3 +57,5 @@ passport.use(
     }
   )
 );
+
+module.exports = passport;

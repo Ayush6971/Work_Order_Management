@@ -1,7 +1,7 @@
 const User = require('../models/user')
 const Item = require('../models/item')
 const Role = require('../models/role')
-
+const bcrypt = require('bcrypt')
 
 Role.findOne({authority: "ROLE_ADMIN"}).exec(async function (err, foundRole) {
     if (!foundRole){
@@ -9,23 +9,25 @@ Role.findOne({authority: "ROLE_ADMIN"}).exec(async function (err, foundRole) {
         {authority: "ROLE_CUSTOMER"},
         {authority: "ROLE_ADMIN"},
       ]);
+    }
+});
 
-      User.findOne({phoneNo: '9406561244'}).exec(async function (err, findFirstUser) {
-        const findAdminRole = await Role.findOne({authority: "ROLE_ADMIN"});
-        console.log("🚀 ~ file: bootstrap.js ~ line 8 ~ createDocument ~ findFirstUser", findAdminRole.id)
-        if(!findFirstUser){
-        await User.insertMany([
-            {
-            firstName: 'Ayush',
-            lastName: 'Sahu',
-            phoneNo: 9406561244,
-            password: '12345',
-            email: 'ayushsahu76@gmail.com',
-            role:findAdminRole.id
-            }]
-            );        
-        }
-    });
+User.findOne({phoneNo: '9406561244'}).exec(async function (err, findFirstUser) {
+    const findAdminRole = await Role.findOne({authority: "ROLE_ADMIN"});
+    if(!findFirstUser){
+        let password = 'admin@123'
+        let hashedPassword = await bcrypt.hash(password, 8);
+
+    await User.insertMany([
+        {
+        firstName: 'Ayush',
+        lastName: 'Sahu',
+        phoneNo: 9406561244,
+        password: hashedPassword,
+        email: 'ayushsahu76@gmail.com',
+        role:findAdminRole.id
+        }]
+        );        
     }
 });
 

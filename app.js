@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
-
+const passport = require('passport');
+const passport_local = require('passport-local');
 
 mongoose.connect(process.env.DATABASE, {
   useNewUrlParser: true,
@@ -20,9 +21,6 @@ mongoose.connect(process.env.DATABASE, {
   });
 
   
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cookieParser());
 
 const PORT = process.env.PORT;
 
@@ -31,6 +29,14 @@ require("./routes/r-index")(app);
 
 //pre loaded data
 require('./config/bootstrap')
+
+require('./config/passport')
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 
