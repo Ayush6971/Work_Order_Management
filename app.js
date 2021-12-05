@@ -5,8 +5,13 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const passport = require('passport');
-const passport_local = require('passport-local');
+const session = require('express-session');
 
+
+// Passport Config
+require('./config/passport');
+
+// Connect to MongoDB
 mongoose.connect(process.env.DATABASE, {
   useNewUrlParser: true,
 	useUnifiedTopology: true,
@@ -21,23 +26,27 @@ mongoose.connect(process.env.DATABASE, {
   });
 
   
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+  
 
 const PORT = process.env.PORT;
-
-//routes
-require("./routes/r-index")(app);
 
 //pre loaded data
 require('./config/bootstrap')
 
-require('./config/passport')
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cookieParser());
-app.use(passport.initialize());
-app.use(passport.session());
-
+//routes
+require("./routes/r-index")(app);
 
 
 app.listen(PORT, () => {

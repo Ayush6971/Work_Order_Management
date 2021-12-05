@@ -3,59 +3,49 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 const { userFindOne } = require('../controller/CommonController')
 
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
+passport.serializeUser(function(user, done) {
+  done(null, user._id);
 });
 
-passport.deserializeUser(function (id, done) {
-  let existingUser = {};
-  userFindOne({ id: id })
-    .exec(async function (err, user) {
-        if (user) {
-            existingUser.firstName = user ? user.firstName : user.email;
-            existingUser.lastName = user ? user.lastName : "";
-            existingUser.phoneNo = user ? user.phoneNo : "";
-            existingUser.email = user ? user.email : '';
-            existingUser.id = user ? user.id : '';
-            existingUser.role = user ? user.role : [];
-            done(err, existingUser);
-          }else{
-            done(null,false);
+passport.deserializeUser(function(_id, done) {
+  userFindOne({ _id: _id }, 'role').then((user) => {
+    if (user) {
+      let existingUser = {};
+      existingUser.firstName = user ? user.firstName : user.email;
+      existingUser.lastName = user ? user.lastName : "";
+      existingUser.phoneNo = user ? user.phoneNo : "";
+      existingUser.email = user ? user.email : '';
+      existingUser.id = user ? user.id : '';
+      existingUser.role = user ? user.role : [];
+      done(null, existingUser);
+      console.log("🚀 ~ file: passport.js ~ line 21 ~ userFindOne ~ existingUser", existingUser)
+    }else{
+      done(null,false);
+    }   
+  }).catch(err=>{
+  console.log("🚀 ~ file: passport.js ~ line 55 ~ userFindOne ~ err", err)
+  });
+});
+
+  passport.use(
+    new LocalStrategy({ usernameField: 'email' },async (email, password, done) => {
+      // Match user
+       let user = await userFindOne({ email: email }, 'role');
+        if (!user) {
+          return done(null, false, { message: 'This Phone Number is not registered' });
+        }
+        // Match password
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+          if (err) throw err;
+          if (isMatch) {
+            return done(null, user);
+          } else {
+            return done(null, false, { message: 'Password incorrect' });
           }
-    });
-});
-
-passport.use('local',
-  new LocalStrategy(
-    {
-      usernameField: "phoneNo",
-      passwordField: "password",
-    },
-    async function (phoneNo, password, done) {
-      let user = await userFindOne({ phoneNo: phoneNo });
-      console.log("🚀 ~ file: passport.js ~ line 39 ~ user", user)
-
-      if (!user) {
-        return done(null, false, { message: "Incorrect Phone Number" });
-      }
-      bcrypt.compare(password, user.password, function (err, res) {
-        if (err) return done(null, false, {message:"Something went wrong"});
-        if (!res) return done(null, false, {message: "Invalid Password"});
-        let returnUser = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        phoneNo: user.phoneNo,
-        email: user.email,
-        createdAt: user.createdAt,
-        id: user.id,
-        role: user.role,
-        };
-        return done(null, returnUser, {
-          message: "Logged In Successfully",
         });
-      });
-    }
-  )
-);
+    
+    })
+  );
+
 
 module.exports = passport;
