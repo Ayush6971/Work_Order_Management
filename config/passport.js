@@ -10,15 +10,14 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(_id, done) {
   userFindOne({ _id: _id }, 'role').then((user) => {
     if (user) {
-      let existingUser = {};
-      existingUser.firstName = user ? user.firstName : user.email;
-      existingUser.lastName = user ? user.lastName : "";
-      existingUser.phoneNo = user ? user.phoneNo : "";
-      existingUser.email = user ? user.email : '';
-      existingUser.id = user ? user.id : '';
-      existingUser.role = user ? user.role : [];
-      done(null, existingUser);
-      console.log("🚀 ~ file: passport.js ~ line 21 ~ userFindOne ~ existingUser", existingUser)
+      let requestUser = {};
+      requestUser.firstName = user ? user.firstName : user.email;
+      requestUser.lastName = user ? user.lastName : "";
+      requestUser.phoneNo = user ? user.phoneNo : "";
+      requestUser.email = user ? user.email : '';
+      requestUser.id = user ? user.id : '';
+      requestUser.role = user ? user.role : [];
+      done(null, requestUser);
     }else{
       done(null,false);
     }   
@@ -28,17 +27,26 @@ passport.deserializeUser(function(_id, done) {
 });
 
   passport.use(
-    new LocalStrategy({ usernameField: 'email' },async (email, password, done) => {
+    new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
       // Match user
        let user = await userFindOne({ email: email }, 'role');
         if (!user) {
-          return done(null, false, { message: 'This Phone Number is not registered' });
+          return done(null, false, { message: 'This Email is not registered' });
         }
         // Match password
         bcrypt.compare(password, user.password, (err, isMatch) => {
           if (err) throw err;
           if (isMatch) {
-            return done(null, user);
+            let returnUser = {
+              firstName: user.firstName,
+              lastName: user.lastName,
+              phoneNo: user.phoneNo,
+              email: user.email,
+              createdAt: user.createdAt,
+              _id: user.id,
+              role: user.role.authority
+            };
+            return done(null, returnUser);
           } else {
             return done(null, false, { message: 'Password incorrect' });
           }

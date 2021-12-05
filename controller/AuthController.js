@@ -1,6 +1,4 @@
-const jwt = require("jsonwebtoken");
 const { userFindOne } = require('./CommonController');
-const passport = require('passport');
 
 const login = async (req, res) => {
     try{
