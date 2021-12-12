@@ -4,18 +4,20 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
-const passport = require('passport');
-const session = require('express-session');
-
+const passport = require("passport");
+const session = require("express-session");
 
 // Passport Config
-require('./config/passport');
+require("./config/passport");
 
 // Connect to MongoDB
-mongoose.connect(process.env.DATABASE, {
-  useNewUrlParser: true,
-	useUnifiedTopology: true,
-  }, (err) => {
+mongoose.connect(
+  process.env.DATABASE,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err) => {
     if (!err) {
       console.log("Successfully Established Connection with MongoDB");
     } else {
@@ -23,33 +25,35 @@ mongoose.connect(process.env.DATABASE, {
         "Failed to Establish Connection with MongoDB with Error: " + err
       );
     }
-  });
+  }
+);
 
-app.use(express.static(__dirname + '/assets'));
-app.set('view engine', 'ejs');
+app.use(express.static(__dirname + "/assets"));
+app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   session({
-    secret: 'secret',
+    secret: "secret",
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
-  
 
 const PORT = process.env.PORT;
 
 //pre loaded data
-require('./config/bootstrap')
+require("./config/bootstrap");
 
 //routes
 require("./routes/r-index")(app);
 
-app.get('/',(req, res) => { res.render('login')})
+app.get("/", (req, res) => {
+  res.render("login");
+});
 app.listen(PORT, () => {
   console.log(`App is Running at http://localhost:${PORT}`);
 });

@@ -1,7 +1,5 @@
-const rAuth = require('./r-Auth');
+const rAuth = require("./r-Auth");
 
 module.exports = (app) => {
-
-    app.use("/", rAuth);
-
-}
+  app.use("/", rAuth);
+};
