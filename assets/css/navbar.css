@@ -9,29 +9,23 @@
   margin-left: 30px;
   float: left;
   font-weight: bolder;
-  color: #e6200e	;
+  color: #e02826	;
 }
 
 footer {
   position: fixed;
   left: 0;
-  bottom: 15px;
+  bottom: 0;
+  height: 50px;
   width: 100%;
-  background-color: white;
-  color: #3279B7;
+  background-color: #dc3045;
+  color: white;
   text-align: center;
 }
-.navbar-nav {
-  flex-direction: row;
+
+.footer-copyright{
+  margin-top: 15px;
 }
 
-.nav-link {
-  padding-right: .5rem !important;
-  padding-left: .5rem !important;
-}
 
-.ml-auto .dropdown-menu {
-  left: auto !important;
-  right: 0px;
-}
 
