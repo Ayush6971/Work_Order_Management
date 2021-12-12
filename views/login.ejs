@@ -8,29 +8,31 @@
     <header><%- include('./partials/header') %></header>
     <div id="login-form-wrap">
       <h2>Login</h2>
-      <form id="login-form" action="/login" method="POST">
-        <p>
+      <form>
+        <div class="form-group">
+          <label for="email">email</label>
           <input
             type="email"
+            class="form-control"
             id="email"
-            name="email"
-            placeholder="Email"
-            required
-          /><i class="validation"><span></span><span></span></i>
-        </p>
-        <p>
+            placeholder="Enter email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password</label>
           <input
             type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            required
-          /><i class="validation"><span></span><span></span></i>
-        </p>
-        <p>
-          <input type="submit" id="login" value="Login" />
-        </p>
+            class="form-control"
+            id="pwd"
+            placeholder="Enter password"
+          />
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" /> Remember me</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
+    <footer><%- include('./partials/footer') %></footer>
   </body>
 </html>
