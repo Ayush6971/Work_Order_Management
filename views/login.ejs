@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head'); %>
+  </head>
+
+  <body>
+    <header><%- include('./partials/header') %></header>
+    <div id="login-form-wrap">
+      <h2>Login</h2>
+      <form id="login-form" action="/login" method="POST">
+        <p>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          /><i class="validation"><span></span><span></span></i>
+        </p>
+        <p>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+          /><i class="validation"><span></span><span></span></i>
+        </p>
+        <p>
+          <input type="submit" id="login" value="Login" />
+        </p>
+      </form>
+    </div>
+  </body>
+</html>

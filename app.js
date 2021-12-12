@@ -25,7 +25,8 @@ mongoose.connect(process.env.DATABASE, {
     }
   });
 
-  
+app.use(express.static(__dirname + '/assets'));
+app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
@@ -48,7 +49,7 @@ require('./config/bootstrap')
 //routes
 require("./routes/r-index")(app);
 
-
+app.get('/',(req, res) => { res.render('login')})
 app.listen(PORT, () => {
   console.log(`App is Running at http://localhost:${PORT}`);
 });

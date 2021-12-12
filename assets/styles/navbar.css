@@ -1,0 +1,24 @@
+.logo-image {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  margin-left: 25px;
+  float: left;
+}
+
+ul {
+  margin: -9px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e7e7e7;
+  background-color: #f3f3f3;
+}
+
+.logout-button {
+  padding: 14px 16px;
+  text-decoration: none;
+  text-align: center;
+  float: right;
+  color: white;
+  background-color: #a1a1a1;
+}

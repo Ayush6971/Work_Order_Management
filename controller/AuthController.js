@@ -1,14 +1,13 @@
 const { userFindOne } = require('./CommonController');
 
-const login = async (req, res) => {
+const dashboard = async (req, res) => {
     try{
-        const postData = req.body;
-        console.log("🚀 ~ file: AuthController.js ~ line 8 ~ login ~ postData", req.user)
-        if (!postData.email || !postData.password) {
-            return res
-              .status(400)
-              .send({ message: "Please Provide Phone number and Password" });
-        }
+        const currentUser = req.user;
+        if(!currentUser) return res.status(400).send('Please login!');
+
+        const findCurrentUser = await userFindOne({id:  currentUser.id});
+        if(!findCurrentUser) return res.status(400).send('User not found!');
+
          return res.status(200).send('<p>You successfully logged in. --> <a href="/protected-route">Go to protected route</a></p>');
     }catch(error){
     console.log("🚀 ~ file: AuthController.js ~ line 29 ~ login ~ error", error)
@@ -16,5 +15,5 @@ const login = async (req, res) => {
 }
 
 module.exports = {
-    login
+    dashboard
 }

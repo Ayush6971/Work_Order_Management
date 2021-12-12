@@ -9,8 +9,8 @@ const isAuthenticated = require('../middlewares/isAuthenticated')
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/dashboard',
-    failureRedirect: '/users/login',
-    failureFlash: true
+    failureRedirect: '/login-failure',
+    failureFlash: false
   })(req, res, next);
 });
 
@@ -19,7 +19,7 @@ router.get('/logout', (req, res, next) => {
   req.logout();
 });
 
-router.get('/dashboard',(req, res, next) => { res.send('welcome to dashboard')})
+router.get('/dashboard', Auth.dashboard)
 
 router.get('/login-failure', (req, res, next) => {
   res.send('You entered the wrong password.');
