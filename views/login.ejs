@@ -6,16 +6,21 @@
 
   <body>
     <header><%- include('./partials/header') %></header>
-    <div id="login-form-wrap">
-      <h2>Login</h2>
+<section class="login-block">
+
+    <!-- <div id="login-form-wrap">-->
+    <div class="container"> 
+      <div class="row">
+    <div class="col-md-4 login-sec">
+      <h2>LOGIN</h2>
       <form>
         <div class="form-group">
-          <label for="email">email</label>
+          <label for="email">Email</label>
           <input
             type="email"
             class="form-control"
             id="email"
-            placeholder="Enter email"
+            placeholder="Enter Email"
           />
         </div>
         <div class="form-group">
@@ -24,15 +29,24 @@
             type="password"
             class="form-control"
             id="pwd"
-            placeholder="Enter password"
+            placeholder="Enter Password"
           />
         </div>
         <div class="checkbox">
           <label><input type="checkbox" /> Remember me</label>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="forgotPassword">
+          <a href="#">Forgot Password</a>
+        </div>
+        <button type="submit" class="btn btn-primary">LOGIN</button>
       </form>
     </div>
+    <div class="col-md-8 banner-sec">
+</div>
+  </div>
+  </div>
+  </div>
+  </section>
     <footer><%- include('./partials/footer') %></footer>
   </body>
 </html>
