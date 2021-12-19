@@ -1,48 +1,50 @@
- .logo-image {
-  margin-top: 15px;
-}
-.navbar{
+.navbar {
   height: 100%;
+  background: white;
 }
 
-.navbar-nav{
-  float: right;
+.navbar-nav {
+  align-items: left;
 }
-.title{
-  width: 140px;
-  height: 80px;
-  border-radius: 50%;
-  margin-left: 20px;
+
+.title {
+  width: 150px;
   float: left;
   font-weight: bolder;
-  color: #e02826	;
 }
-.navbar-menu{
+
+.title-h2{
+  text-align: left;
+  padding-left: 20px;
+}
+
+.navbar-menu {
   width: 100%;
   border-radius: 50%;
   margin-left: 20px;
   float: right;
   font-weight: bolder;
 }
-.container-fluid{
-  height: 90px;
-  background-color: white;
 
+.container-fluid {
+  width: 100%;
+  color: #de6152;
 }
+.vertical-border {
+  border-right: 2px solid;
+  margin-left: 10px;
+}
+
 footer {
   position: fixed;
   left: 0;
   bottom: 0;
   height: 50px;
   width: 100%;
-  background-color: #dc3045;
   color: white;
   text-align: center;
 }
 
-.footer-copyright{
+.footer-copyright {
   margin-top: 15px;
 }
-
-
-
