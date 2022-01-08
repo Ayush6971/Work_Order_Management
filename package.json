@@ -9,6 +9,9 @@
   },
   "author": "Ayush Sahu",
   "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.0.5"
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.1.3",

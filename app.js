@@ -29,8 +29,11 @@ mongoose.connect(
 );
 
 app.use(express.static(__dirname + "/assets"));
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
+app.use(
+  express.urlencoded({
+    extended: true
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -41,7 +44,9 @@ app.use(
   })
 );
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session())
+app.set('views', `${__dirname}/views`);
+app.set("view engine", "ejs");
 
 const PORT = process.env.PORT;
 
