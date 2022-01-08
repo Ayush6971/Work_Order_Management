@@ -1,3 +1,5 @@
+@media screen and (max-width: 2560px) {
+
 html,
 body {
   width: 100%;
@@ -20,8 +22,11 @@ p {
 }
 
 .container {
-  margin: 2.5%;
   height: 100%;
+}
+
+.loginCard{
+  margin-top: 2.5% !important
 }
 
 .login-sec {
@@ -83,4 +88,6 @@ p {
 
 .login-form{
   line-height: 30px;
+}
+
 }
