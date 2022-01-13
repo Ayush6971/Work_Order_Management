@@ -102,7 +102,7 @@ p {
   color: #de6152;
   padding: 16px;
   text-align: left;
-  text-decoration: #de6152;
+  text-decoration: auto;
 }
 
 /* Links on mouse-over */
@@ -119,17 +119,6 @@ p {
   text-align: center;
 }
 
-/* .container-dashboard{
-  margin-left: 300px;
-    margin-top: 70px;
-}
-
-.tile{
-  background-color: white;
-  border-radius: 50px;
-  height: 150px;
-} */
-
 
 .main-overview {
   display: grid;
@@ -140,6 +129,7 @@ p {
 }
 
 .overviewcard {
+  color: #de6152;
   display: flex;
   justify-content: space-between;
   padding: 40px;
