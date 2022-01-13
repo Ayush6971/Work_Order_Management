@@ -90,4 +90,61 @@ p {
   line-height: 30px;
 }
 
+}.sidebar {
+  width: 200px;
+  position: fixed;
+  height: 100%;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: #de6152;
+  padding: 16px;
+  text-align: left;
+  text-decoration: #de6152;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+  border-radius: 30px;
+}
+
+.sidebar div{
+  background-color: white;
+  margin: 12px;
+  border-radius: 30px;
+  text-align: center;
+}
+
+/* .container-dashboard{
+  margin-left: 300px;
+    margin-top: 70px;
+}
+
+.tile{
+  background-color: white;
+  border-radius: 50px;
+  height: 150px;
+} */
+
+
+.main-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  grid-auto-rows: 94px;
+  grid-gap: 20px;
+  padding: 10% 10% 15% 20%;
+}
+
+.overviewcard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius:30px;
+  background-color: white;
+  text-decoration: #de6152;
 }

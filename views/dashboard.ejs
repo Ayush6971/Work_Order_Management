@@ -6,7 +6,46 @@
 
   <body>
     <header><%- include('./partials/header') %></header>
-       
+    <section class="sidebar col-md-2">
+      <div>
+      <a href="#news"><i class="fa fa-home"></i> Dashboard</a>
+    </div>
+    <div>
+      <a href="#contact"><i class="fa fa-cogs"></i> Add Work-Order</a>
+    </div>
+    <div>
+      <a href="#about"><i class="fa fa-list-alt"></i> Manage Items</a>
+    </div>
+    <div>
+      <a href="#about"><i class="fa fa-user"></i>  Add User</a>
+    </div>
+    </section>
+    <section class="main-overview">
+      <div class="overviewcard">
+        <div class="overviewcard__icon">Overview</div>
+        <div class="overviewcard__info">Card</div>
+      </div>
+      <div class="overviewcard">
+        <div class="overviewcard__icon">Overview</div>
+        <div class="overviewcard__info">Card</div>
+      </div>
+      <div class="overviewcard">
+        <div class="overviewcard__icon">Overview</div>
+        <div class="overviewcard__info">Card</div>
+      </div>
+      <!-- <div class="overviewcard">
+        <div class="overviewcard__icon">Overview</div>
+        <div class="overviewcard__info">Card</div>
+      </div> -->
+    </section>
+    <!-- <div class="container-dashboard">
+      <div class="col-md-3" class="tile">
+        <div class="content" id="tile3">
+            <i class="fa fa-cogs fa-5x"></i>
+            <p>Services</p>
+        </div>
+    </div>
+    </div> -->
     <footer><%- include('./partials/footer') %></footer>
   </body>
 </html>
