@@ -8,7 +8,6 @@ body {
 }
 
 body {
-  font-size: 1.6rem;
   font-family: "Open Sans", sans-serif;
   float: left;
 }
@@ -90,52 +89,39 @@ p {
   line-height: 30px;
 }
 
-.sidebar{
-  width: 200px;
-  position: fixed;
-  height: 100%;
-}
-
-/* Sidebar links */
-.sidebar a {
-  display: block;
-  color: #de6152;
-  padding: 16px;
-  text-align: left;
-  text-decoration: auto;
-}
-
-/* Links on mouse-over */
-.sidebar a:hover:not(.active) {
-  background-color: #555;
-  color: white;
-  border-radius: 30px;
-}
-
-.sidebar div{
-  background-color: white;
-  margin: 12px;
-  border-radius: 30px;
-  text-align: center;
-}
-
-
 .main-overview {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  grid-template-columns: repeat(3, minmax(265px, 1fr));
   grid-auto-rows: 150px;
   grid-gap: 20px;
-  padding: 5% 5% 0 20%;
+  padding: 5%;
+}
+
+.overviewcard:hover {
+  background-color: #555;
+  color: white !important;
+  border-radius: 40px;
+}
+
+.overviewcard:hover a{
+  text-decoration: none;
+  color: inherit;
 }
 
 .overviewcard {
   color: #de6152;
   display: flex;
-  justify-content: space-between;
-  padding: 40px;
+  justify-content: center;
+  padding: 50px;
   border-radius:40px;
   background-color: white;
-
 }
+
+.overviewcard a{
+  text-decoration: none;
+  color: inherit;
+}
+
+
 
 }
