@@ -1,0 +1,51 @@
+@media screen and (max-width: 2560px) {
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #ffb88c, #de6262);
+  }
+
+  body {
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;
+    float: left;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    position: relative;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  .addUser-Sec {
+    padding: 2% 35% 5% 35%;
+    position: relative;
+  }
+
+  .addUser-form{
+    line-height: 30px;
+  }
+  
+  .addUser-Sec h2 {
+    font-weight: 800;
+    font-size: 30px;
+    color: #de6262;
+  }
+  
+  .addUserButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+  }
+
+}
