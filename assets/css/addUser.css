@@ -26,16 +26,16 @@
     text-decoration: inherit;
   }
 
-  .addUser-Sec {
-    padding: 2% 35% 5% 35%;
-    position: relative;
+  .addUserForm {
+    margin: 2% auto;
+    width: 25%;
   }
 
   .addUser-form{
     line-height: 30px;
   }
   
-  .addUser-Sec h2 {
+  .addUserForm h2 {
     font-weight: 800;
     font-size: 30px;
     color: #de6262;

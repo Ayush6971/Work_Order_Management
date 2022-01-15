@@ -7,7 +7,7 @@
 
   <body>
     <header><%- include('./partials/header') %></header>
-    <div class="addUser-Sec">
+    <div class="addUserForm">
       <h2>ADD USER</h2>
       <form class="addUser-form" method="POST" action="/addUser">
         <div class="form-group">
@@ -41,14 +41,14 @@
           />
         </div>
         <div class="form-group">
-          <label for="pwd">Role</label>
-          <input
-            name="Role"
-            type="Role"
-            class="form-control"
-            id="pwd"
-            placeholder="Enter Role"
-          />
+          <label for="email">Role</label>
+          <select class="form-select" name="role">
+            <option selected>Select Role</option>
+           <%if(roles.length > 0){
+             roles.forEach(function(role) {%>
+              <option value="<%-role.roleID%>"><%=role.authority%></option>
+              <%})}%>
+            </select>
         </div>
         <div class="form-group">
           <label for="pwd"></label>Contact Number
@@ -60,18 +60,8 @@
             placeholder="Enter Contact Number"
           />
         </div>
-        <div class="form-group">
-            <label for="pwd"></label>Password
-            <input
-              name="Password"
-              type="Password"
-              class="form-control"
-              id="Password"
-              placeholder="Enter Password"
-            />
-          </div>
         <div class="addUserButton">
-          <button type="submit" class="btn btn-primary">Add User</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
     </div>

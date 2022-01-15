@@ -34,6 +34,11 @@ const userSchema = new mongoose.Schema({
         type: ObjectID,
         ref:'Role'
     },
+    isBlocked: {
+        type: Boolean,
+		required: true,
+        default: false
+    }
 },{ timestamps: true });
 
 

@@ -8,12 +8,18 @@ const getAddUser = async (req, res) => {
     const findCurrentUser = await userFindOne({ id: currentUser.id });
     if (!findCurrentUser) return res.status(400).send("User not found!");
 
-    const findAllRoles = await roleFindll();
-    
-    return res.render("addUser",findAllRoles);
+    let findAllRoles = await roleFindll();
+    findAllRoles = findAllRoles.filter(data => data.authority !== 'ROLE_CUSTOMER')
+    findAllRoles = findAllRoles.map(roleData => {
+      return {
+        roleID: roleData._id,
+        authority: roleData.authority 
+      }
+    })
+    return res.render("addUser", {roles: findAllRoles});
   } catch (error) {
     console.log(
-      "🚀 ~ file: UserController.js ~ line 13 ~ getAddUser ~ error",
+      "🚀 ~ file: UserController.js ~ line 22 ~ getAddUser ~ error",
       error
     );
   }
@@ -33,7 +39,7 @@ const postAddUser = async (req, res) => {
         return res.render("addUser");
       } catch (error) {
         console.log(
-          "🚀 ~ file: UserController.js ~ line 13 ~ getAddUser ~ error",
+          "🚀 ~ file: UserController.js ~ line 42 ~ getAddUser ~ error",
           error
         );
       }

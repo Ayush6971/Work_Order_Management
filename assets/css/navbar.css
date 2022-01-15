@@ -27,6 +27,27 @@
   font-weight: bolder;
 }
 
+.user_profile {
+  border: 2px solid #e83761;
+  background-color: #fff;
+}
+
+.dropdown-item:hover {
+  background-color: #555 !important;
+  color: white !important;
+  border-radius: 40px;
+}
+
+.dropdown-item{
+  color: coral !important;
+
+}
+.dropdown-menu{
+  border-radius: 15px !important;
+  margin-top: -15px !important;
+  margin-right: 15px !important;
+}
+
 .container-fluid {
   width: 100%;
   color: #de6152;
