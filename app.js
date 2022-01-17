@@ -44,8 +44,8 @@ app.use(
   })
 );
 app.use(passport.initialize());
-app.use(passport.session())
-app.set('views', `${__dirname}/views`);
+app.use(passport.session());
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "ejs");
 
 const PORT = process.env.PORT;
@@ -57,8 +57,9 @@ require("./config/bootstrap");
 require("./routes/r-index")(app);
 
 app.get("/", (req, res) => {
-  res.render("login");
+  res.render("login", { res: res });
 });
+
 app.listen(PORT, () => {
   console.log(`App is Running at http://localhost:${PORT}`);
 });

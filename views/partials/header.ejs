@@ -1,17 +1,22 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <div class="row-nav">
-      <div class="title vertical-border">
-        <img src="images/machine_3.jpeg" class="img-fluid" />
-      </div>
-      <div class="title">
-        <h2 class="title-h2">UMANG BOREWELL</h2>
-      </div>
-    </div>
+    <a href="#"
+      ><div class="row-nav">
+        <div class="title vertical-border">
+          <img src="images/machine_3.jpeg" class="img-fluid" />
+        </div>
+        <div class="title">
+          <h2 class="title-h2">UMANG BOREWELL</h2>
+        </div>
+      </div></a
+    >
     <ul class="navbar-nav ml-auto">
+      <%if(res && !res.profile){%>
       <li class="nav-item">
         <a href="#" class="nav-link"><i class="fa fa-phone"></i> Contact Us</a>
       </li>
+      <%}%> 
+      <%if(res && res.profile){%>
       <li class="nav-item">
         <a
           class="nav-link dropdown-toggle"
@@ -21,19 +26,26 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-        <img src="/images/profile-pic.png" width="40" height="40" id="userProfile-pic" class="rounded-circle user_profile">
-         Ayush Sahu
+          <img
+            src="/images/profile-pic.png"
+            width="40"
+            height="40"
+            id="userProfile-pic"
+            class="rounded-circle user_profile"
+          />
+          <%=res.profile.firstName%> <%=res.profile.lastName%>
         </a>
         <div
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdown"
         >
-        <a class="dropdown-item dropdown" href="#"> Role: Superadmin </a>
+          <a class="dropdown-item dropdown" href="#"> Role: Superadmin </a>
           <a class="dropdown-item dropdown" href="#"> My Profile </a>
           <a class="dropdown-item" href="#"> Change Password</a>
-          <a class="dropdown-item" href="#"> Logout</a>
+          <a class="dropdown-item" href="/logout"> Logout</a>
         </div>
       </li>
+      <%}%>
     </ul>
   </div>
 </nav>

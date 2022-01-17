@@ -14,9 +14,7 @@ router.post("/login", (req, res, next) => {
 });
 
 // Visiting this route logs the user out
-router.get("/logout", (req, res, next) => {
-  req.logout();
-});
+router.get("/logout", Auth.logout);
 
 router.get("/dashboard", Auth.dashboard);
 
