@@ -13,5 +13,5 @@ const roleFindll = async () => {
 
 module.exports = {
   userFindOne,
-  roleFindll
+  roleFindll,
 };
