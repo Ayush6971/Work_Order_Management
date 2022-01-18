@@ -1,7 +1,7 @@
 const {
   userFindOne,
   roleFindll,
-  getCurrentuserDetails,
+  getCurrentUserDetails,
 } = require("./CommonController");
 
 const getAddUser = async (req, res) => {
@@ -9,7 +9,7 @@ const getAddUser = async (req, res) => {
     const currentUser = req.user;
     if (!currentUser) return res.status(400).send("Please login!");
 
-    const findCurrentUserDetails = await getCurrentuserDetails(
+    const findCurrentUserDetails = await getCurrentUserDetails(
       currentUser.id,
       "role"
     );
@@ -52,7 +52,6 @@ const postAddUser = async (req, res) => {
     if (!findCurrentUser) return res.status(400).send("User not found!");
 
     return res.render("/dashboard");
-
   } catch (error) {
     console.log(
       "🚀 ~ file: UserController.js ~ line 42 ~ getAddUser ~ error",
@@ -66,14 +65,19 @@ const getMyProfile = async (req, res) => {
     const currentUser = req.user;
     if (!currentUser) return res.status(400).send("Please login!");
 
-    const findCurrentUserDetails = await getCurrentuserDetails(
+    const findCurrentUserDetails = await getCurrentUserDetails(
       currentUser.id,
       "role"
     );
-    console.log("🚀 ~ file: UserController.js ~ line 73 ~ getMyProfile ~ findCurrentUserDetails", findCurrentUserDetails)
+    console.log(
+      "🚀 ~ file: UserController.js ~ line 73 ~ getMyProfile ~ findCurrentUserDetails",
+      findCurrentUserDetails
+    );
     res.profile = findCurrentUserDetails;
-    return res.render("myProfile", { profileData: findCurrentUserDetails, res: res });
-
+    return res.render("myProfile", {
+      profileData: findCurrentUserDetails,
+      res: res,
+    });
   } catch (error) {
     console.log(
       "🚀 ~ file: UserController.js ~ line 64 ~ getMyProfile ~ error",

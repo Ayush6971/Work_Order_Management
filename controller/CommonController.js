@@ -11,7 +11,7 @@ const roleFindll = async () => {
   return await Role.find();
 };
 
-const getCurrentuserDetails = async (userId, populate) => {
+const getCurrentUserDetails = async (userId, populate) => {
   const findCurrentUser = await userFindOne({ id: userId }, populate);
   if (!findCurrentUser) return "User not found!";
   let profile = {
@@ -28,5 +28,5 @@ const getCurrentuserDetails = async (userId, populate) => {
 module.exports = {
   userFindOne,
   roleFindll,
-  getCurrentuserDetails,
+  getCurrentUserDetails,
 };

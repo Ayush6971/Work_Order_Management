@@ -1,12 +1,14 @@
-const { userFindOne,getCurrentuserDetails } = require("./CommonController");
+const { userFindOne, getCurrentUserDetails } = require("./CommonController");
 
 const dashboard = async (req, res) => {
   try {
     const currentUser = req.user;
     if (!currentUser) return res.status(400).send("Please login!");
 
-    
-    const findCurrentUserDetails = await getCurrentuserDetails(currentUser.id, "role");
+    const findCurrentUserDetails = await getCurrentUserDetails(
+      currentUser.id,
+      "role"
+    );
     res.profile = findCurrentUserDetails;
 
     return res.render("dashboard", { res: res });
