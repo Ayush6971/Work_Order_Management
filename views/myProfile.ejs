@@ -10,7 +10,7 @@
     <header><%- include('./partials/header') %></header>
     <div class="myProfileForm">
       <h2>My Profile</h2>
-      <form class="myProfile-form" id="myProfileForm">
+      <form class="myProfile-form" id="myProfileForm" onsubmit="updateProfile(event)">
         <div class="form-group">
           <label for="firstName">First Name</label>
           <input

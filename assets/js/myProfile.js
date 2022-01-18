@@ -1,5 +1,4 @@
 function enableEdit() {
-    console.log("enableEdit")
 
   $("input").each(function () {
     $(this).attr("disabled", false);
@@ -7,7 +6,7 @@ function enableEdit() {
 
   $("#profileFormSubmitBtn").fadeOut("fast", function () {
     $("#profileFormSubmitBtn").html(`
-    <button type="submit" class="btn btn-primary" onclick="updateProfile(this)">Submit</button>
+    <button type="submit" name="profileFormSubmit" class="btn btn-primary">Submit</button>
     `);
     $("#profileFormSubmitBtn").fadeIn("fast");
   });
@@ -15,8 +14,10 @@ function enableEdit() {
 }
 
 function updateProfile(event) {
-    console.log("updateProfile")
     event.preventDefault();
-    ('#profileFormSubmitBtn').attr("disabled", true)
+    $("button[name='profileFormSubmit']").attr("disabled", "disabled");
+
+    let profileForm = $("#myProfileForm").serializeArray();
+
 
 }
