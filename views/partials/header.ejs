@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a href="#"
+    <a href="/dashboard"
       ><div class="row-nav">
         <div class="title vertical-border">
           <img src="images/machine_3.jpeg" class="img-fluid" />
@@ -15,8 +15,7 @@
       <li class="nav-item">
         <a href="#" class="nav-link"><i class="fa fa-phone"></i> Contact Us</a>
       </li>
-      <%}%> 
-      <%if(res && res.profile){%>
+      <%}%> <%if(res && res.profile){%>
       <li class="nav-item">
         <a
           class="nav-link dropdown-toggle"
@@ -33,15 +32,20 @@
             id="userProfile-pic"
             class="rounded-circle user_profile"
           />
-          <%=res.profile ? res.profile.firstName : null %> <%=res.profile ? res.profile.lastName : null%>
+          <%=res.profile ? res.profile.firstName : null %> <%=res.profile ?
+          res.profile.lastName : null%>
         </a>
         <div
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdown"
         >
-          <a class="dropdown-item dropdown"> Role: <%=res.profile ? res.profile.role : null%> </a>
+          <a class="dropdown-item dropdown">
+            Role: <%=res.profile ? res.profile.role : null%>
+          </a>
           <a class="dropdown-item dropdown" href="/profile"> My Profile </a>
-          <a class="dropdown-item dropdown" href="/changePassword"> Change Password</a>
+          <a class="dropdown-item dropdown" href="/changePassword">
+            Change Password</a
+          >
           <a class="dropdown-item dropdown" href="/logout"> Logout</a>
         </div>
       </li>

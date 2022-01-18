@@ -69,10 +69,6 @@ const getMyProfile = async (req, res) => {
       currentUser.id,
       "role"
     );
-    console.log(
-      "🚀 ~ file: UserController.js ~ line 73 ~ getMyProfile ~ findCurrentUserDetails",
-      findCurrentUserDetails
-    );
     res.profile = findCurrentUserDetails;
     return res.render("myProfile", {
       profileData: findCurrentUserDetails,

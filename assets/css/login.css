@@ -1,5 +1,6 @@
+@media screen and (max-width: 2560px) {
 
-.loginCard{
+  .loginCard{
     margin-top: 2.5% !important
   }
   
@@ -70,3 +71,4 @@
     line-height: 30px;
   }
   
+}

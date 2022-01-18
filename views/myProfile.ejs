@@ -2,33 +2,32 @@
 <html lang="en">
   <head>
     <%- include('./partials/head'); %>
-    <link rel="stylesheet" href="css/addUser.css" type="text/CSS" />
+    <link rel="stylesheet" href="css/myProfile.css" type="text/CSS" />
+    <script src="/js/myProfile.js"></script>
   </head>
 
   <body>
     <header><%- include('./partials/header') %></header>
     <div class="myProfileForm">
       <h2>My Profile</h2>
-      <form class="addUser-form">
+      <form class="myProfile-form" id="myProfileForm">
         <div class="form-group">
-          <label for="email">First Name</label>
+          <label for="firstName">First Name</label>
           <input
             disabled
             name="firstName"
             type="text"
             class="form-control"
-            id="email"
             value="<%-profileData ? profileData.firstName : null%>"
           />
         </div>
         <div class="form-group">
-          <label for="email">Last Name</label>
+          <label for="lastName">Last Name</label>
           <input
             disabled
             name="lastName"
             type="text"
             class="form-control"
-            id="email"
             value="<%-profileData ? profileData.lastName : null%>"
           />
         </div>
@@ -39,23 +38,21 @@
             name="email"
             type="email"
             class="form-control"
-            id="email"
             value="<%-profileData ? profileData.email : null%>"
           />
         </div>
         <div class="form-group">
-          <label for="pwd"></label>Contact Number
+          <label for="phoneNo"></label>Contact Number
           <input
             disabled
             name="phoneNo"
             type="text"
             class="form-control"
-            id="pwd"
             value="<%-profileData ? profileData.phoneNo : null%>"
           />
         </div>
-        <div class="addUserButton">
-          <button type="submit" class="btn btn-primary">Edit</button>
+        <div class="editProfileButton" id="profileFormSubmitBtn">
+          <button type="button" class="btn btn-primary" onclick="enableEdit()">Edit</button>
         </div>
       </form>
     </div>
