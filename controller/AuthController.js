@@ -1,17 +1,14 @@
-const { userFindOne } = require("./CommonController");
+const { userFindOne,getCurrentuserDetails } = require("./CommonController");
 
 const dashboard = async (req, res) => {
   try {
     const currentUser = req.user;
     if (!currentUser) return res.status(400).send("Please login!");
 
-    const findCurrentUser = await userFindOne({ id: currentUser.id }, "role");
-    console.log(
-      "🚀 ~ file: AuthController.js ~ line 9 ~ dashboard ~ findCurrentUser",
-      findCurrentUser
-    );
-    if (!findCurrentUser) return res.status(400).send("User not found!");
-    res.profile = findCurrentUser;
+    
+    const findCurrentUserDetails = await getCurrentuserDetails(currentUser.id, "role");
+    res.profile = findCurrentUserDetails;
+
     return res.render("dashboard", { res: res });
   } catch (error) {
     console.log(

@@ -33,16 +33,16 @@
             id="userProfile-pic"
             class="rounded-circle user_profile"
           />
-          <%=res.profile.firstName%> <%=res.profile.lastName%>
+          <%=res.profile ? res.profile.firstName : null %> <%=res.profile ? res.profile.lastName : null%>
         </a>
         <div
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdown"
         >
-          <a class="dropdown-item dropdown" href="#"> Role: Superadmin </a>
-          <a class="dropdown-item dropdown" href="#"> My Profile </a>
-          <a class="dropdown-item" href="#"> Change Password</a>
-          <a class="dropdown-item" href="/logout"> Logout</a>
+          <a class="dropdown-item dropdown"> Role: <%=res.profile ? res.profile.role : null%> </a>
+          <a class="dropdown-item dropdown" href="/profile"> My Profile </a>
+          <a class="dropdown-item dropdown" href="/changePassword"> Change Password</a>
+          <a class="dropdown-item dropdown" href="/logout"> Logout</a>
         </div>
       </li>
       <%}%>

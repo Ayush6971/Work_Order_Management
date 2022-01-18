@@ -7,60 +7,55 @@
 
   <body>
     <header><%- include('./partials/header') %></header>
-    <div class="addUserForm">
-      <h2>ADD USER</h2>
-      <form class="addUser-form" method="POST" action="/addUser">
+    <div class="myProfileForm">
+      <h2>My Profile</h2>
+      <form class="addUser-form">
         <div class="form-group">
           <label for="email">First Name</label>
           <input
+            disabled
             name="firstName"
             type="text"
             class="form-control"
             id="email"
-            placeholder="Enter First Name"
+            value="<%-profileData ? profileData.firstName : null%>"
           />
         </div>
         <div class="form-group">
           <label for="email">Last Name</label>
           <input
+            disabled
             name="lastName"
             type="text"
             class="form-control"
             id="email"
-            placeholder="Enter Last Name"
+            value="<%-profileData ? profileData.lastName : null%>"
           />
         </div>
         <div class="form-group">
           <label for="email">Email</label>
           <input
+            disabled
             name="email"
             type="email"
             class="form-control"
             id="email"
-            placeholder="Enter Email"
+            value="<%-profileData ? profileData.email : null%>"
           />
-        </div>
-        <div class="form-group">
-          <label for="email">Role</label>
-          <select class="form-select" name="role">
-            <option selected>Select Role</option>
-            <%if(roles.length > 0){ roles.forEach(function(role) {%>
-            <option value="<%-role.roleID%>"><%=role.authority%></option>
-            <%})}%>
-          </select>
         </div>
         <div class="form-group">
           <label for="pwd"></label>Contact Number
           <input
+            disabled
             name="phoneNo"
             type="text"
             class="form-control"
             id="pwd"
-            placeholder="Enter Contact Number"
+            value="<%-profileData ? profileData.phoneNo : null%>"
           />
         </div>
         <div class="addUserButton">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Edit</button>
         </div>
       </form>
     </div>
