@@ -8,5 +8,6 @@ router.get("/addUser", User.getAddUser);
 router.post("/addUser",User.postAddUser);
 router.get("/profile", User.getMyProfile);
 router.post("/updateProfile", User.updateMyProfile);
+router.post("/changeEmail", User.changeEmail)
 
 module.exports = router;

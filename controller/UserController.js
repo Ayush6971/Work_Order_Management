@@ -3,6 +3,7 @@ const {
   roleFindll,
   getCurrentUserDetails,
   userUpdate,
+  validateEmail
 } = require("./CommonController");
 
 const getAddUser = async (req, res) => {
@@ -122,9 +123,28 @@ const updateMyProfile = async (req, res) => {
   }
 };
 
+const changeEmail = async (req, res) => {
+  try{
+    const currentUser = req.user;
+    if (!currentUser) return res.status(400).json({ message: "Please login!" });
+
+    let isEmailValidate = validateEmail(req.body.newEmail);
+    console.log("🚀 ~ file: UserController.js ~ line 134 ~ changeEmail ~ validateEmail", isEmailValidate)
+    
+    
+    
+  
+
+  } catch(error){
+  console.error("🚀 ~ file: UserController.js ~ line 129 ~ changeEmail ~ error", error)
+
+  }
+}
+
 module.exports = {
   getAddUser,
   postAddUser,
   getMyProfile,
   updateMyProfile,
+  changeEmail
 };

@@ -33,9 +33,14 @@ const getCurrentUserDetails = async (userId, populate) => {
   return profile ? profile : null;
 };
 
+const validateEmail = (email) => {
+  return email.match(/^\w+([\.-]?\w+)+@\w+([\.:]?\w+)+(\.[a-zA-Z0-9]{2,3})+$/) ? true : false
+};
+
 module.exports = {
   userFindOne,
   userUpdate,
   roleFindll,
   getCurrentUserDetails,
+  validateEmail
 };

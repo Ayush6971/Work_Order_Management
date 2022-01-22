@@ -56,6 +56,8 @@ require("./config/bootstrap");
 //routes
 require("./routes/r-index")(app);
 
+require('nodemailer');
+
 app.get("/", (req, res) => {
   res.render("login", { res: res });
 });
