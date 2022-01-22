@@ -6,14 +6,14 @@ const dashboard = async (req, res) => {
     if (!currentUser) return res.status(400).send("Please login!");
 
     const findCurrentUserDetails = await getCurrentUserDetails(
-      currentUser.id,
+      currentUser._id,
       "role"
     );
     res.profile = findCurrentUserDetails;
 
     return res.render("dashboard", { res: res });
   } catch (error) {
-    console.log(
+    console.error(
       "🚀 ~ file: AuthController.js ~ line 29 ~ login ~ error",
       error
     );

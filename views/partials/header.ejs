@@ -43,9 +43,6 @@
             Role: <%=res.profile ? res.profile.role : null%>
           </a>
           <a class="dropdown-item dropdown" href="/profile"> My Profile </a>
-          <a class="dropdown-item dropdown" href="/changePassword">
-            Change Password</a
-          >
           <a class="dropdown-item dropdown" href="/logout"> Logout</a>
         </div>
       </li>
@@ -53,3 +50,11 @@
     </ul>
   </div>
 </nav>
+
+<div class="loader-pg-center">
+  <div class="loader-inside">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i><br />
+    <h1>Loading</h1>
+    <p class="lead">Please Wait</p>
+  </div>
+</div>

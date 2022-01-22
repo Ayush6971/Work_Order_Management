@@ -29,8 +29,8 @@ User.findOne({ phoneNo: "9406561244" }).exec(async function (
         phoneNo: 9406561244,
         password: hashedPassword,
         email: "ayushsahu76@gmail.com",
-        role: findAdminRole.id,
-      }
+        role: findAdminRole._id,
+      },
     ]);
   }
 });

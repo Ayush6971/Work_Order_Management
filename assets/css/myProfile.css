@@ -1,8 +1,12 @@
 @media screen and (max-width: 2560px) {
   .myProfileForm {
     margin: 2% auto;
-    width: 25%;
+    width: 30%;
   }
+
+  .myProfileForm button{
+    margin-right: 10px;
+}
 
   .myProfile-form {
     line-height: 30px;

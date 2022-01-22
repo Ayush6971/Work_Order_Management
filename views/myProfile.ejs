@@ -10,27 +10,11 @@
     <header><%- include('./partials/header') %></header>
     <div class="myProfileForm">
       <h2>My Profile</h2>
-      <form class="myProfile-form" id="myProfileForm" onsubmit="updateProfile(event)">
-        <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input
-            disabled
-            name="firstName"
-            type="text"
-            class="form-control"
-            value="<%-profileData ? profileData.firstName : null%>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input
-            disabled
-            name="lastName"
-            type="text"
-            class="form-control"
-            value="<%-profileData ? profileData.lastName : null%>"
-          />
-        </div>
+      <form
+        class="myProfile-form"
+        id="myProfileForm"
+        onsubmit="updateProfile(event)"
+      >
         <div class="form-group">
           <label for="email">Email</label>
           <input
@@ -39,10 +23,29 @@
             type="email"
             class="form-control"
             value="<%-profileData ? profileData.email : null%>"
-          />
-        </div>
+          /></div>
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+              disabled
+              name="firstName"
+              type="text"
+              class="form-control"
+              value="<%-profileData ? profileData.firstName : null%>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input
+              disabled
+              name="lastName"
+              type="text"
+              class="form-control"
+              value="<%-profileData ? profileData.lastName : null%>"
+            />
+          </div>
         <div class="form-group">
-          <label for="phoneNo"></label>Contact Number
+          <label for="phoneNo">Contact Number</label>
           <input
             disabled
             name="phoneNo"
@@ -52,7 +55,15 @@
           />
         </div>
         <div class="editProfileButton" id="profileFormSubmitBtn">
-          <button type="button" class="btn btn-primary" onclick="enableEdit()">Edit</button>
+          <button type="button" name="resetPassword" class="btn btn-primary" onclick="enableEdit()">
+            <i class="fa fa-repeat"></i> Reset Password
+          </button>
+          <button type="button" name="editProfile" class="btn btn-primary" onclick="enableEdit()">
+            <i class="	fas fa-pencil-alt"></i> Edit
+          </button>
+          <button type="button" name="resetEmail" class="btn btn-primary" onclick="enableEdit()">
+            <i class="fas fa-edit"></i> Reset Email
+          </button>
         </div>
       </form>
     </div>

@@ -1,6 +1,5 @@
 function enableEdit() {
-
-  $("input").each(function () {
+  $("input[name!='email']").each(function () {
     $(this).attr("disabled", false);
   });
 
@@ -10,14 +9,38 @@ function enableEdit() {
     `);
     $("#profileFormSubmitBtn").fadeIn("fast");
   });
-
 }
 
 function updateProfile(event) {
-    event.preventDefault();
-    $("button[name='profileFormSubmit']").attr("disabled", "disabled");
+  event.preventDefault();
+  $("button[name='profileFormSubmit']").attr("disabled", "disabled");
+  show_loader();
+  const profileForm = {};
+  $.each($("#myProfileForm").serializeArray(), function () {
+    profileForm[this.name] = this.value;
+  });
 
-    let profileForm = $("#myProfileForm").serializeArray();
-
-
+  $.ajax({
+    type: "POST",
+    url: "/updateProfile",
+    data: { profileForm },
+    success: function (response) {
+      hide_loader();
+      Swal.fire({
+        icon: "success",
+        title:'Update Success',
+        text: `${response.message}`,
+      }).then(function() {
+        window.location.href = "/dashboard";
+    });
+    },
+    error: function (response) {
+      hide_loader();
+      Swal.fire({
+        icon: "error",
+        title:'OOPS! Something went Wrong',
+        text: `${response.responseJSON.message}`,
+      });
+    }
+  });
 }
