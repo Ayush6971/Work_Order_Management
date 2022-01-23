@@ -3,8 +3,10 @@ const {
   roleFindll,
   getCurrentUserDetails,
   userUpdate,
-  validateEmail
+  validateEmail,
 } = require("./CommonController");
+
+const { sendEmail } = require("../config/email");
 
 const getAddUser = async (req, res) => {
   try {
@@ -124,27 +126,39 @@ const updateMyProfile = async (req, res) => {
 };
 
 const changeEmail = async (req, res) => {
-  try{
+  try {
+    let emailObject;
     const currentUser = req.user;
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
 
     let isEmailValidate = validateEmail(req.body.newEmail);
-    console.log("🚀 ~ file: UserController.js ~ line 134 ~ changeEmail ~ validateEmail", isEmailValidate)
-    
-    
-    
-  
+    console.log(
+      "🚀 ~ file: UserController.js ~ line 134 ~ changeEmail ~ validateEmail",
+      isEmailValidate
+    );
 
-  } catch(error){
-  console.error("🚀 ~ file: UserController.js ~ line 129 ~ changeEmail ~ error", error)
+    if (isEmailValidate) {
+      const resetEmailToken = "uuid.v4()";
+       const toEmail= req.body.newEmail,
+        subject= "Reset Email",
+        text= `Click on the Button to reset your email to ${req.body.newEmail}.`,
+        html= `<a href="http://localhost:3000/resetEmail/${resetEmailToken}"><button type="button" class="btn btn-primary">Reset Email!</button></a>`;
+      
 
+      await sendEmail(toEmail, subject, text, html);
+    }
+  } catch (error) {
+    console.error(
+      "🚀 ~ file: UserController.js ~ line 129 ~ changeEmail ~ error",
+      error
+    );
   }
-}
+};
 
 module.exports = {
   getAddUser,
   postAddUser,
   getMyProfile,
   updateMyProfile,
-  changeEmail
+  changeEmail,
 };

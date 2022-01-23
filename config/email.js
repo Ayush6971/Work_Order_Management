@@ -1,14 +1,16 @@
 const { createTransport } = require("nodemailer");
+require("dotenv");
 
 const SMTPConfig = {
   service: "gmail",
   auth: {
-    user: "ayushsahu76@gmail.com",
-    pass: password,
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD
   },
 };
 
-const sendEmail = async (toEmail, subject, text) => {
+const sendEmail = async (toEmail, subject, text, html) => {
+console.log("🚀 ~ file: email.js ~ line 14 ~ sendEmail ~ toEmail, subject, text, html", toEmail, subject, text, html)
   const transporter = createTransport(SMTPConfig);
   const fromEmail = SMTPConfig.auth.user;
 
@@ -17,10 +19,9 @@ const sendEmail = async (toEmail, subject, text) => {
     to: toEmail,
     subject,
     text,
+    html
   };
-  if (attachment != null) {
-    mailOptions.attachments = attachment;
-  }
+  console.log("🚀 ~ file: email.js ~ line 24 ~ sendEmail ~ mailOptions", mailOptions)
 
   return transporter.sendMail(mailOptions, async (err, info) => {
     if (err) {
