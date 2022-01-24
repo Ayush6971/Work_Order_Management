@@ -9,8 +9,8 @@ const SMTPConfig = {
   },
 };
 
-const sendEmail = async (toEmail, subject, text, html) => {
-console.log("🚀 ~ file: email.js ~ line 14 ~ sendEmail ~ toEmail, subject, text, html", toEmail, subject, text, html)
+const sendEmail = async (emailObject) => {
+  const { toEmail, subject, text, html } = emailObject
   const transporter = createTransport(SMTPConfig);
   const fromEmail = SMTPConfig.auth.user;
 

@@ -9,7 +9,7 @@ const userFindOne = async (condition, populate = null) => {
 
 const userUpdate = async (condition, updateObject) => {
   return await User.updateOne(
-    { _id: condition },
+    { condition },
     { $set: updateObject },
     { upsert: true }
   );

@@ -28,78 +28,77 @@ function updateProfile(event) {
       hide_loader();
       Swal.fire({
         icon: "success",
-        title:'Update Success',
+        title: "Update Success",
         text: `${response.message}`,
-      }).then(function() {
+      }).then(function () {
         window.location.href = "/dashboard";
-    });
+      });
     },
     error: function (response) {
       hide_loader();
       Swal.fire({
         icon: "error",
-        title:'OOPS! Something went Wrong',
+        title: "OOPS! Something went Wrong",
         text: `${response.responseJSON.message}`,
       });
-    }
+    },
   });
 }
 
-function emailChangerequest(newEmail){
+function emailChangerequest(newEmail) {
   // show_loader();
   $.ajax({
     type: "POST",
-    url: "/changeEmail",
+    url: "/resetEmail",
     data: { newEmail },
     success: function (response) {
       hide_loader();
       Swal.fire({
         icon: "success",
-        title:'Update Success',
+        title: "Update Success",
         text: `${response.message}`,
-      }).then(function() {
+      }).then(function () {
         window.location.href = "/dashboard";
-    });
+      });
     },
     error: function (response) {
       hide_loader();
       Swal.fire({
         icon: "error",
-        title:'OOPS! Something went Wrong',
+        title: "OOPS! Something went Wrong",
         text: `${response.responseJSON.message}`,
       });
+    },
+  });
+}
+
+function openInputPopup() {
+  Swal.fire({
+    icon: "info",
+    title: "Please input your new email: ",
+    html: '<input name="email" type="email" value="" id="newEmailBox" class="swal2-input">',
+  }).then((input) => {
+    if (input.isConfirmed) {
+      let newEmail = $("#newEmailBox").val();
+      emailChangerequest(newEmail);
     }
   });
 }
 
-function openInputPopup(){
-  Swal.fire({        
-    icon:'info',
-    title: "Please input your new email: ",
-    html:
-    '<input name="email" type="email" value="" id="newEmailBox" class="swal2-input">',
-  }).then((input) => {
-    if (input.isConfirmed) {
-      let newEmail = $('#newEmailBox').val();
-      emailChangerequest(newEmail)
-    }  
-  })
-}
-
 function resetEmailAlert() {
-  swal.fire({
-    icon: "question",
-    title:'Are you sure you want to reset your email?',
-    showCancelButton: true,
-    confirmButtonColor: '#198753',
-    cancelButtonColor: '#d33',
-    confirmButtonText:'<i class="fa fa-thumbs-up"></i> Yes!',
-    cancelButtonText:
-    '<i class="fa fa-thumbs-down"></i> Cancel',
-  }).then((result) => {
-    if (result.isConfirmed) {
-     openInputPopup()
-    }
-  })
-  
+  swal
+    .fire({
+      icon: "question",
+      title: "Are you sure you want to reset your email?",
+      showCancelButton: true,
+      confirmButtonColor: "#198753",
+      cancelButtonColor: "#d33",
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Yes!',
+      cancelButtonText: '<i class="fa fa-thumbs-down"></i> Cancel',
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        openInputPopup();
+      }
+    });
 }

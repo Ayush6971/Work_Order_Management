@@ -5,9 +5,10 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 
 //login route
 router.get("/addUser", User.getAddUser);
-router.post("/addUser",User.postAddUser);
+router.post("/addUser", User.postAddUser);
 router.get("/profile", User.getMyProfile);
 router.post("/updateProfile", User.updateMyProfile);
-router.post("/changeEmail", User.changeEmail)
+router.post("/resetEmail", User.resetEmail);
+router.get("/resetEmail/:resetEmailToken/:newEmail", User.resetEmailToken);
 
 module.exports = router;

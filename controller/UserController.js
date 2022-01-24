@@ -108,7 +108,7 @@ const updateMyProfile = async (req, res) => {
     }
 
     let updateMyProfileDetails = await userUpdate(
-      currentUser._id,
+      {_id:currentUser._id},
       formData.profileForm
     );
     if (updateMyProfileDetails)
@@ -125,7 +125,7 @@ const updateMyProfile = async (req, res) => {
   }
 };
 
-const changeEmail = async (req, res) => {
+const resetEmail = async (req, res) => {
   try {
     let emailObject;
     const currentUser = req.user;
@@ -133,23 +133,55 @@ const changeEmail = async (req, res) => {
 
     let isEmailValidate = validateEmail(req.body.newEmail);
     console.log(
-      "🚀 ~ file: UserController.js ~ line 134 ~ changeEmail ~ validateEmail",
+      "🚀 ~ file: UserController.js ~ line 134 ~ resetEmail ~ validateEmail",
       isEmailValidate
     );
 
     if (isEmailValidate) {
       const resetEmailToken = "uuid.v4()";
-       const toEmail= req.body.newEmail,
-        subject= "Reset Email",
-        text= `Click on the Button to reset your email to ${req.body.newEmail}.`,
-        html= `<a href="http://localhost:3000/resetEmail/${resetEmailToken}"><button type="button" class="btn btn-primary">Reset Email!</button></a>`;
-      
+      emailObject = {
+        toEmail: req.body.newEmail,
+        subject: "Reset Email",
+        text: `Click on the Button to reset your email to ${req.body.newEmail}.`,
+        html: `<a href="http://localhost:3000/resetEmail/${resetEmailToken}/${req.body.newEmail}"><button type="button" class="btn btn-primary">Reset Email!</button></a>`,
+      };
+      console.log(
+        "🚀 ~ file: UserController.js ~ line 143 ~ resetEmail ~ emailObject",
+        emailObject
+      );
 
-      await sendEmail(toEmail, subject, text, html);
+      // await sendEmail(toEmail, subject, text, html);
+      await sendEmail(emailObject);
     }
   } catch (error) {
     console.error(
-      "🚀 ~ file: UserController.js ~ line 129 ~ changeEmail ~ error",
+      "🚀 ~ file: UserController.js ~ line 129 ~ resetEmail ~ error",
+      error
+    );
+  }
+};
+
+const resetEmailToken = async (req, res) => {
+  try {
+    console.log("🚀 ~ file: UserController.js ~ line 167 ~ resetEmailToken ~ req.body", req.param)
+
+    const emailResetToken = req.body.resetEmailToken,
+      newEmail = req.body.newEmail;
+
+    if (!emailResetToken || !newEmail)
+      return res.status(400).json({ message: "Something Went Wrong! Please Try Again." });
+
+    const findUser = await userFindOne({ emailResetToken: emailResetToken });
+    if (!findUser)
+      return res
+        .status(400)
+        .json({ message: "Please retry your token has expired!" });
+
+    const updateEmail = await userUpdate({ emailResetToken: emailResetToken },{email: newEmail})
+
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: UserController.js ~ line 168 ~ resetEmailToken ~ error",
       error
     );
   }
@@ -160,5 +192,6 @@ module.exports = {
   postAddUser,
   getMyProfile,
   updateMyProfile,
-  changeEmail,
+  resetEmail,
+  resetEmailToken,
 };
