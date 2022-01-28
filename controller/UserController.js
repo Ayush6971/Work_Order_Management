@@ -5,8 +5,8 @@ const {
   userUpdate,
   validateEmail,
 } = require("./CommonController");
-
 const { sendEmail } = require("../config/email");
+const uuid = require("uuid-with-v6");
 
 const getAddUser = async (req, res) => {
   try {
@@ -108,7 +108,7 @@ const updateMyProfile = async (req, res) => {
     }
 
     let updateMyProfileDetails = await userUpdate(
-      {_id:currentUser._id},
+      { _id: currentUser._id },
       formData.profileForm
     );
     if (updateMyProfileDetails)
@@ -138,20 +138,21 @@ const resetEmail = async (req, res) => {
     );
 
     if (isEmailValidate) {
-      const resetEmailToken = "uuid.v4()";
+      const emailResetToken = uuid.v6();
       emailObject = {
         toEmail: req.body.newEmail,
         subject: "Reset Email",
         text: `Click on the Button to reset your email to ${req.body.newEmail}.`,
-        html: `<a href="http://localhost:3000/resetEmail/${resetEmailToken}/${req.body.newEmail}"><button type="button" class="btn btn-primary">Reset Email!</button></a>`,
+        html: `<a href="http://localhost:3000/resetEmailVerify/${emailResetToken}/${req.body.newEmail}"><button type="button" class="btn btn-primary">Reset Email!</button></a>`,
       };
-      console.log(
-        "🚀 ~ file: UserController.js ~ line 143 ~ resetEmail ~ emailObject",
-        emailObject
+      const updateEmailToken = await userUpdate(
+        { _id: currentUser._id },
+        { emailResetToken }
       );
-
-      // await sendEmail(toEmail, subject, text, html);
-      await sendEmail(emailObject);
+      if (updateEmailToken) await sendEmail(emailObject);
+      return res.status(200).json({
+        message: `Reset Email Verification link succesfully sent to ${req.body.newEmail} \n You will be logged out once you press OK!`,
+      });
     }
   } catch (error) {
     console.error(
@@ -163,25 +164,46 @@ const resetEmail = async (req, res) => {
 
 const resetEmailToken = async (req, res) => {
   try {
-    console.log("🚀 ~ file: UserController.js ~ line 167 ~ resetEmailToken ~ req.body", req.param)
-
-    const emailResetToken = req.body.resetEmailToken,
-      newEmail = req.body.newEmail;
+    const emailResetToken = req.params.emailResetToken;
+    const newEmail = req.params.newEmail;
 
     if (!emailResetToken || !newEmail)
-      return res.status(400).json({ message: "Something Went Wrong! Please Try Again." });
+      return res
+        .status(400)
+        .json({ message: "Something Went Wrong! Please Try Again." });
 
-    const findUser = await userFindOne({ emailResetToken: emailResetToken });
+    const findUser = await userFindOne({ emailResetToken });
     if (!findUser)
       return res
         .status(400)
         .json({ message: "Please retry your token has expired!" });
 
-    const updateEmail = await userUpdate({ emailResetToken: emailResetToken },{email: newEmail})
-
+    const updateEmail = await userUpdate(
+      { emailResetToken },
+      { email: newEmail }
+    );
+    if (updateEmail)
+      return res.status(200).json({ message: "Email Updated Successfully!" });
+    else
+      return res
+        .status(400)
+        .json({ message: "Something Went Wrong! Please Try Again." });
   } catch (error) {
     console.log(
       "🚀 ~ file: UserController.js ~ line 168 ~ resetEmailToken ~ error",
+      error
+    );
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const currentUser = req.user;
+    const postData = req.body;
+    if (!currentUser) return res.status(400).json({ message: "Please login!" });
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: UserController.js ~ line 203 ~ resetPassword ~ error",
       error
     );
   }
@@ -194,4 +216,5 @@ module.exports = {
   updateMyProfile,
   resetEmail,
   resetEmailToken,
+  resetPassword,
 };

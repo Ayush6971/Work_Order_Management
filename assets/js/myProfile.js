@@ -46,7 +46,9 @@ function updateProfile(event) {
 }
 
 function emailChangerequest(newEmail) {
-  // show_loader();
+  if (newEmail === null || newEmail === "")
+    return notifyMessages("error", "Error", "Email Field Can not be blank!");
+  show_loader();
   $.ajax({
     type: "POST",
     url: "/resetEmail",
@@ -57,8 +59,8 @@ function emailChangerequest(newEmail) {
         icon: "success",
         title: "Update Success",
         text: `${response.message}`,
-      }).then(function () {
-        window.location.href = "/dashboard";
+      }).then(function (input) {
+        window.location.href = "/logout";
       });
     },
     error: function (response) {
@@ -72,7 +74,7 @@ function emailChangerequest(newEmail) {
   });
 }
 
-function openInputPopup() {
+function resetEmailPopup() {
   Swal.fire({
     icon: "info",
     title: "Please input your new email: ",
@@ -85,20 +87,41 @@ function openInputPopup() {
   });
 }
 
-function resetEmailAlert() {
-  swal
-    .fire({
-      icon: "question",
-      title: "Are you sure you want to reset your email?",
-      showCancelButton: true,
-      confirmButtonColor: "#198753",
-      cancelButtonColor: "#d33",
-      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Yes!',
-      cancelButtonText: '<i class="fa fa-thumbs-down"></i> Cancel',
-    })
-    .then((result) => {
-      if (result.isConfirmed) {
-        openInputPopup();
-      }
-    });
+function resetPasswordPopup() {
+  Swal.fire({
+    icon: "info",
+    title: "Please enter following details: ",
+    html: '<input name="currentPassword" type="password" id="currentPwd" class="swal2-input" placeholder="Current Password"> <br> <input name="newPassword" type="password" id="newPwd" class="swal2-input" placeholder="New Password"> <br> <input name="confirmNewPassword" type="password" id="confirmNewPwd" class="swal2-input" placeholder="Confirm New Password">',
+  }).then((input) => {
+    if (input.isConfirmed) {
+      let currentPwd = $("#currentPwd").val();
+      let newPwd = $("#newPwd").val();
+      let confirmNewPwd = $("#confirmNewPwd").val();
+      if (newPwd !== confirmNewPwd) return notifyMessages("error", "Error", "New Password and Confirm Password does not match!");
+      show_loader();
+      $.ajax({
+        type: "POST",
+        url: "/resetPassword",
+        data: { currentPwd, newPwd, confirmNewPwd },
+        success: function (response) {
+          hide_loader();
+          Swal.fire({
+            icon: "success",
+            title: "Update Success",
+            text: `${response.message}`,
+          }).then(function (input) {
+            window.location.href = "/logout";
+          });
+        },
+        error: function (response) {
+          hide_loader();
+          Swal.fire({
+            icon: "error",
+            title: "OOPS! Something went Wrong",
+            text: `${response.responseJSON.message}`,
+          });
+        },
+      });
+    }
+  });
 }

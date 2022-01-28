@@ -21,7 +21,6 @@ const sendEmail = async (emailObject) => {
     text,
     html
   };
-  console.log("🚀 ~ file: email.js ~ line 24 ~ sendEmail ~ mailOptions", mailOptions)
 
   return transporter.sendMail(mailOptions, async (err, info) => {
     if (err) {
