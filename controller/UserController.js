@@ -1,5 +1,6 @@
 const {
   userFindOne,
+  userInsertOne,
   roleFindll,
   getCurrentUserDetails,
   userUpdate,
@@ -46,18 +47,29 @@ const getAddUser = async (req, res) => {
 const postAddUser = async (req, res) => {
   try {
     const currentUser = req.user;
-    const formData = req.body;
-    console.log(
-      "🚀 ~ file: UserController.js ~ line 24 ~ postAddUser ~ formData",
-      formData
-    );
-
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
 
     const findCurrentUser = await userFindOne({ _id: currentUser._id });
     if (!findCurrentUser) return res.status(400).json("User not found!");
 
-    return res.render("/dashboard");
+    const { firstName, lastName, phoneNo, email, role } = req.body.addUserForm;
+
+    if (!firstName || !lastName || !phoneNo || !email || !role)
+      return res.status(400).json("Please all mandatory fields!");
+
+    const createUser = await userInsertOne({
+      firstName,
+      lastName,
+      phoneNo,
+      email,
+      role,
+    });
+    if (createUser)
+      return res.status(200).json({ message: "User Created Succesfully!" });
+    else
+      return res
+        .status(400)
+        .json({ message: "Something Went Wrong! Please Try Again." });
   } catch (error) {
     console.error(
       "🚀 ~ file: UserController.js ~ line 42 ~ getAddUser ~ error",
@@ -103,7 +115,7 @@ const updateMyProfile = async (req, res) => {
       !formData.profileForm.phoneNo
     ) {
       return res
-        .status(206)
+        .status(400)
         .json({ message: "Please fill all mandotary fields!" });
     }
 
@@ -132,10 +144,6 @@ const resetEmail = async (req, res) => {
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
 
     let isEmailValidate = validateEmail(req.body.newEmail);
-    console.log(
-      "🚀 ~ file: UserController.js ~ line 134 ~ resetEmail ~ validateEmail",
-      isEmailValidate
-    );
 
     if (isEmailValidate) {
       const emailResetToken = uuid.v6();
@@ -200,6 +208,10 @@ const resetPassword = async (req, res) => {
   try {
     const currentUser = req.user;
     const postData = req.body;
+    console.log(
+      "🚀 ~ file: UserController.js ~ line 203 ~ resetPassword ~ postData",
+      postData
+    );
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
   } catch (error) {
     console.log(

@@ -22,16 +22,14 @@ User.findOne({ phoneNo: "9406561244" }).exec(async function (
     let password = "admin@123";
     let hashedPassword = await bcrypt.hash(password, 8);
 
-    await User.insertMany([
-      {
+    await User.create({
         firstName: "Ayush",
         lastName: "Sahu",
         phoneNo: 9406561244,
         password: hashedPassword,
         email: "ayushsahu76@gmail.com",
         role: findAdminRole._id,
-      },
-    ]);
+      });
   }
 });
 

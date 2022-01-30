@@ -1,5 +1,13 @@
 const User = require("../models/user");
 const Role = require("../models/role");
+const bcrypt = require("bcrypt");
+
+const userInsertOne = async (userObject) => {
+  let password = "user@123";
+  let hashedPassword = await bcrypt.hash(password, 8);
+  userObject.password = hashedPassword;
+  return await User.create(userObject);
+};
 
 const userFindOne = async (condition, populate = null) => {
   if (populate) return await User.findOne(condition).populate(populate);
@@ -34,13 +42,16 @@ const getCurrentUserDetails = async (userId, populate) => {
 };
 
 const validateEmail = (email) => {
-  return email.match(/^\w+([\.-]?\w+)+@\w+([\.:]?\w+)+(\.[a-zA-Z0-9]{2,3})+$/) ? true : false
+  return email.match(/^\w+([\.-]?\w+)+@\w+([\.:]?\w+)+(\.[a-zA-Z0-9]{2,3})+$/)
+    ? true
+    : false;
 };
 
 module.exports = {
   userFindOne,
+  userInsertOne,
   userUpdate,
   roleFindll,
   getCurrentUserDetails,
-  validateEmail
+  validateEmail,
 };

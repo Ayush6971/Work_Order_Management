@@ -3,13 +3,18 @@
   <head>
     <%- include('./partials/head'); %>
     <link rel="stylesheet" href="css/addUser.css" type="text/CSS" />
+    <script src="/js/addUser.js"></script>
   </head>
 
   <body>
     <header><%- include('./partials/header') %></header>
     <div class="addUserForm">
       <h2>ADD USER</h2>
-      <form class="addUser-form" method="POST" action="/addUser">
+      <form
+        class="myProfile-form"
+        id="myProfileForm"
+        onsubmit="addUserPost(event)"
+      >
         <div class="form-group">
           <label for="email">First Name</label>
           <input

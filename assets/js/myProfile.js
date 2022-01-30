@@ -87,41 +87,45 @@ function resetEmailPopup() {
   });
 }
 
+function resetPassword(currentPassword, newPassword, confirmNewPassword) {
+  show_loader();
+  $.ajax({
+    type: "POST",
+    url: "/resetPassword",
+    data: { currentPassword, newPassword, confirmNewPassword },
+    success: function (response) {
+      hide_loader();
+      Swal.fire({
+        icon: "success",
+        title: "Update Success",
+        text: `${response.message}`,
+      }).then(function (input) {
+        window.location.href = "/logout";
+      });
+    },
+    error: function (response) {
+      hide_loader();
+      Swal.fire({
+        icon: "error",
+        title: "OOPS! Something went Wrong",
+        text: `${response.responseJSON.message}`,
+      });
+    },
+  });
+}
+
 function resetPasswordPopup() {
   Swal.fire({
     icon: "info",
     title: "Please enter following details: ",
-    html: '<input name="currentPassword" type="password" id="currentPwd" class="swal2-input" placeholder="Current Password"> <br> <input name="newPassword" type="password" id="newPwd" class="swal2-input" placeholder="New Password"> <br> <input name="confirmNewPassword" type="password" id="confirmNewPwd" class="swal2-input" placeholder="Confirm New Password">',
+    html: '<input name="currentPassword" type="password" id="currentPwd" class="swal2-input" placeholder="Current Password"> <br> <input name="newPassword" type="password" id="newPwd" class="swal2-input" placeholder="New Password"> <br> <input name="confirmNewPassword" type="password" id="confirmNewPwd" class="swal2-input" placeholder="Confirm New Password">'
   }).then((input) => {
     if (input.isConfirmed) {
       let currentPwd = $("#currentPwd").val();
       let newPwd = $("#newPwd").val();
       let confirmNewPwd = $("#confirmNewPwd").val();
       if (newPwd !== confirmNewPwd) return notifyMessages("error", "Error", "New Password and Confirm Password does not match!");
-      show_loader();
-      $.ajax({
-        type: "POST",
-        url: "/resetPassword",
-        data: { currentPwd, newPwd, confirmNewPwd },
-        success: function (response) {
-          hide_loader();
-          Swal.fire({
-            icon: "success",
-            title: "Update Success",
-            text: `${response.message}`,
-          }).then(function (input) {
-            window.location.href = "/logout";
-          });
-        },
-        error: function (response) {
-          hide_loader();
-          Swal.fire({
-            icon: "error",
-            title: "OOPS! Something went Wrong",
-            text: `${response.responseJSON.message}`,
-          });
-        },
-      });
+      resetPassword(currentPwd, newPwd, confirmNewPwd)
     }
   });
 }
