@@ -6,8 +6,10 @@ const {
   userUpdate,
   validateEmail,
 } = require("./CommonController");
+
 const { sendEmail } = require("../config/email");
 const uuid = require("uuid-with-v6");
+const bcrypt = require("bcrypt");
 
 const getAddUser = async (req, res) => {
   try {
@@ -57,12 +59,19 @@ const postAddUser = async (req, res) => {
     if (!firstName || !lastName || !phoneNo || !email || !role)
       return res.status(400).json("Please all mandatory fields!");
 
+    const checkUserExist = await userFindOne({ email, phoneNo });
+    if (checkUserExist) return res.status(400).json("User already Exist!");
+
+    let password = "user@123";
+    let hashedPassword = await bcrypt.hash(password, 8);
+
     const createUser = await userInsertOne({
       firstName,
       lastName,
       phoneNo,
       email,
       role,
+      password: hashedPassword,
     });
     if (createUser)
       return res.status(200).json({ message: "User Created Succesfully!" });
@@ -208,14 +217,38 @@ const resetPassword = async (req, res) => {
   try {
     const currentUser = req.user;
     const postData = req.body;
-    console.log(
-      "🚀 ~ file: UserController.js ~ line 203 ~ resetPassword ~ postData",
-      postData
-    );
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
+
+    const findCurrentUserDetails = await userFindOne({ _id: currentUser._id });
+    const checkPassword = await bcrypt.compare(
+      postData.currentPassword,
+      findCurrentUserDetails.password
+    );
+    if (!checkPassword)
+      return res
+        .status(400)
+        .send({ message: "Current Password is not correct!" });
+
+    const hashNewPassword = await bcrypt.hash(postData.newPassword, 8);
+    let updateMyPassword = await userUpdate(
+      { _id: currentUser._id },
+      { password: hashNewPassword }
+    );
+
+    if (updateMyPassword)
+      return res
+        .status(200)
+        .json({
+          message:
+            "Password Updated Successfully! \n You will be logged out please use new password to login.",
+        });
+    else
+      return res
+        .status(400)
+        .json({ message: "Something Went Wrong! Please Try Again." });
   } catch (error) {
     console.log(
-      "🚀 ~ file: UserController.js ~ line 203 ~ resetPassword ~ error",
+      "🚀 ~ file: UserController.js ~ line 245 ~ resetPassword ~ error",
       error
     );
   }

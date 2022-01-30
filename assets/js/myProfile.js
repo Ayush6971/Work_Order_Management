@@ -94,31 +94,7 @@ function resetEmailPopup() {
 
 function resetPassword(currentPassword, newPassword, confirmNewPassword) {
   show_loader();
-  $.ajax({
-    type: "POST",
-    url: "/resetPassword",
-    data: { currentPassword, newPassword, confirmNewPassword },
-    success: function (response) {
-      hide_loader();
-      Swal.fire({
-        icon: "success",
-        allowOutsideClick: false,
-        title: "Update Success",
-        text: `${response.message}`,
-      }).then(function (input) {
-        window.location.href = "/logout";
-      });
-    },
-    error: function (response) {
-      hide_loader();
-      Swal.fire({
-        icon: "error",
-        allowOutsideClick: false,
-        title: "OOPS! Something went Wrong",
-        text: `${response.responseJSON.message}`,
-      });
-    },
-  });
+  
 }
 
 function resetPasswordPopup() {
@@ -126,14 +102,44 @@ function resetPasswordPopup() {
     icon: "info",
     allowOutsideClick: false,
     title: "Please enter following details: ",
-    html: '<input name="currentPassword" type="password" id="currentPwd" class="swal2-input" placeholder="Current Password"> <br> <input name="newPassword" type="password" id="newPwd" class="swal2-input" placeholder="New Password"> <br> <input name="confirmNewPassword" type="password" id="confirmNewPwd" class="swal2-input" placeholder="Confirm New Password">'
+    html: '<input name="currentPassword" type="password" id="currentPwd" class="swal2-input" placeholder="Current Password"> <br> <input name="newPassword" type="password" id="newPwd" class="swal2-input" placeholder="New Password"> <br> <input name="confirmNewPassword" type="password" id="confirmNewPwd" class="swal2-input" placeholder="Confirm New Password">',
   }).then((input) => {
     if (input.isConfirmed) {
-      let currentPwd = $("#currentPwd").val();
-      let newPwd = $("#newPwd").val();
-      let confirmNewPwd = $("#confirmNewPwd").val();
-      if (newPwd !== confirmNewPwd) return notifyMessages("error", "Error", "New Password and Confirm Password does not match!");
-      resetPassword(currentPwd, newPwd, confirmNewPwd)
+      let currentPassword = $("#currentPwd").val();
+      let newPassword = $("#newPwd").val();
+      let confirmNewPassword = $("#confirmNewPwd").val();
+      if (newPassword !== confirmNewPassword)
+        return notifyMessages(
+          "error",
+          "Error",
+          "New Password and Confirm Password does not match!"
+        );
+
+        $.ajax({
+          type: "POST",
+          url: "/resetPassword",
+          data: { currentPassword, newPassword, confirmNewPassword },
+          success: function (response) {
+            hide_loader();
+            Swal.fire({
+              icon: "success",
+              allowOutsideClick: false,
+              title: "Update Success",
+              text: `${response.message}`,
+            }).then(function (input) {
+              window.location.href = "/logout";
+            });
+          },
+          error: function (response) {
+            hide_loader();
+            Swal.fire({
+              icon: "error",
+              allowOutsideClick: false,
+              title: "OOPS! Something went Wrong",
+              text: `${response.responseJSON.message}`,
+            });
+          },
+        });
     }
   });
 }

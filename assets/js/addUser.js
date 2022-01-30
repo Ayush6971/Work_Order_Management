@@ -27,7 +27,7 @@ function addUserPost(event) {
         icon: "error",
         allowOutsideClick: false,
         title: "OOPS! Something went Wrong",
-        text: `${response.responseJSON.message}`,
+        text: `${response.responseJSON}`,
       });
     },
   });

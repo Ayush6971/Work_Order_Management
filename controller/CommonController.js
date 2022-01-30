@@ -1,11 +1,7 @@
 const User = require("../models/user");
 const Role = require("../models/role");
-const bcrypt = require("bcrypt");
 
 const userInsertOne = async (userObject) => {
-  let password = "user@123";
-  let hashedPassword = await bcrypt.hash(password, 8);
-  userObject.password = hashedPassword;
   return await User.create(userObject);
 };
 
