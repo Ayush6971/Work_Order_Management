@@ -15,6 +15,7 @@ function addUserPost(event) {
       Swal.fire({
         icon: "success",
         title: "Success",
+        allowOutsideClick: false,
         text: `${response.message}`,
       }).then(function () {
         window.location.href = "/dashboard";
@@ -24,6 +25,7 @@ function addUserPost(event) {
       hide_loader();
       Swal.fire({
         icon: "error",
+        allowOutsideClick: false,
         title: "OOPS! Something went Wrong",
         text: `${response.responseJSON.message}`,
       });

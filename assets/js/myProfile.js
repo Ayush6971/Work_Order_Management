@@ -28,6 +28,7 @@ function updateProfile(event) {
       hide_loader();
       Swal.fire({
         icon: "success",
+        allowOutsideClick: false,
         title: "Update Success",
         text: `${response.message}`,
       }).then(function () {
@@ -38,6 +39,7 @@ function updateProfile(event) {
       hide_loader();
       Swal.fire({
         icon: "error",
+        allowOutsideClick: false,
         title: "OOPS! Something went Wrong",
         text: `${response.responseJSON.message}`,
       });
@@ -57,6 +59,7 @@ function emailChangerequest(newEmail) {
       hide_loader();
       Swal.fire({
         icon: "success",
+        allowOutsideClick: false,
         title: "Update Success",
         text: `${response.message}`,
       }).then(function (input) {
@@ -67,6 +70,7 @@ function emailChangerequest(newEmail) {
       hide_loader();
       Swal.fire({
         icon: "error",
+        allowOutsideClick: false,
         title: "OOPS! Something went Wrong",
         text: `${response.responseJSON.message}`,
       });
@@ -77,6 +81,7 @@ function emailChangerequest(newEmail) {
 function resetEmailPopup() {
   Swal.fire({
     icon: "info",
+    allowOutsideClick: false,
     title: "Please input your new email: ",
     html: '<input name="email" type="email" value="" id="newEmailBox" class="swal2-input">',
   }).then((input) => {
@@ -97,6 +102,7 @@ function resetPassword(currentPassword, newPassword, confirmNewPassword) {
       hide_loader();
       Swal.fire({
         icon: "success",
+        allowOutsideClick: false,
         title: "Update Success",
         text: `${response.message}`,
       }).then(function (input) {
@@ -107,6 +113,7 @@ function resetPassword(currentPassword, newPassword, confirmNewPassword) {
       hide_loader();
       Swal.fire({
         icon: "error",
+        allowOutsideClick: false,
         title: "OOPS! Something went Wrong",
         text: `${response.responseJSON.message}`,
       });
@@ -117,6 +124,7 @@ function resetPassword(currentPassword, newPassword, confirmNewPassword) {
 function resetPasswordPopup() {
   Swal.fire({
     icon: "info",
+    allowOutsideClick: false,
     title: "Please enter following details: ",
     html: '<input name="currentPassword" type="password" id="currentPwd" class="swal2-input" placeholder="Current Password"> <br> <input name="newPassword" type="password" id="newPwd" class="swal2-input" placeholder="New Password"> <br> <input name="confirmNewPassword" type="password" id="confirmNewPwd" class="swal2-input" placeholder="Confirm New Password">'
   }).then((input) => {
