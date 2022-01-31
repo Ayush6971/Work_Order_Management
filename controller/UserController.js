@@ -219,6 +219,9 @@ const resetPassword = async (req, res) => {
     const postData = req.body;
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
 
+    if(!postData.newPassword || !postData.currentPassword || !postData.confirmNewPassword)
+    return res.status(400).json({ message: "Please fill all mandatory fields!" });
+
     const findCurrentUserDetails = await userFindOne({ _id: currentUser._id });
     const checkPassword = await bcrypt.compare(
       postData.currentPassword,

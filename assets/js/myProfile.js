@@ -83,18 +83,13 @@ function resetEmailPopup() {
     icon: "info",
     allowOutsideClick: false,
     title: "Please input your new email: ",
-    html: '<input name="email" type="email" value="" id="newEmailBox" class="swal2-input">',
+    html: '<input name="email" type="email" value="" id="newEmailBox" class="swal2-input" placeholder="Please Enter New Email">',
   }).then((input) => {
     if (input.isConfirmed) {
       let newEmail = $("#newEmailBox").val();
       emailChangerequest(newEmail);
     }
   });
-}
-
-function resetPassword(currentPassword, newPassword, confirmNewPassword) {
-  show_loader();
-  
 }
 
 function resetPasswordPopup() {
@@ -108,6 +103,14 @@ function resetPasswordPopup() {
       let currentPassword = $("#currentPwd").val();
       let newPassword = $("#newPwd").val();
       let confirmNewPassword = $("#confirmNewPwd").val();
+
+      if (!currentPassword || !newPassword || !confirmNewPassword)
+        return notifyMessages(
+          "error",
+          "Error",
+          "Please fill all mandatory fields!"
+        );
+
       if (newPassword !== confirmNewPassword)
         return notifyMessages(
           "error",
@@ -115,31 +118,31 @@ function resetPasswordPopup() {
           "New Password and Confirm Password does not match!"
         );
 
-        $.ajax({
-          type: "POST",
-          url: "/resetPassword",
-          data: { currentPassword, newPassword, confirmNewPassword },
-          success: function (response) {
-            hide_loader();
-            Swal.fire({
-              icon: "success",
-              allowOutsideClick: false,
-              title: "Update Success",
-              text: `${response.message}`,
-            }).then(function (input) {
-              window.location.href = "/logout";
-            });
-          },
-          error: function (response) {
-            hide_loader();
-            Swal.fire({
-              icon: "error",
-              allowOutsideClick: false,
-              title: "OOPS! Something went Wrong",
-              text: `${response.responseJSON.message}`,
-            });
-          },
-        });
+      $.ajax({
+        type: "POST",
+        url: "/resetPassword",
+        data: { currentPassword, newPassword, confirmNewPassword },
+        success: function (response) {
+          hide_loader();
+          Swal.fire({
+            icon: "success",
+            allowOutsideClick: false,
+            title: "Update Success",
+            text: `${response.message}`,
+          }).then(function (input) {
+            if (input.isConfirmed) window.location.href = "/logout";
+          });
+        },
+        error: function (response) {
+          hide_loader();
+          Swal.fire({
+            icon: "error",
+            allowOutsideClick: false,
+            title: "OOPS! Something went Wrong",
+            text: `${response.responseJSON.message}`,
+          });
+        },
+      });
     }
   });
 }
