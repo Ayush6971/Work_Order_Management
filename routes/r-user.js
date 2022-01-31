@@ -10,5 +10,6 @@ router.get("/profile", User.getMyProfile);
 router.post("/updateProfile", User.updateMyProfile);
 router.post("/resetEmail", User.resetEmail);
 router.post('/resetPassword', User.resetPassword)
+router.get('/resetEmailVerify/:emailResetToken/:newEmail', User.resetEmailToken);
 
 module.exports = router;

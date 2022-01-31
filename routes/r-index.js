@@ -1,10 +1,9 @@
-const rAuth = require("./r-Auth");
+const rAuth = require("./r-auth");
 const rUser = require("./r-user")
-const User = require("../controller/UserController");
+const rWorkOrder = require("./r-workOrder");
  
 module.exports = (app) => {
   app.use("/", rAuth);
-  app.use("/",rUser)
-  app.get('/resetEmailVerify/:emailResetToken/:newEmail', User.resetEmailToken);
-
+  app.use("/",rUser);
+  app.use("/",rWorkOrder)
 };
