@@ -5,7 +5,7 @@ function enableEdit() {
 
   $("#profileFormSubmitBtn").fadeOut("fast", function () {
     $("#profileFormSubmitBtn").html(`
-    <button type="submit" name="profileFormSubmit" class="btn btn-primary">Submit</button>
+    <button type="submit" name="profileFormSubmit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
     `);
     $("#profileFormSubmitBtn").fadeIn("fast");
   });
