@@ -2,7 +2,7 @@ function addUserPost(event) {
   event.preventDefault();
   show_loader();
   const addUserForm = {};
-  $.each($("#myProfileForm").serializeArray(), function () {
+  $.each($("#addUserForm").serializeArray(), function () {
     addUserForm[this.name] = this.value;
   });
 
