@@ -10,11 +10,7 @@
     <header><%- include('./partials/header') %></header>
     <div class="addUserForm">
       <h2>ADD USER</h2>
-      <form
-        class="addUser-form"
-        id="addUserForm"
-        onsubmit="addUserPost(event)"
-      >
+      <form class="addUser-form" id="addUserForm" onsubmit="addUserPost(event)">
         <div class="form-group">
           <label for="email">First Name</label>
           <input
@@ -65,7 +61,9 @@
           />
         </div>
         <div class="addUserButton">
-          <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> Submit
+          </button>
         </div>
       </form>
     </div>

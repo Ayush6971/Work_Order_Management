@@ -1,4 +1,4 @@
-const { getCurrentUserDetails } = require("./CommonController");
+const { getCurrentUserDetails,createWorkOrder } = require("./CommonController");
 
 const getAddWorkOrder = async (req, res) => {
   try {
@@ -28,12 +28,11 @@ const addWorkOrderBasic = async (req, res) => {
       currentUser._id,
       "role"
     );
-    if (!findCurrentUserDetails) return res.status(400).json("User not found!");
-
-    res.profile = findCurrentUserDetails;
+    if (!findCurrentUserDetails) return res.status(400).json({message:"User not found!"});
+    // res.profile = findCurrentUserDetails;
 
     const { name, presentAddress, workOrderAddress, phoneNo, advance, workOrderDate } =
-      req.body.addUserForm;
+      req.body.workOrderBasicForm;
 
     if (
       !name ||
@@ -43,25 +42,26 @@ const addWorkOrderBasic = async (req, res) => {
       !advance ||
       !workOrderDate
     )
-      return res.status(400).json("Please all mandatory fields!");
+      return res.status(400).json({message:"Please Fill all mandatory fields!"});
 
-    const createWorkOrder = await createWorkOrder({
+    const createWorkOrderBasic = await createWorkOrder({
       name,
       presentAddress,
       workOrderAddress,
       phoneNo,
-      advance: advance ? advance : null,
+      advanceAmount: advance ? advance : null,
       workOrderDate,
     });
+    console.log("🚀 ~ file: WorkOrderController.js ~ line 56 ~ addWorkOrderBasic ~ createWorkOrderBasic", createWorkOrderBasic)
 
-    if (createWorkOrder)
-      return res.render("workOrderEstimate", {
-        res: res,
-      });
-    else
-      return res
-        .status(400)
-        .json({ message: "Something Went Wrong! Please Try Again." });
+    // if (createWorkOrderBasic)
+    //   return res.render("workOrderEstimate", {
+    //     res: res,
+    //   });
+    // else
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Something Went Wrong! Please Try Again." });
   } catch (error) {}
 };
 

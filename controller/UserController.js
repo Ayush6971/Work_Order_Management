@@ -52,15 +52,15 @@ const postAddUser = async (req, res) => {
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
 
     const findCurrentUser = await userFindOne({ _id: currentUser._id });
-    if (!findCurrentUser) return res.status(400).json("User not found!");
+    if (!findCurrentUser) return res.status(400).json({message:"User not found!"});
 
     const { firstName, lastName, phoneNo, email, role } = req.body.addUserForm;
 
     if (!firstName || !lastName || !phoneNo || !email || !role)
-      return res.status(400).json("Please all mandatory fields!");
+      return res.status(400).json({message:"Please all mandatory fields!"});
 
     const checkUserExist = await userFindOne({ email, phoneNo });
-    if (checkUserExist) return res.status(400).json("User already Exist!");
+    if (checkUserExist) return res.status(400).json({message:"User already Exist!"});
 
     let password = "user@123";
     let hashedPassword = await bcrypt.hash(password, 8);

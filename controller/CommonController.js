@@ -1,18 +1,19 @@
-const User = require("../models/user");
-const Role = require("../models/role");
+const user = require("../models/user");
+const role = require("../models/role");
+const workOrder = require("../models/workOrder");
 
 const userInsertOne = async (userObject) => {
-  return await User.create(userObject);
+  return await user.create(userObject);
 };
 
 const userFindOne = async (condition, populate = null) => {
-  if (populate) return await User.findOne(condition).populate(populate);
+  if (populate) return await user.findOne(condition).populate(populate);
 
-  return await User.findOne(condition);
+  return await user.findOne(condition);
 };
 
 const userUpdate = async (condition, updateObject) => {
-  return await User.updateOne(
+  return await user.updateOne(
     condition,
     { $set: updateObject },
     { upsert: true }
@@ -20,12 +21,12 @@ const userUpdate = async (condition, updateObject) => {
 };
 
 const roleFindll = async () => {
-  return await Role.find();
+  return await role.find();
 };
 
 const getCurrentUserDetails = async (userId, populate) => {
   const findCurrentUser = await userFindOne({ _id: userId }, populate);
-  if (!findCurrentUser) return "User not found!";
+  if (!findCurrentUser) return "user not found!";
   let profile = {
     firstName: findCurrentUser.firstName,
     lastName: findCurrentUser.lastName,
@@ -43,6 +44,10 @@ const validateEmail = (email) => {
     : false;
 };
 
+const createWorkOrder = async (createObject) => {
+  return await workOrder.create(createObject)
+}
+
 module.exports = {
   userFindOne,
   userInsertOne,
@@ -50,4 +55,5 @@ module.exports = {
   roleFindll,
   getCurrentUserDetails,
   validateEmail,
+  createWorkOrder
 };
