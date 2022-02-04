@@ -14,7 +14,7 @@ const workOrderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    contactNumber: {
+    phoneNo: {
       type: Number,
       required: true,
       maxlength: 10,

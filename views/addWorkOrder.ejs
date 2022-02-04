@@ -10,11 +10,11 @@
     <header><%- include('./partials/header') %></header>
     <div class="addWorkOrderForm">
       <h2>ADD WORK ORDER</h2>
-      <form class="addWorkOrder-form" id="addWorkOrderForm">
+      <form class="addWorkOrder-form" id="addWorkOrderBaiscForm" onsubmit="addWorkOrderBasic()">
         <div class="form-group">
           <label for="Name">Name</label>
           <input
-            name="Name"
+            name="name"
             type="text"
             class="form-control"
             placeholder="Enter Name"
@@ -65,7 +65,7 @@
             placeholder="Enter Work Order Date"
           />
         </div>
-        <div class="addWorkOrderButton" id="profileFormSubmitBtn">
+        <div class="addWorkOrderButton" id="workOrderBasicSubmitBtn">
           <button type="button" name="resetEmail" class="btn btn-primary">
             <i class="fas fa-paper-plane"></i> Submit
           </button>
