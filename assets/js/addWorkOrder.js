@@ -1,13 +1,11 @@
 function addWorkOrderBasic(event) {
-  console.log("🚀 ~ file: addWorkOrder.js ~ line 2 ~ addWorkOrderBasic ~ event", event)
   event.preventDefault();
   $("button[name='workOrderBasicSubmitBtn']").attr("disabled", "disabled");
-//   show_loader();
+  show_loader();
   const workOrderBasicForm = {};
   $.each($("#addWorkOrderBaiscForm").serializeArray(), function () {
     workOrderBasicForm[this.name] = this.value;
   });
-  console.log("🚀 ~ file: addWorkOrder.js ~ line 7 ~ addWorkOrderBasic ~ workOrderBasicForm", workOrderBasicForm)
 
   $.ajax({
     type: "POST",
@@ -15,14 +13,7 @@ function addWorkOrderBasic(event) {
     data: { workOrderBasicForm },
     success: function (response) {
       hide_loader();
-      Swal.fire({
-        icon: "success",
-        allowOutsideClick: false,
-        title: "Success",
-        text: `${response.message}`,
-      }).then(function () {
-        // window.location.href = "/dashboard";
-      });
+      window.location.href = "/addWorkOrderEstimate"
     },
     error: function (response) {
       hide_loader();

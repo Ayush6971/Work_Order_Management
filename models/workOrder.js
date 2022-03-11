@@ -21,7 +21,7 @@ const workOrderSchema = new mongoose.Schema(
     },
     advanceAmount: {
       type: Number,
-      required: true,
+      // required: true,
     },
     workOrderDate: {
       type: Date,
