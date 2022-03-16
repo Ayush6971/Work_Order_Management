@@ -54,4 +54,9 @@
     font-size: 36px;
     /* font-family: 'Muli-Bold', sans-serif;*/
   }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 1em;
+}
 }

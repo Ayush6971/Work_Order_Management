@@ -1,0 +1,23 @@
+@media screen and (max-width: 2560px) {
+  .workOrderWstimateForm {
+    margin: 3% auto;
+    width: 75%;
+  }
+
+  .addWorkOrder-form {
+    line-height: 30px;
+  }
+
+  .workOrderWstimateForm h2 {
+    font-weight: 800;
+    font-size: 30px;
+    color: #de6262;
+  }
+
+  .addWorkOrderButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+  }
+}

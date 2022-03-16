@@ -84,7 +84,6 @@ const addWorkOrderBasic = async (req, res) => {
 };
 
 const addWorkOrderEstimate = async (req, res) => {
-console.log("🚀 ~ file: WorkOrderController.js ~ line 88 ~ addWorkOrderEstimate ~ req", req.method)
   try{
     if(req.method === 'GET'){
     const currentUser = req.user;
