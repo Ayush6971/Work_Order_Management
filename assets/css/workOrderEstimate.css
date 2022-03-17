@@ -1,17 +1,46 @@
 @media screen and (max-width: 2560px) {
-  .workOrderWstimateForm {
-    margin: 3% auto;
-    width: 75%;
+  .workOrderEstimateForm {
+    margin: 3% 15%;
   }
 
   .addWorkOrder-form {
     line-height: 30px;
   }
 
-  .workOrderWstimateForm h2 {
+  .workOrderEstimateForm h2 {
     font-weight: 800;
-    font-size: 30px;
     color: #de6262;
+  }
+
+  .container {
+    background: white;
+    border: 3px solid cornflowerblue;
+  }
+
+  .blessings {
+    text-align: center;
+    width: 100%;
+    color: dodgerblue;
+  }
+
+  .image-sec {
+    height: 150px;
+    color: #de6152;
+    border-right: 2px solid;
+    /* margin-left: 50px; */
+  }
+
+  .esitmateTitle {
+    display: flex;
+    flex-wrap: wrap;
+    height: 200px;
+    border-bottom: 2px solid cornflowerblue;
+  }
+
+  .esitmateTitle-h2 {
+    color: #de6152;
+    text-align: center;
+    font-size: 45px;
   }
 
   .addWorkOrderButton {
@@ -20,4 +49,42 @@
     justify-content: center;
     margin-top: 5%;
   }
+  .details {
+    color: cornflowerblue;
+    text-align: center;
+  }
+  .myAddress {
+    color: cornflowerblue;
+    text-align: center;
+    margin-top: 3px;
+    font-size: 20px;
+  }
+  .myAddress b {
+    color: black;
+  }
+  .estimateDetails {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .estimateDetails h4{
+  font-weight: bold;
+  font-size: 20px;
+  }
+  .serialNo{
+    width: 40%;
+    margin: 1% auto;
+  }
+
+  .quotationHeading{
+    width: 30%;
+    margin: 1% auto;
+  }
+
+  .quotationDate{
+    width: 20%;
+    margin: 1% auto;
+  }
+
 }
