@@ -1,21 +1,22 @@
 const {
   getCurrentUserDetails,
   createWorkOrder,
+  getAllItems
 } = require("./CommonController");
 
 const getAddWorkOrder = async (req, res) => {
   try {
     const currentUser = req.user;
-    
+
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
     const findCurrentUserDetails = await getCurrentUserDetails(
       currentUser._id,
       "role"
     );
-    
+
     if (!findCurrentUserDetails)
-    return res.status(400).json({ message: "User not found!" });
-    
+      return res.status(400).json({ message: "User not found!" });
+
     res.profile = findCurrentUserDetails;
     return res.render("addWorkOrder", { res: res });
   } catch (error) {
@@ -68,10 +69,9 @@ const addWorkOrderBasic = async (req, res) => {
       advanceAmount: advance ? advance : null,
       workOrderDate,
     });
-    if (createWorkOrderBasic){
+    if (createWorkOrderBasic) {
       return res.status(200).json({ message: "Work Order Basic Added." });
-    }
-    else
+    } else
       return res
         .status(400)
         .json({ message: "Something Went Wrong! Please Try Again." });
@@ -83,32 +83,37 @@ const addWorkOrderBasic = async (req, res) => {
   }
 };
 
-const addWorkOrderEstimate = async (req, res) => {
-  try{
-    if(req.method === 'GET'){
-    const currentUser = req.user;
-    
-    if (!currentUser) return res.status(400).json({ message: "Please login!" });
-    const findCurrentUserDetails = await getCurrentUserDetails(
-      currentUser._id,
-      "role"
-    );
-    
-    if (!findCurrentUserDetails)
-    return res.status(400).json({ message: "User not found!" });
-    
-    res.profile = findCurrentUserDetails;
-    return res.render("workOrderEstimate", { res: res });
-    }else if(req.method === 'POST'){
-console.log("2323232")
-    }
-  }catch(error){
-  }
+const addWorkOrderQuotation = async (req, res) => {
+  try {
+    if (req.method === "GET") {
+      const currentUser = req.user;
 
-}
+      if (!currentUser)
+        return res.status(400).json({ message: "Please login!" });
+      const findCurrentUserDetails = await getCurrentUserDetails(
+        currentUser._id,
+        "role"
+      );
+
+      if (!findCurrentUserDetails)
+        return res.status(400).json({ message: "User not found!" });
+
+      res.profile = findCurrentUserDetails;
+
+      const getItems = await getAllItems();
+      console.log("🚀 ~ file: WorkOrderController.js ~ line 104 ~ addWorkOrderQuotation ~ getItems", getItems)
+      if (!getItems)
+      return res.status(400).json({ message: "Items not found!" });
+
+      return res.render("workOrderEstimate", { res: res });
+    } else if (req.method === "POST") {
+      console.log("2323232");
+    }
+  } catch (error) {}
+};
 
 module.exports = {
   getAddWorkOrder,
   addWorkOrderBasic,
-  addWorkOrderEstimate
+  addWorkOrderQuotation,
 };

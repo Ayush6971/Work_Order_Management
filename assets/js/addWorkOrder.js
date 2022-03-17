@@ -13,14 +13,11 @@ function addWorkOrderBasic(event) {
     data: { workOrderBasicForm },
     success: function (response) {
       hide_loader();
-      window.location.href = "/addWorkOrderEstimate"
+      window.location.href = "/addWorkOrderQuotation";
     },
     error: function (response) {
       hide_loader();
-       notifyMessages(
-        "error",
-        "Error",
-        `${response.responseJSON.message}`)
+      notifyMessages("error", "Error", `${response.responseJSON.message}`);
     },
   });
 }

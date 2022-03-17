@@ -1,7 +1,7 @@
 const user = require("../models/user");
 const role = require("../models/role");
 const workOrder = require("../models/workOrder");
-
+const items = require("../models/item")
 const userInsertOne = async (userObject) => {
   return await user.create(userObject);
 };
@@ -48,6 +48,10 @@ const createWorkOrder = async (createObject) => {
   return await workOrder.create(createObject)
 }
 
+const getAllItems = async () => {
+  return await items.find();
+}
+
 module.exports = {
   userFindOne,
   userInsertOne,
@@ -55,5 +59,6 @@ module.exports = {
   roleFindll,
   getCurrentUserDetails,
   validateEmail,
-  createWorkOrder
+  createWorkOrder,
+  getAllItems
 };

@@ -63,37 +63,40 @@
     color: black;
   }
   .estimateDetails {
+    color: cornflowerblue;
     display: flex;
     justify-content: space-around;
     width: 100%;
   }
 
-  .estimateDetails h4{
-  font-weight: bold;
-  font-size: 20px;
+  .estimateDetails h4 {
+    font-weight: bold;
+    font-size: 20px;
   }
 
-  .serialNo{
+  .serialNo {
     width: 40%;
     margin: 2% auto;
   }
 
-  .quotationHeading{
+  .quotationHeading {
     width: 30%;
     margin: 1% auto;
   }
 
-  .quotationDate{
+  .quotationDate {
     width: 20%;
     margin: 2% auto;
   }
 
-  .customerName{
+  .customerName {
+    color: cornflowerblue;
+
     width: 100%;
     margin: 0 0 2% 1.8%;
   }
-  .customerName h4{
+  .customerName h4 {
     font-weight: bold;
-  font-size: 20px;
+    font-size: 20px;
   }
 }
