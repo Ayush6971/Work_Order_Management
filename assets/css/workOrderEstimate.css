@@ -72,9 +72,10 @@
   font-weight: bold;
   font-size: 20px;
   }
+
   .serialNo{
     width: 40%;
-    margin: 1% auto;
+    margin: 2% auto;
   }
 
   .quotationHeading{
@@ -84,7 +85,15 @@
 
   .quotationDate{
     width: 20%;
-    margin: 1% auto;
+    margin: 2% auto;
   }
 
+  .customerName{
+    width: 100%;
+    margin: 0 0 2% 1.8%;
+  }
+  .customerName h4{
+    font-weight: bold;
+  font-size: 20px;
+  }
 }
