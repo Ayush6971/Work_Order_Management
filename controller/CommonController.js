@@ -1,7 +1,7 @@
 const user = require("../models/user");
 const role = require("../models/role");
 const workOrder = require("../models/workOrder");
-const items = require("../models/item")
+const items = require("../models/item");
 const userInsertOne = async (userObject) => {
   return await user.create(userObject);
 };
@@ -45,12 +45,21 @@ const validateEmail = (email) => {
 };
 
 const createWorkOrder = async (createObject) => {
-  return await workOrder.create(createObject)
-}
+  return await workOrder.create(createObject);
+};
 
-const getAllItems = async () => {
-  return await items.find();
-}
+const getAllQuotationItems = async (req, res) => {
+  let getAllItems = await items.find();
+  getAllItems = getAllItems.map((itemData) => {
+    return {
+      itemID: itemData._id,
+      itemName: itemData.itemName,
+      itemRate: itemData.rate
+    };
+  });
+  
+  return res.json({ status: true, getAllItems });
+};
 
 module.exports = {
   userFindOne,
@@ -60,5 +69,5 @@ module.exports = {
   getCurrentUserDetails,
   validateEmail,
   createWorkOrder,
-  getAllItems
+  getAllQuotationItems,
 };

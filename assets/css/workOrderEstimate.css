@@ -99,4 +99,8 @@
     font-weight: bold;
     font-size: 20px;
   }
+
+  .quotationGrid{
+    width: 100%;
+  }
 }

@@ -1,6 +1,6 @@
 @media screen and (max-width: 2560px) {
   .container {
-    height: 100%;
+    height:auto;
   }
   .loginCard {
     margin-top: 2.5% !important;

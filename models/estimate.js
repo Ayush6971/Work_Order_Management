@@ -3,13 +3,13 @@ const mongoose = require("mongoose");
 
 const estimateSchema = new mongoose.Schema(
   {
-    itemId: {
-      type: ObjectID,
-      ref: "Item",
-    },
     workOrderId: {
       type: ObjectID,
       ref: "workOrder",
+    },
+    itemId: {
+      type: ObjectID,
+      ref: "Item",
     },
     itemDescription: {
       type: String,

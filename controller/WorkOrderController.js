@@ -1,7 +1,6 @@
 const {
   getCurrentUserDetails,
   createWorkOrder,
-  getAllItems
 } = require("./CommonController");
 
 const getAddWorkOrder = async (req, res) => {
@@ -100,16 +99,14 @@ const addWorkOrderQuotation = async (req, res) => {
 
       res.profile = findCurrentUserDetails;
 
-      const getItems = await getAllItems();
-      console.log("🚀 ~ file: WorkOrderController.js ~ line 104 ~ addWorkOrderQuotation ~ getItems", getItems)
-      if (!getItems)
-      return res.status(400).json({ message: "Items not found!" });
 
       return res.render("workOrderEstimate", { res: res });
     } else if (req.method === "POST") {
       console.log("2323232");
     }
-  } catch (error) {}
+  } catch (error){
+  console.log("🚀 ~ file: WorkOrderController.js ~ line 114 ~ addWorkOrderQuotation ~ error", error)
+  }
 };
 
 module.exports = {

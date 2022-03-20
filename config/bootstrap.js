@@ -39,18 +39,18 @@ Item.findOne({ itemName: "Borewell Digging" }).exec(async function (
 ) {
   if (!findFirstItem) {
     await Item.insertMany([
-      { itemName: "Borewell Digging" },
-      { itemName: "Casing Pipe" },
-      { itemName: "Submersible Pump" },
-      { itemName: "Complete Fitting Equipments" },
-      { itemName: "Gravel" },
-      { itemName: "Yellow Soil" },
-      { itemName: "Boring Pit by JCB" },
-      { itemName: "Fitting charges" },
-      { itemName: "Water tankers" },
-      { itemName: "Pipe Slotting Charges" },
-      { itemName: "Transportation Charges" },
-      { itemName: "Other/Miscellaneous Charges" },
+      { itemName: "Borewell Digging", rate: 150},
+      { itemName: "Casing Pipe", rate: 150 },
+      { itemName: "Submersible Pump",rate: 150 },
+      { itemName: "Complete Fitting Equipments",rate: 150 },
+      { itemName: "Gravel",rate: 150},
+      { itemName: "Yellow Soil",rate: 150 },
+      { itemName: "Boring Pit by JCB",rate: 150 },
+      { itemName: "Fitting charges",rate: 150 },
+      { itemName: "Water tankers",rate: 150 },
+      { itemName: "Pipe Slotting Charges",rate: 150 },
+      { itemName: "Transportation Charges",rate: 150 },
+      { itemName: "Other/Miscellaneous Charges",rate: 150 },
     ]);
   }
 });
