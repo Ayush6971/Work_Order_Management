@@ -58,7 +58,7 @@ const getAllQuotationItems = async (req, res) => {
     };
   });
   
-  return res.json({ status: true, getAllItems });
+  return res.status(200).json({ status: true, getAllItems });
 };
 
 module.exports = {

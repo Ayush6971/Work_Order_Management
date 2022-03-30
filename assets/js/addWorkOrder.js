@@ -12,8 +12,9 @@ function addWorkOrderBasic(event) {
     url: "/addWorkOrderBasic",
     data: { workOrderBasicForm },
     success: function (response) {
+    console.log("🚀 ~ file: addWorkOrder.js ~ line 15 ~ addWorkOrderBasic ~ response", response)
       hide_loader();
-      window.location.href = "/addWorkOrderQuotation";
+      // window.location.href = "/addWorkOrderQuotation";
     },
     error: function (response) {
       hide_loader();
@@ -36,7 +37,7 @@ function loadQuotationGrid() {
     <thead class="thead-dark">
     <tr>
     <th style="width: 5% !important;height: 32px !important;">##</th>
-                  <th style="width: 30% !important;height: 32px !important;">Description</th>
+                  <th style="width: 35% !important;height: 32px !important;">Description</th>
                   <th style="width: 10% !important;height: 32px !important;">Rate</th>
                   <th style="width: 10% !important;height: 32px !important;">Quantity</th>
                   <th style="width: 20% !important;height: 32px !important;">Amount</th>
@@ -48,10 +49,11 @@ function loadQuotationGrid() {
         <td name="itemID" data-itemID="${ele.itemID}"><input type="checkbox"></td>
             <td name="itemName"><b>${ele.itemName}</b></td>
             <td name="itemRate">${ele.itemRate}</td>
-            <td name="quantity"></td>
-            <td name="amount"></td>
+            <td name="quantity"><input type="text"/></td>
+            <td name="amount"><input type="text"/></td>
             </tr>`;
       });
+      tableDivs += `<tr><td colspan='4' class="totalText">TOTAL</td><td><input type="text"/></td></tr>`
       tableDivs += `</tbody></table>`;
       $("#loadQuotationGrid").append(`${tableDivs}`);
     },
@@ -62,24 +64,27 @@ function loadQuotationGrid() {
 function submitWorkOrderQuotation(event) {
   event.preventDefault();
   $("button[name='workOrderQuotationSubmitBtn']").attr("disabled", "disabled");
-  // show_loader();
 
-  const addWorkOrderQuotationForm = []
-  $('#quotationGrid tbody tr').each(function(row, tr) {
+  show_loader();
+  const addWorkOrderQuotationForm = [];
 
+  $("#quotationGrid tbody tr").each(function (row, tr) {
     $(tr).each(function () {
-
       addWorkOrderQuotationForm.push({
-        isChecked: $(this).find('input').val(),
-        itemID: $(this).find('td:eq(0)').data('itemid'),
-        itemName: $(this).find('td:eq(1)').text(),
-        rate: $(this).find('td:eq(2)').text(),
-        quantity:$(this).find('td:eq(3)').text(),
-        amount: $(this).find('td:eq(4)').text()
+        isChecked: $(this).find("input").val(),
+        itemID: $(this).find("td:eq(0)").data("itemid"),
+        itemName: $(this).find("td:eq(1)").text(),
+        rate: $(this).find("td:eq(2)").text(),
+        quantity: $(this).find("td:eq(3)").text(),
+        amount: $(this).find("td:eq(4)").text(),
       });
-      console.log("🚀 ~ file: addWorkOrder.js ~ line 80 ~ addWorkOrderQuotationForm", addWorkOrderQuotationForm)
-    })
+    });
   });
+
+  console.log(
+    "🚀 ~ file: addWorkOrder.js ~ line 80 ~ addWorkOrderQuotationForm",
+    addWorkOrderQuotationForm
+  );
 }
 
 $(() => {

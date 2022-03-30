@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const autoIncrement = require("mongoose-auto-increment");
 
 const workOrderSchema = new mongoose.Schema(
   {
@@ -25,7 +24,7 @@ const workOrderSchema = new mongoose.Schema(
       maxlength: 10,
     },
     advanceAmount: {
-      type: Number,
+      type: String,
       // required: true,
     },
     workOrderDate: {
@@ -38,11 +37,3 @@ const workOrderSchema = new mongoose.Schema(
 
 
 module.exports = mongoose.model("Work Order", workOrderSchema);
-
-autoIncrement.initialize(mongoose.connection)
-workOrderSchema.plugin(autoIncrement.plugin, {
-  model: "workOrder",
-  field: "workOrderNumber",
-  startAt: 001,
-  incrementBy: 1,
-});

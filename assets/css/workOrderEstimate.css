@@ -100,7 +100,31 @@
     font-size: 20px;
   }
 
-  .quotationGrid{
+  .quotationGrid {
     width: 100%;
+  }
+
+  .totalText {
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+  }
+
+  .estimateFooter {
+    border-top: 2px solid cornflowerblue;
+  }
+
+  .left {
+    color: cornflowerblue;
+    width: 66%;
+  }
+
+  .right {
+    color: cornflowerblue;
+    padding-right: 10px;
+    padding-top: 35px;
+    text-align: right;
+    float:right;
+    width:34%;
   }
 }

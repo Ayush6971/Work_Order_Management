@@ -69,7 +69,7 @@ const addWorkOrderBasic = async (req, res) => {
       workOrderDate,
     });
     if (createWorkOrderBasic) {
-      return res.status(200).json({ message: "Work Order Basic Added." });
+      return res.status(200).json({ message: "Work Order Basic Added.", workOrderID: createWorkOrder._id });
     } else
       return res
         .status(400)
