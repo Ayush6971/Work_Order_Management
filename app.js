@@ -6,7 +6,6 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const session = require("express-session");
-const autoIncrement = require("mongoose-auto-increment");
 
 // Passport Config
 require("./config/passport");

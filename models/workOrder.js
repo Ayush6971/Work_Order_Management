@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
-
+const autoIncrement = require("mongoose-sequence")(mongoose);
 const workOrderSchema = new mongoose.Schema(
   {
-    workOrderNumber: {
+    estimateNumber: {
       type: Number,
+    },
+    firstName: {
+      type: String,
       required: true,
     },
-    name: {
+    lastName: {
       type: String,
       required: true,
     },
@@ -35,5 +38,6 @@ const workOrderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+workOrderSchema.plugin(autoIncrement, { id: "estimateNumber_sequence", inc_field: 'estimateNumber' })
 
 module.exports = mongoose.model("Work Order", workOrderSchema);

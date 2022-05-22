@@ -1,3 +1,18 @@
+function addWorkOrderEstimateGet(workOrderId) {
+  $.ajax({
+    type: "GET",
+    url: "/addWorkOrderEstimate",
+    data: { workOrderId },
+    success: function (response, xhr) {
+      hide_loader();
+    },
+    error: function (response) {
+      hide_loader();
+      notifyMessages("error", "Error", `${response.responseJSON.message}`);
+    },
+  });
+}
+
 function addWorkOrderBasic(event) {
   event.preventDefault();
   $("button[name='workOrderBasicSubmitBtn']").attr("disabled", "disabled");
@@ -12,9 +27,8 @@ function addWorkOrderBasic(event) {
     url: "/addWorkOrderBasic",
     data: { workOrderBasicForm },
     success: function (response) {
-    console.log("🚀 ~ file: addWorkOrder.js ~ line 15 ~ addWorkOrderBasic ~ response", response)
       hide_loader();
-      // window.location.href = "/addWorkOrderQuotation";
+      window.location.href = "/addWorkOrderEstimate?workOrderId=" + response.workOrderId
     },
     error: function (response) {
       hide_loader();
@@ -53,11 +67,11 @@ function loadQuotationGrid() {
             <td name="amount"><input type="text"/></td>
             </tr>`;
       });
-      tableDivs += `<tr><td colspan='4' class="totalText">TOTAL</td><td><input type="text"/></td></tr>`
+      tableDivs += `<tr><td colspan='4' class="totalText">TOTAL</td><td><input type="text"/></td></tr>`;
       tableDivs += `</tbody></table>`;
       $("#loadQuotationGrid").append(`${tableDivs}`);
     },
-    error: function (response) {},
+    error: function (response) { },
   });
 }
 

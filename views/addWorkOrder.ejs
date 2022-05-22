@@ -15,15 +15,29 @@
         id="addWorkOrderBaiscForm"
         onsubmit="addWorkOrderBasic(event)"
       >
-        <div class="form-group">
-          <label for="Name">Name</label>
+      <div class="form-group">
+      <div class="row m-0">
+          <div class="col-6 nameInput">
+          <label for="firstName">First Name</label>
           <input
-            name="name"
+            name="firstName"
             type="text"
             class="form-control"
-            placeholder="Enter Name"
+            placeholder="Enter First Name"
           />
         </div>
+        <div class="col-6 nameInput">
+          <label for="Name">Last Name</label>
+          <input
+            name="lastName"
+            type="text"
+            class="form-control"
+            placeholder="Enter Last Name"
+          />
+      </div>
+      </div>
+      </div>
+
         <div class="form-group">
           <label for="presentAddress">Present Address</label>
           <input

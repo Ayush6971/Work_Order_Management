@@ -8,8 +8,8 @@
 
   <body>
     <header><%- include('./partials/header') %></header>
-    <div class="workOrderEstimateForm"> 
-      <h2>QUOTATION</h2>
+    <div class="workOrderEstimateForm">
+      <h2>ESTIMATE</h2>
       <div class="container">
         <p class="blessings">!! Jai Mata Di !!</p>
         <div class="esitmateTitle">
@@ -18,37 +18,55 @@
           </div>
           <div class="col-md-8">
             <h2 class="esitmateTitle-h2">UMANG BOREWELL</h2>
-            <p class="details">Deal in all types of Tube Well work.<br> 
-              Contact for digging tube wells at plots, houses and farms at reasonable rates <br></p>
-            <p class="myAddress"> <b>Address:</b> Madan Colony, Sadar Bazar, Narmadapuram (M.P.)</p>
+            <p class="details">
+              Deal in all types of Tube Well work.<br />
+              Contact for drilling tube wells at plots, houses and farms at
+              reasonable rates <br />
+            </p>
+            <p class="myAddress">
+              <b>Address:</b> Madan Colony, Sadar Bazar, Narmadapuram (M.P.)
+            </p>
           </div>
         </div>
         <div class="estimateDetails">
-          <div class="serialNo"><h4>Quotation Number:</h4></div>
-          <div class="quotationHeading"><h4>QUOTATION</h4></div>
-          <div class="quotationDate"><h4>Date: </h4></div>
+          <div class="serialNo">
+            <h4>
+              Estimate Number:&nbsp;&nbsp;<%= workOrderDetails.estimateNumber%>
+            </h4>
+          </div>
+          <div class="quotationHeading"><h4>ESTIMATE</h4></div>
+          <div class="quotationDate"><h4>Date:</h4></div>
         </div>
-        <div class="customerName"><h4>Customer Name: </h4></div>
-        <form onsubmit="submitWorkOrderQuotation(event)"
-        id="addWorkOrderQuotationForm"
+        <div class="customerName">
+          <h4>
+            Customer Name:&nbsp;&nbsp;<%= workOrderDetails.firstName%> <%=
+            workOrderDetails.lastName%>
+          </h4>
+        </div>
+        <form
+          onsubmit="submitWorkOrderQuotation(event)"
+          id="addWorkOrderQuotationForm"
         >
-        <div class="quotationGrid" id="loadQuotationGrid">
-        </div>
-      </form>
-      <div class="estimateFooter">
-        <div class="right"><h4>Prop. Banti Sahu</h4></div>
+          <div class="quotationGrid" id="loadQuotationGrid"></div>
+        </form>
+        <div class="estimateFooter">
+          <div class="right"><h4>Prop. Banti Sahu</h4></div>
 
-        <div class="left"><p><b>NOTE: 50% advance will have to be given before boring.</b> </p>
-        <h5>Contact Number: 9755378758, 9827550029</h5></div>
+          <div class="left">
+            <p>
+              <b>NOTE: 50% advance will have to be paid before work order.</b>
+            </p>
+            <h5>Contact Number: 9755378758, 9827550029</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="addWorkOrderButton" id="workOrderQuotationSubmitBtn">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Submit
+        </button>
       </div>
     </div>
-  
-    <div class="addWorkOrderButton" id="workOrderQuotationSubmitBtn">
-      <button type="submit" class="btn btn-primary">
-        <i class="fas fa-paper-plane"></i> Submit
-      </button>
-    </div>
-  </div>
     <footer><%- include('./partials/footer') %></footer>
   </body>
 </html>

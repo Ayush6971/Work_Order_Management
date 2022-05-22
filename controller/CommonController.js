@@ -2,6 +2,7 @@ const user = require("../models/user");
 const role = require("../models/role");
 const workOrder = require("../models/workOrder");
 const items = require("../models/item");
+
 const userInsertOne = async (userObject) => {
   return await user.create(userObject);
 };
@@ -24,8 +25,8 @@ const roleFindll = async () => {
   return await role.find();
 };
 
-const getCurrentUserDetails = async (userId, populate) => {
-  const findCurrentUser = await userFindOne({ _id: userId }, populate);
+const getCurrentUserDetails = async (_id, populate) => {
+  const findCurrentUser = await userFindOne({ _id }, populate);
   if (!findCurrentUser) return "user not found!";
   let profile = {
     firstName: findCurrentUser.firstName,
@@ -57,9 +58,17 @@ const getAllQuotationItems = async (req, res) => {
       itemRate: itemData.rate
     };
   });
-  
+
   return res.status(200).json({ status: true, getAllItems });
 };
+
+const getWorkOrderDetails = async (_id) => {
+  return await workOrder.findOne({ _id })
+}
+
+const capitalizeFirstLetter = async (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 module.exports = {
   userFindOne,
@@ -70,4 +79,6 @@ module.exports = {
   validateEmail,
   createWorkOrder,
   getAllQuotationItems,
+  getWorkOrderDetails,
+  capitalizeFirstLetter
 };
