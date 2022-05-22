@@ -49,7 +49,7 @@ const createWorkOrder = async (createObject) => {
   return await workOrder.create(createObject);
 };
 
-const getAllQuotationItems = async (req, res) => {
+const getAllEstimateItems = async () => {
   let getAllItems = await items.find();
   getAllItems = getAllItems.map((itemData) => {
     return {
@@ -59,7 +59,7 @@ const getAllQuotationItems = async (req, res) => {
     };
   });
 
-  return res.status(200).json({ status: true, getAllItems });
+  return getAllItems;
 };
 
 const getWorkOrderDetails = async (_id) => {
@@ -78,7 +78,7 @@ module.exports = {
   getCurrentUserDetails,
   validateEmail,
   createWorkOrder,
-  getAllQuotationItems,
+  getAllEstimateItems,
   getWorkOrderDetails,
   capitalizeFirstLetter
 };

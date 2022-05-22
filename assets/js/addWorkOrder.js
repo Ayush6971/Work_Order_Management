@@ -41,7 +41,7 @@ function loadQuotationGrid() {
   show_loader();
   $.ajax({
     type: "GET",
-    url: "/getAllQuotationItems",
+    url: "/getAllItems",
     data: null,
     success: function (response) {
       $("#loadQuotationGrid").empty();
@@ -94,11 +94,6 @@ function submitWorkOrderQuotation(event) {
       });
     });
   });
-
-  console.log(
-    "🚀 ~ file: addWorkOrder.js ~ line 80 ~ addWorkOrderQuotationForm",
-    addWorkOrderQuotationForm
-  );
 }
 
 $(() => {
