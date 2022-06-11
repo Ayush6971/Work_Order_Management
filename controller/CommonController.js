@@ -49,13 +49,16 @@ const createWorkOrder = async (createObject) => {
   return await workOrder.create(createObject);
 };
 
-const getAllEstimateItems = async () => {
+const getEstimateItems = async () => {
   let getAllItems = await items.find();
+  let i = 1;
   getAllItems = getAllItems.map((itemData) => {
     return {
+      serialNumber: i++,
       itemID: itemData._id,
       itemName: itemData.itemName,
-      itemRate: itemData.rate
+      itemRate: itemData.rate,
+      isDisabled: itemData.isDisabled,
     };
   });
 
@@ -78,7 +81,7 @@ module.exports = {
   getCurrentUserDetails,
   validateEmail,
   createWorkOrder,
-  getAllEstimateItems,
+  getEstimateItems,
   getWorkOrderDetails,
   capitalizeFirstLetter
 };

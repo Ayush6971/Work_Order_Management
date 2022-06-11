@@ -19,7 +19,7 @@ const getAddWorkOrder = async (req, res) => {
       return res.status(400).json({ message: "User not found!" });
 
     res.profile = findCurrentUserDetails;
-    return res.render("addWorkOrder", { res: res });
+    return res.render("addWorkOrder", { res });
   } catch (error) {
     console.log(
       "🚀 ~ file: WorkOrderController.js ~ line 22 ~ getAddWorkOrder ~ error",
@@ -117,7 +117,7 @@ const addWorkOrderEstimateGet = async (req, res) => {
 
     const findWorkOrderDetails = await getWorkOrderDetails(workOrderId)
 
-    return res.render("workOrderEstimate", { res: res, workOrderDetails: findWorkOrderDetails });
+    return res.render("workOrderEstimate", { res, workOrderDetails: findWorkOrderDetails });
 
   } catch (error) {
     console.log(

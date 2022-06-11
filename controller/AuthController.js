@@ -11,7 +11,7 @@ const dashboard = async (req, res) => {
     );
     res.profile = findCurrentUserDetails;
 
-    return res.render("dashboard", { res: res });
+    return res.render("dashboard", { res });
   } catch (error) {
     console.error(
       "🚀 ~ file: AuthController.js ~ line 29 ~ login ~ error",

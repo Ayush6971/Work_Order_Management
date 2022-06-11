@@ -1,0 +1,13 @@
+@media screen and (max-width: 2560px) {
+  .manageItems {
+    margin: 3% 15%;
+  }
+  .manageItems h2 {
+    font-weight: 800;
+    color: #de6262;
+  }
+  .container {
+    background: white;
+    border: 3px solid cornflowerblue;
+  }
+}

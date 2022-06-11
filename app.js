@@ -59,7 +59,7 @@ require("./routes/r-index")(app);
 require('nodemailer');
 
 app.get("/", (req, res) => {
-  res.render("login", { res: res });
+  res.render("login", { res });
 });
 
 app.listen(PORT, () => {

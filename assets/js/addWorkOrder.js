@@ -38,10 +38,11 @@ function addWorkOrderBasic(event) {
 }
 
 function loadQuotationGrid() {
+  console.log("Loading Quotation")
   show_loader();
   $.ajax({
     type: "GET",
-    url: "/getAllItems",
+    url: "/items/getAllItems",
     data: null,
     success: function (response) {
       $("#loadQuotationGrid").empty();
@@ -71,7 +72,9 @@ function loadQuotationGrid() {
       tableDivs += `</tbody></table>`;
       $("#loadQuotationGrid").append(`${tableDivs}`);
     },
-    error: function (response) { },
+    error: function (response) {
+      console.log("🚀 ~ file: addWorkOrder.js ~ line 77 ~ loadQuotationGrid ~ response", response)
+    }
   });
 }
 

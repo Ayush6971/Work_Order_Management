@@ -37,7 +37,7 @@ const getAddUser = async (req, res) => {
         };
       });
 
-    return res.render("addUser", { roles: findAllRoles, res: res });
+    return res.render("addUser", { roles: findAllRoles, res });
   } catch (error) {
     console.error(
       "🚀 ~ file: UserController.js ~ line 22 ~ getAddUser ~ error",
@@ -52,15 +52,15 @@ const postAddUser = async (req, res) => {
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
 
     const findCurrentUser = await userFindOne({ _id: currentUser._id });
-    if (!findCurrentUser) return res.status(400).json({message:"User not found!"});
+    if (!findCurrentUser) return res.status(400).json({ message: "User not found!" });
 
     const { firstName, lastName, phoneNo, email, role } = req.body.addUserForm;
 
     if (!firstName || !lastName || !phoneNo || !email || !role)
-      return res.status(400).json({message:"Please all mandatory fields!"});
+      return res.status(400).json({ message: "Please all mandatory fields!" });
 
     const checkUserExist = await userFindOne({ email, phoneNo });
-    if (checkUserExist) return res.status(400).json({message:"User already Exist!"});
+    if (checkUserExist) return res.status(400).json({ message: "User already Exist!" });
 
     let password = "user@123";
     let hashedPassword = await bcrypt.hash(password, 8);
@@ -99,7 +99,7 @@ const getMyProfile = async (req, res) => {
     res.profile = findCurrentUserDetails;
     return res.render("myProfile", {
       profileData: findCurrentUserDetails,
-      res: res,
+      res,
     });
   } catch (error) {
     console.error(

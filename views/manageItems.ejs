@@ -10,6 +10,30 @@
     <header><%- include('./partials/header') %></header>
     <div class="manageItems">
       <h2>MANAGE ITEMS</h2>
+      <div class="container">
+        <table id="quotationGrid" class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">S No.</th>
+              <th scope="col">Item Name</th>
+              <th scope="col">Item Rate</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <%itemsList.forEach((element)=>{%>
+          <tbody>
+            <tr>
+              <td name="serialName"><%=element.serialNumber%></td>
+              <td name="itemName"><b><%=element.itemName%></b></td>
+              <td name="itemRate"><%=element.itemRate%></td>
+              <td name="actions">
+                <i class="fa fa-edit"></i>&nbsp;&nbsp;<i class="fa fa-ban"></i>
+              </td>
+            </tr>
+          </tbody>
+          <%})%>
+        </table>
+      </div>
     </div>
     <footer><%- include('./partials/footer') %></footer>
   </body>
