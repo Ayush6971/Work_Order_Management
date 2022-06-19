@@ -1,4 +1,4 @@
-const { getEstimateItems, getCurrentUserDetails } = require("./CommonController");
+const { getEstimateItems, getCurrentUserDetails, updateItems } = require("./CommonController");
 
 const getAllEstimateItems = async (req, res) => {
     const getAllItems = await getEstimateItems();
@@ -28,8 +28,30 @@ const getManageItems = async (req, res) => {
     }
 }
 
+const updateItem = async (req, res) => {
+    try {
+        const currentUser = req.user;
+        const { updateItemForm } = req.body;
+        console.log("🚀 ~ file: ItemsController.js ~ line 35 ~ updateItemForm ~ updateItemForm", updateItemForm)
+        if (!currentUser) return res.status(400).json({ message: "Please login!" });
+
+        const findCurrentUserDetails = await getCurrentUserDetails(
+            currentUser._id,
+            "role"
+        );
+        res.profile = findCurrentUserDetails;
+        const { itemId, itemName, itemRate } = updateItemForm;
+        const updateItemResult = await updateItems(itemId, { itemName, itemRate })
+        console.log("🚀 ~ file: ItemsController.js ~ line 45 ~ updateItem ~ updateItem", updateItemResult)
+
+    } catch (error) {
+        console.error("🚀 ~ file: ItemsController.js ~ line 21 ~ updateItem ~ error", error)
+    }
+}
+
 
 module.exports = {
     getManageItems,
-    getAllEstimateItems
+    getAllEstimateItems,
+    updateItem
 }

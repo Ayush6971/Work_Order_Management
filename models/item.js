@@ -1,15 +1,11 @@
 const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
-    itemNumber: {
-        type: Number,
-        // required: true
-    },
     itemName: {
         type: String,
         required: true
     },
-    rate: {
+    itemRate: {
         type: String,
         required: true,
     },

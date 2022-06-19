@@ -33,3 +33,8 @@ function notifyMessages(type, title, message, delay = 3500) {
     template: '<div class="notify"><div class="notify-text"></div></div>'
   });
 }
+
+function closeModal() {
+  $('.modal').fadeOut(300);
+  $(".modal-backdrop").remove();
+}

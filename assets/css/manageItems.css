@@ -23,4 +23,11 @@
     background-color: peachpuff;
     font-weight: 500;
   }
+  a {
+    color: black;
+  }
+  #submit-btn-editItems {
+    float: right;
+    margin: 15px 0;
+  }
 }

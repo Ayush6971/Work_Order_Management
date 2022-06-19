@@ -34,18 +34,18 @@ async function createInitialData() {
     = await getItemByName("Borewell Digging");
   if (!findFirstItem) {
     await item.insertMany([
-      { itemName: "Borewell Digging", rate: 150 },
-      { itemName: "Casing Pipe", rate: 150 },
-      { itemName: "Submersible Pump", rate: 150 },
-      { itemName: "Complete Fitting Equipments", rate: 150 },
-      { itemName: "Gravel", rate: 150 },
-      { itemName: "Yellow Soil", rate: 150 },
-      { itemName: "Boring Pit by JCB", rate: 150 },
-      { itemName: "Fitting charges", rate: 150 },
-      { itemName: "Water tankers", rate: 150 },
-      { itemName: "Pipe Slotting Charges", rate: 150 },
-      { itemName: "Transportation Charges", rate: 150 },
-      { itemName: "Other/Miscellaneous Charges", rate: 150 },
+      { itemName: "Borewell Digging", itemRate: 150 },
+      { itemName: "Casing Pipe", itemRate: 150 },
+      { itemName: "Submersible Pump", itemRate: 150 },
+      { itemName: "Complete Fitting Equipments", itemRate: 150 },
+      { itemName: "Gravel", itemRate: 150 },
+      { itemName: "Yellow Soil", itemRate: 150 },
+      { itemName: "Boring Pit by JCB", itemRate: 150 },
+      { itemName: "Fitting charges", itemRate: 150 },
+      { itemName: "Water tankers", itemRate: 150 },
+      { itemName: "Pipe Slotting Charges", itemRate: 150 },
+      { itemName: "Transportation Charges", itemRate: 150 },
+      { itemName: "Other/Miscellaneous Charges", itemRate: 150 },
     ]);
   }
 

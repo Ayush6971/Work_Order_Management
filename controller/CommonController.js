@@ -57,7 +57,7 @@ const getEstimateItems = async () => {
       serialNumber: i++,
       itemId: itemData._id,
       itemName: itemData.itemName,
-      itemRate: itemData.rate,
+      itemRate: itemData.itemRate,
       isDisabled: itemData.isDisabled,
       itemCategories: itemData.itemCategories || null,
     };
@@ -78,14 +78,23 @@ const getItemByName = async (itemName) => {
   return await item.findOne({ itemName })
 }
 
+const getItemById = async (_id) => {
+  return await item.findOne({ _id })
+}
+
 const getItemCategoryByName = async (itemCategoryName) => {
   return await itemCategories.findOne({ itemCategoryName })
 }
 
 const createItemCategory = async (itemId, itemCategoryName, itemCategoryRate) => {
   const createItemCategory = await itemCategories.create({ itemId, itemCategoryName, itemCategoryRate })
-  const getdata = await item.updateOne({ _id: itemId },
+  return await item.findByIdAndUpdate({ _id: itemId },
     { $push: { itemCategories: createItemCategory.id } }, { new: true, upsert: true })
+}
+
+const updateItems = async (_id, updateObject) => {
+  console.log("🚀 ~ file: CommonController.js ~ line 96 ~ updateItems ~ updateObject", updateObject)
+  return await item.findByIdAndUpdate({ _id }, updateObject, { new: true, upsert: true });
 }
 
 module.exports = {
@@ -101,5 +110,7 @@ module.exports = {
   capitalizeFirstLetter,
   getItemByName,
   getItemCategoryByName,
-  createItemCategory
+  createItemCategory,
+  updateItems,
+  getItemById
 };
