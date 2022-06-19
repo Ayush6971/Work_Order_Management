@@ -1,8 +1,8 @@
 const user = require("../models/user");
 const role = require("../models/role");
 const workOrder = require("../models/workOrder");
-const items = require("../models/item");
-
+const item = require("../models/item");
+const itemCategories = require("../models/itemCategories");
 const userInsertOne = async (userObject) => {
   return await user.create(userObject);
 };
@@ -50,15 +50,16 @@ const createWorkOrder = async (createObject) => {
 };
 
 const getEstimateItems = async () => {
-  let getAllItems = await items.find();
+  let getAllItems = await item.find().populate('itemCategories');
   let i = 1;
   getAllItems = getAllItems.map((itemData) => {
     return {
       serialNumber: i++,
-      itemID: itemData._id,
+      itemId: itemData._id,
       itemName: itemData.itemName,
       itemRate: itemData.rate,
       isDisabled: itemData.isDisabled,
+      itemCategories: itemData.itemCategories || null,
     };
   });
 
@@ -70,7 +71,21 @@ const getWorkOrderDetails = async (_id) => {
 }
 
 const capitalizeFirstLetter = async (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return await string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const getItemByName = async (itemName) => {
+  return await item.findOne({ itemName })
+}
+
+const getItemCategoryByName = async (itemCategoryName) => {
+  return await itemCategories.findOne({ itemCategoryName })
+}
+
+const createItemCategory = async (itemId, itemCategoryName, itemCategoryRate) => {
+  const createItemCategory = await itemCategories.create({ itemId, itemCategoryName, itemCategoryRate })
+  const getdata = await item.updateOne({ _id: itemId },
+    { $push: { itemCategories: createItemCategory.id } }, { new: true, upsert: true })
 }
 
 module.exports = {
@@ -83,5 +98,8 @@ module.exports = {
   createWorkOrder,
   getEstimateItems,
   getWorkOrderDetails,
-  capitalizeFirstLetter
+  capitalizeFirstLetter,
+  getItemByName,
+  getItemCategoryByName,
+  createItemCategory
 };

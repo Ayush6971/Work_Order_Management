@@ -20,21 +20,92 @@
               <th scope="col">Actions</th>
             </tr>
           </thead>
-          <%itemsList.forEach((element)=>{%>
+          <%if(itemsList.length){ itemsList.forEach((element)=>{%>
           <tbody>
             <tr>
               <td name="serialName"><%=element.serialNumber%></td>
-              <td name="itemName"><b><%=element.itemName%></b></td>
+              <td name="itemName">
+                <b class="tableData"><%=element.itemName%></b>
+                <%if(element.itemCategories.length){%>
+                <select class="form-select adjustSelect" name="role">
+                  <option selected><b>Select Item Category</b></option>
+                  <%element.itemCategories.forEach(function(itemCategory) {%>
+                  <option value="<%-itemCategory.id%>">
+                    <%=itemCategory.itemCategoryName%>
+                  </option>
+                  <%})%>
+                </select>
+                <%}%>
+              </td>
               <td name="itemRate"><%=element.itemRate%></td>
               <td name="actions">
-                <i class="fa fa-edit"></i>&nbsp;&nbsp;<i class="fa fa-ban"></i>
+                <a href="#" data-itemId="<%-element.itemId%>" data-itemName="<%-element.itemName%>" data-itemRate="<%-element.itemRate%>" 
+                  data-itemCategories="<%-element.itemCategories%>" onclick="editItem(this);"><i class="fa fa-edit"></a></i>&nbsp;&nbsp;<i class="fa fa-ban"></i>
               </td>
             </tr>
           </tbody>
-          <%})%>
+          <%})}%>
         </table>
       </div>
     </div>
     <footer><%- include('./partials/footer') %></footer>
+
+    <div class="modal" tabindex="-1" role="dialog" id="editItemModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Item</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="" id="editItemForm">
+              <div class="form-group">
+                <input
+                name="itemId"
+                type="hidden"
+                id="itemId"
+              />
+                <label for="itemName">Item Name: </label>
+                <input
+                  name="itemName"
+                  type="text"
+                  class="form-control"
+                  id="itemName"
+                  placeholder="Enter Item Name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="itemRate">Item Rate: </label>
+                <input
+                  name="itemRate"
+                  type="text"
+                  class="form-control"
+                  id="itemRate"
+                  placeholder="Enter Item Rate"
+                />
+              </div>
+              <div class="form-group" id="itemCategory"></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

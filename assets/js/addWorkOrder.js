@@ -36,13 +36,24 @@ function addWorkOrderBasic(event) {
     },
   });
 }
-
+function loadItemCategories(itemCategories) {
+  console.log("🚀 ~ file: addWorkOrder.js ~ line 40 ~ loadItemCategories ~ itemCategories", itemCategories)
+  if (itemCategories.length) {
+    let appendSelect = `<select class="form-select adjustSelect" name="role">
+    <option selected><b>Select Item Category</b></option>`;
+    itemCategories.forEach(function (itemCategory) {
+      appendSelect += `<option value="${itemCategory.id}">${itemCategory.name}</option>`
+    })
+    appendSelect += `</select>`;
+  }
+  $('#itemName').append(appendSelect);
+}
 function loadQuotationGrid() {
-  console.log("Loading Quotation")
+  console.error("Loading Quotation")
   show_loader();
   $.ajax({
     type: "GET",
-    url: "/items/getAllItems",
+    url: "/getAllEstimateItems",
     data: null,
     success: function (response) {
       $("#loadQuotationGrid").empty();
@@ -59,11 +70,11 @@ function loadQuotationGrid() {
                   </tr>
                   </thead>
                   `;
-      response.getAllItems.forEach((ele) => {
+      response.getAllItems.forEach((element) => {
         tableDivs += `<tr>
-        <td name="itemID" data-itemID="${ele.itemID}"><input type="checkbox"></td>
-            <td name="itemName"><b>${ele.itemName}</b></td>
-            <td name="itemRate">${ele.itemRate}</td>
+        <td name="itemId" data-itemId="${element.itemId}"><input type="checkbox"></td>
+            <td name="itemName" id="itemName" window.onload="loadItemCategories(${element.itemCategories})"><b>${element.itemName}</b></td>
+            <td name="itemRate">${element.itemRate}</td>
             <td name="quantity"><input type="text"/></td>
             <td name="amount"><input type="text"/></td>
             </tr>`;
@@ -73,7 +84,7 @@ function loadQuotationGrid() {
       $("#loadQuotationGrid").append(`${tableDivs}`);
     },
     error: function (response) {
-      console.log("🚀 ~ file: addWorkOrder.js ~ line 77 ~ loadQuotationGrid ~ response", response)
+      console.error("🚀 ~ file: addWorkOrder.js ~ line 77 ~ loadQuotationGrid ~ response", response)
     }
   });
 }
@@ -89,7 +100,7 @@ function submitWorkOrderQuotation(event) {
     $(tr).each(function () {
       addWorkOrderQuotationForm.push({
         isChecked: $(this).find("input").val(),
-        itemID: $(this).find("td:eq(0)").data("itemid"),
+        itemId: $(this).find("td:eq(0)").data("itemid"),
         itemName: $(this).find("td:eq(1)").text(),
         rate: $(this).find("td:eq(2)").text(),
         quantity: $(this).find("td:eq(3)").text(),

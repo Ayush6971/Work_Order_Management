@@ -1,9 +1,8 @@
-const { ObjectID } = require("bson");
 const mongoose = require("mongoose");
 
 const estimateSchema = new mongoose.Schema({
   etimateId: {
-    type: ObjectID,
+    type: mongoose.Types.ObjectId,
     ref: "Estimate",
   },
   total: {

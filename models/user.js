@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { ObjectID } = require("bson");
 
 const userSchema = new mongoose.Schema(
   {
@@ -32,7 +31,7 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
     },
     role: {
-      type: ObjectID,
+      type: mongoose.Types.ObjectId,
       ref: "Role",
     },
     isBlocked: {
@@ -40,12 +39,12 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    emailResetToken:{
+    emailResetToken: {
       type: String,
       trim: true,
       default: null
     },
-    passwordResetToken:{
+    passwordResetToken: {
       type: String,
       trim: true,
       default: null

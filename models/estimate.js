@@ -1,14 +1,13 @@
-const { ObjectID } = require("bson");
 const mongoose = require("mongoose");
 
 const estimateSchema = new mongoose.Schema(
   {
     workOrderId: {
-      type: ObjectID,
-      ref: "workOrder",
+      type: mongoose.Types.ObjectId,
+      ref: "WorkOrder",
     },
     itemId: {
-      type: ObjectID,
+      type: mongoose.Types.ObjectId,
       ref: "Item",
     },
     itemDescription: {

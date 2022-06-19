@@ -17,7 +17,11 @@ const itemSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: true
-    }
+    },
+    itemCategories: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'ItemCategories',
+    }]
 }, { timestamps: true });
 
 module.exports = mongoose.model("Item", itemSchema);

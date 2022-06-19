@@ -19,9 +19,9 @@ mongoose.connect(
   },
   (err) => {
     if (!err) {
-      console.log("Successfully Established Connection with MongoDB");
+      console.error("Successfully Established Connection with MongoDB");
     } else {
-      console.log(
+      console.error(
         "Failed to Establish Connection with MongoDB with Error: " + err
       );
     }
@@ -63,5 +63,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`App is Running at http://localhost:${PORT}`);
+  console.error(`App is Running at http://localhost:${PORT}`);
 });

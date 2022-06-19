@@ -3,6 +3,6 @@ const router = express.Router();
 const { getManageItems, getAllEstimateItems } = require("../controller/ItemsController")
 
 router.get('/getManageItems', getManageItems);
-router.get('/getAllItems', getAllEstimateItems);
+router.get('/getAllEstimateItems', getAllEstimateItems);
 
 module.exports = router;

@@ -206,7 +206,7 @@ const resetEmailToken = async (req, res) => {
         .status(400)
         .json({ message: "Something Went Wrong! Please Try Again." });
   } catch (error) {
-    console.log(
+    console.error(
       "🚀 ~ file: UserController.js ~ line 168 ~ resetEmailToken ~ error",
       error
     );
@@ -254,7 +254,7 @@ const resetPassword = async (req, res) => {
         .status(400)
         .json({ message: "Something Went Wrong! Please Try Again." });
   } catch (error) {
-    console.log(
+    console.error(
       "🚀 ~ file: UserController.js ~ line 245 ~ resetPassword ~ error",
       error
     );

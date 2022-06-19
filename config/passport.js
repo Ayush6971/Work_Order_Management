@@ -24,7 +24,7 @@ passport.deserializeUser(function (_id, done) {
       }
     })
     .catch((err) => {
-      console.log("🚀 ~ file: passport.js ~ line 55 ~ userFindOne ~ err", err);
+      console.error("🚀 ~ file: passport.js ~ line 55 ~ userFindOne ~ err", err);
     });
 });
 

@@ -1,56 +1,83 @@
-const User = require("../models/user");
-const Item = require("../models/item");
-const Role = require("../models/role");
+const user = require("../models/user");
+const item = require("../models/item");
+const role = require("../models/role");
 const bcrypt = require("bcrypt");
-
-Role.findOne({ authority: "ROLE_ADMIN" }).exec(async function (err, foundRole) {
+const { getItemByName, userFindOne, getItemCategoryByName, createItemCategory } = require("../controller/CommonController");
+const itemCategories = require("../models/itemCategories");
+async function createInitialData() {
+  const foundRole = await role.findOne({ authority: "ROLE_SUPERADMIN" })
   if (!foundRole) {
-    await Role.insertMany([
+    await role.insertMany([
       { authority: "ROLE_CUSTOMER" },
       { authority: "ROLE_ADMIN" },
       { authority: "ROLE_SUPERADMIN" },
     ]);
   }
-});
 
-User.findOne({ phoneNo: "9406561244" }).exec(async function (
-  err,
-  findFirstUser
-) {
-  const findAdminRole = await Role.findOne({ authority: "ROLE_SUPERADMIN" });
+  const findFirstUser = await userFindOne({ phoneNo: "9406561244" });
   if (!findFirstUser) {
+    const findAdminRole = await role.findOne({ authority: "ROLE_SUPERADMIN" });
     let password = "admin@123";
     let hashedPassword = await bcrypt.hash(password, 8);
 
-    await User.create({
-        firstName: "Ayush",
-        lastName: "Sahu",
-        phoneNo: 9406561244,
-        password: hashedPassword,
-        email: "ayushsahu76@gmail.com",
-        role: findAdminRole._id,
-      });
+    await user.create({
+      firstName: "Ayush",
+      lastName: "Sahu",
+      phoneNo: 9406561244,
+      password: hashedPassword,
+      email: "ayushsahu76@gmail.com",
+      role: findAdminRole._id,
+    });
   }
-});
 
-Item.findOne({ itemName: "Borewell Digging" }).exec(async function (
-  err,
-  findFirstItem
-) {
+  const findFirstItem
+    = await getItemByName("Borewell Digging");
   if (!findFirstItem) {
-    await Item.insertMany([
-      { itemName: "Borewell Digging", rate: 150},
+    await item.insertMany([
+      { itemName: "Borewell Digging", rate: 150 },
       { itemName: "Casing Pipe", rate: 150 },
-      { itemName: "Submersible Pump",rate: 150 },
-      { itemName: "Complete Fitting Equipments",rate: 150 },
-      { itemName: "Gravel",rate: 150},
-      { itemName: "Yellow Soil",rate: 150 },
-      { itemName: "Boring Pit by JCB",rate: 150 },
-      { itemName: "Fitting charges",rate: 150 },
-      { itemName: "Water tankers",rate: 150 },
-      { itemName: "Pipe Slotting Charges",rate: 150 },
-      { itemName: "Transportation Charges",rate: 150 },
-      { itemName: "Other/Miscellaneous Charges",rate: 150 },
+      { itemName: "Submersible Pump", rate: 150 },
+      { itemName: "Complete Fitting Equipments", rate: 150 },
+      { itemName: "Gravel", rate: 150 },
+      { itemName: "Yellow Soil", rate: 150 },
+      { itemName: "Boring Pit by JCB", rate: 150 },
+      { itemName: "Fitting charges", rate: 150 },
+      { itemName: "Water tankers", rate: 150 },
+      { itemName: "Pipe Slotting Charges", rate: 150 },
+      { itemName: "Transportation Charges", rate: 150 },
+      { itemName: "Other/Miscellaneous Charges", rate: 150 },
     ]);
   }
-});
+
+
+  const getpvcPipeId = await getItemByName("Casing Pipe");
+  const getpvcPipeCategoryByName = await getItemCategoryByName("5 inch")
+  if (getpvcPipeId && !getpvcPipeCategoryByName) {
+    const itemCategoryArray = [
+      { itemId: getpvcPipeId._id, itemCategoryName: "5 inch", itemCategoryRate: 200 },
+      { itemId: getpvcPipeId._id, itemCategoryName: "6 inch", itemCategoryRate: 220 },
+      { itemId: getpvcPipeId._id, itemCategoryName: "7 inch", itemCategoryRate: 240 },
+      { itemId: getpvcPipeId._id, itemCategoryName: "8 inch", itemCategoryRate: 280 }
+    ]
+    itemCategoryArray.forEach(data => {
+      createItemCategory(data.itemId, data.itemCategoryName, data.itemCategoryRate)
+    })
+  }
+
+  const getSubmersibleId = await getItemByName("Submersible Pump");
+  const getSubmersibleCategoryByName = await getItemCategoryByName("Texmo 1hp")
+
+  if (getSubmersibleId && !getSubmersibleCategoryByName) {
+    const itemCategoryArray = [
+      { itemId: getSubmersibleId._id, itemCategoryName: "Texmo 1hp", itemCategoryRate: 10000 },
+      { itemId: getSubmersibleId._id, itemCategoryName: "Texmo 1.5hp", itemCategoryRate: 15000 },
+      { itemId: getSubmersibleId._id, itemCategoryName: "Texmo 2hp", itemCategoryRate: 20000 },
+    ]
+    itemCategoryArray.forEach(data => {
+      createItemCategory(data.itemId, data.itemCategoryName, data.itemCategoryRate)
+    })
+  }
+
+
+}
+createInitialData();
