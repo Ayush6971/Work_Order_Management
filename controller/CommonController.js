@@ -51,15 +51,13 @@ const createWorkOrder = async (createObject) => {
 
 const getEstimateItems = async () => {
   let getAllItems = await item.find().populate('itemCategories');
-  let i = 1;
   getAllItems = getAllItems.map((itemData) => {
     return {
-      serialNumber: i++,
       itemId: itemData._id,
       itemName: itemData.itemName,
       itemRate: itemData.itemRate,
       isDisabled: itemData.isDisabled,
-      itemCategories: itemData.itemCategories || null,
+      itemCategories: itemData.itemCategories.sort() || null,
     };
   });
 
@@ -91,9 +89,11 @@ const createItemCategory = async (itemId, itemCategoryName, itemCategoryRate) =>
   return await item.findByIdAndUpdate({ _id: itemId },
     { $push: { itemCategories: createItemCategory.id } }, { new: true, upsert: true })
 }
+const getAllItemCategoriesByItemId = async (itemId) => {
+  return await itemCategories.find({ itemId });
+}
 
 const updateItems = async (_id, updateObject) => {
-  console.log("🚀 ~ file: CommonController.js ~ line 96 ~ updateItems ~ updateObject", updateObject)
   return await item.findByIdAndUpdate({ _id }, updateObject, { new: true, upsert: true });
 }
 
@@ -112,5 +112,6 @@ module.exports = {
   getItemCategoryByName,
   createItemCategory,
   updateItems,
-  getItemById
+  getItemById,
+  getAllItemCategoriesByItemId
 };

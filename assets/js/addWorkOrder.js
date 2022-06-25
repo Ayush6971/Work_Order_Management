@@ -36,6 +36,7 @@ function addWorkOrderBasic(event) {
     },
   });
 }
+
 function loadItemCategories(itemCategories) {
   console.log("🚀 ~ file: addWorkOrder.js ~ line 40 ~ loadItemCategories ~ itemCategories", itemCategories)
   if (itemCategories.length) {
@@ -48,6 +49,7 @@ function loadItemCategories(itemCategories) {
   }
   $('#itemName').append(appendSelect);
 }
+
 function loadQuotationGrid() {
   console.error("Loading Quotation")
   show_loader();

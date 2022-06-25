@@ -6,9 +6,19 @@
     font-weight: 800;
     color: #de6262;
   }
-  .container {
+  .container-enabled {
     background: white;
     border: 3px solid cornflowerblue;
+  }
+  .container-disabled {
+    background: white;
+    border: 3px solid cornflowerblue;
+    margin: 20px 0;
+  }
+
+  .tableHeading {
+    text-align: center;
+    font-size: larger;
   }
 
   .tableData {
@@ -17,7 +27,7 @@
   }
 
   .adjustSelect {
-    width: 35%;
+    width: 40%;
     height: 35px;
     float: left;
     background-color: peachpuff;
@@ -26,8 +36,23 @@
   a {
     color: black;
   }
-  #submit-btn-editItems {
+
+  #submit-btn-updateItems {
     float: right;
     margin: 15px 0;
+  }
+
+  .disabled {
+    background-color: lightgray;
+  }
+
+  .actionButtons {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+
+  #itemCategories {
+    margin-top: 25px;
   }
 }

@@ -12,7 +12,7 @@ const itemSchema = new mongoose.Schema({
     isDisabled: {
         type: Boolean,
         required: true,
-        default: true
+        default: false
     },
     itemCategories: [{
         type: mongoose.Types.ObjectId,

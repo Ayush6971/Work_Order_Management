@@ -10,9 +10,14 @@
     <header><%- include('./partials/header') %></header>
     <div class="manageItems">
       <h2>MANAGE ITEMS</h2>
-      <div class="container">
+      <%if(enabledItems.length){ %>
+      <div class="container-enabled">
+                <!--Enabled Items-->
         <table id="quotationGrid" class="table table-bordered">
           <thead>
+            <tr>
+              <th colspan="4" class="tableHeading">Enabled Items</th>
+            </tr>
             <tr>
               <th scope="col">S No.</th>
               <th scope="col">Item Name</th>
@@ -20,7 +25,7 @@
               <th scope="col">Actions</th>
             </tr>
           </thead>
-          <%if(itemsList.length){ itemsList.forEach((element)=>{%>
+          <%enabledItems.forEach((element)=>{%>
           <tbody>
             <tr>
               <td name="serialName"><%=element.serialNumber%></td>
@@ -40,13 +45,58 @@
               <td name="itemRate"><%=element.itemRate%></td>
               <td name="actions">
                 <a href="#" data-itemId="<%-element.itemId%>" data-itemName="<%-element.itemName%>" data-itemRate="<%-element.itemRate%>" 
-                  data-itemCategories="[<%-element.itemCategories%>]" onclick="openEditItemModal(this);"><i class="fa fa-edit"></a></i>&nbsp;&nbsp;<i class="fa fa-ban"></i>
+                  onclick="openEditItemModal(this);"><i class="fa fa-edit"></a></i>&nbsp;&nbsp;
+                  <a href="#" data-itemId="<%-element.itemId%>" onclick="disableItem(this);"><i class="fa fa fa-times-circle"></i></a>
               </td>
             </tr>
           </tbody>
-          <%})}%>
+          <%})%>
+        </table>
+</div>
+<%}%>
+<%if(disabledItems.length){ %>
+<div class="container-disabled">
+
+        <!--Disabled Items-->
+        <table id="disabledItems" class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan="4" class="tableHeading">Disabled Items</th>
+            </tr>
+            <tr>
+              <th scope="col">S No.</th>
+              <th scope="col">Item Name</th>
+              <th scope="col">Item Rate</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <%disabledItems.forEach((element)=>{%>
+          <tbody>
+            <tr class="disabled">
+              <td name="serialName"><%=element.serialNumber%></td>
+              <td name="itemName">
+                <b class="tableData"><%=element.itemName%></b>
+                <%if(element.itemCategories.length){%>
+                <select class="form-select adjustSelect" name="role">
+                  <option selected><b>Select Item Category</b></option>
+                  <%element.itemCategories.forEach(function(itemCategory) {%>
+                  <option value="<%-itemCategory.id%>">
+                    <%=itemCategory.itemCategoryName%>
+                  </option>
+                  <%})%>
+                </select>
+                <%}%>
+              </td>
+              <td name="itemRate"><%=element.itemRate%></td>
+              <td name="actions">
+                  <a href="#" data-itemId="<%-element.itemId%>" onclick="enableItem(this);"><i class="fa fa-check-circle"></i></a>
+              </td>
+            </tr>
+          </tbody>
+          <%})%>
         </table>
       </div>
+      <%}%>
     </div>
     <footer><%- include('./partials/footer') %></footer>
 
@@ -92,9 +142,11 @@
                   placeholder="Enter Item Rate"
                 />
               </div>
-              <div class="form-group" id="itemCategory"></div>
-              <button type="submit" class="btn btn-primary" id="submit-btn-updateItems"><i class="fas fa-save"></i>&nbsp; Save changes</button>
-
+              <div class="form-group" id="itemCategories"></div>
+              <div class="actionButtons">
+              <button type="button" class="btn btn-primary" onclick="addItemCategory()"><i class="fas fa-plus"></i> Add Item Category</button>
+              <button type="submit" class="btn btn-success" id="submit-btn-updateItems"><i class="fas fa-save"></i>&nbsp; Save changes</button>
+            </div>
             </form>
           </div>
         </div>
