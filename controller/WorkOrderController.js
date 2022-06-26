@@ -2,7 +2,8 @@ const {
   getCurrentUserDetails,
   createWorkOrder,
   getWorkOrderDetails,
-  capitalizeFirstLetter
+  capitalizeFirstLetter,
+  getEstimateItems
 } = require("./CommonController");
 
 const getAddWorkOrder = async (req, res) => {
@@ -117,7 +118,9 @@ const addWorkOrderEstimateGet = async (req, res) => {
 
     const findWorkOrderDetails = await getWorkOrderDetails(workOrderId)
 
-    return res.render("workOrderEstimate", { res, workOrderDetails: findWorkOrderDetails });
+    const getAllItems = await getEstimateItems();
+
+    return res.render("workOrderEstimate", { res, workOrderDetails: findWorkOrderDetails, itemList: getAllItems });
 
   } catch (error) {
     console.error(

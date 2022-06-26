@@ -47,7 +47,64 @@
           onsubmit="submitWorkOrderQuotation(event)"
           id="addWorkOrderQuotationForm"
         >
-          <div class="quotationGrid" id="loadQuotationGrid"></div>
+          <%if(itemList.length){%>
+          <div class="quotationGrid" id="loadQuotationGrid">
+            <table id="quotationGrid" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 5% !important; height: 32px !important">
+                    ##
+                  </th>
+                  <th style="width: 50% !important; height: 32px !important">
+                    Description
+                  </th>
+                  <th style="width: 10% !important; height: 32px !important">
+                    Rate
+                  </th>
+                  <th style="width: 10% !important; height: 32px !important">
+                    Quantity
+                  </th>
+                  <th style="width: 10% !important; height: 32px !important">
+                    Amount
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <%itemList.forEach((element)=>{%>
+                <tr>
+                  <td name="itemId" data-itemId="<%-element.itemId%>">
+                    <input type="checkbox" />
+                  </td>
+                  <td name="itemName">
+                    <b
+                      class="<%-element.itemCategories.length ? 'tableData':''%>"
+                      ><%=element.itemName%></b
+                    >
+                    <%if(element.itemCategories.length){%>
+                    <select class="form-select adjustSelect" name="role">
+                      <option selected><b>Select Item Category</b></option>
+                      <%element.itemCategories.forEach(function(itemCategory)
+                      {%>
+                      <option value="<%-itemCategory.id%>">
+                        <%=itemCategory.itemCategoryName%>
+                      </option>
+                      <%})%>
+                    </select>
+                    <%}%>
+                  </td>
+                  <td name="itemRate"><%=element.itemRate%></td>
+                  <td name="quantity"><input type="text" /></td>
+                  <td name="amount"><input type="text" /></td>
+                </tr>
+                <%})%>
+                <tr>
+                  <td colspan="4" class="totalText">TOTAL</td>
+                  <td><input type="text" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <%}%>
         </form>
         <div class="estimateFooter">
           <div class="right"><h4>Prop. Banti Sahu</h4></div>
