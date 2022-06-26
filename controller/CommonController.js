@@ -80,6 +80,10 @@ const getItemById = async (_id) => {
   return await item.findOne({ _id })
 }
 
+const updateItems = async (_id, updateObject) => {
+  return await item.findByIdAndUpdate({ _id }, updateObject, { new: true, upsert: true });
+}
+
 const getItemCategoryByName = async (itemCategoryName) => {
   return await itemCategories.findOne({ itemCategoryName })
 }
@@ -93,8 +97,12 @@ const getAllItemCategoriesByItemId = async (itemId) => {
   return await itemCategories.find({ itemId });
 }
 
-const updateItems = async (_id, updateObject) => {
-  return await item.findByIdAndUpdate({ _id }, updateObject, { new: true, upsert: true });
+const updateItemCategories = async (_id, updateObject) => {
+  return await itemCategories.findByIdAndUpdate({ _id }, updateObject, { new: true, upsert: true })
+}
+
+const deleteItemCategories = async (_id) => {
+  return await itemCategories.findByIdAndDelete({ _id })
 }
 
 module.exports = {
@@ -113,5 +121,7 @@ module.exports = {
   createItemCategory,
   updateItems,
   getItemById,
-  getAllItemCategoriesByItemId
+  getAllItemCategoriesByItemId,
+  updateItemCategories,
+  deleteItemCategories
 };

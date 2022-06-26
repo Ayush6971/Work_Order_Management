@@ -144,8 +144,64 @@
               </div>
               <div class="form-group" id="itemCategories"></div>
               <div class="actionButtons">
-              <button type="button" class="btn btn-primary" onclick="addItemCategory()"><i class="fas fa-plus"></i> Add Item Category</button>
+              <button type="button" class="btn btn-primary addItemCategory" data-itemId="" onclick="openAddItemCategoryModal(this)"><i class="fas fa-plus"></i> Add Item Category</button>
               <button type="submit" class="btn btn-success" id="submit-btn-updateItems"><i class="fas fa-save"></i>&nbsp; Save changes</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="updateItemCategoryModal">
+      <div class="modal-dialog " role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Item Category</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              onclick="closeModal();"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="updateItemCategoryForm" onsubmit="updateItemCategory(event);">
+              <div class="form-group">
+                <input
+                name="itemId"
+                type="hidden"
+                id="itemIdCategoryModal"
+              />
+                <input
+                name="itemCategoryId"
+                type="hidden"
+                id="itemCategoryId"
+              />
+                <label for="itemCategoryName">Item Category Name: </label>
+                <input
+                  name="itemCategoryName"
+                  type="text"
+                  class="form-control"
+                  id="itemCategoryName"
+                  placeholder="Enter Item Category Name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="itemCategoryRate">Item Category Rate: </label>
+                <input
+                  name="itemCategoryRate"
+                  type="text"
+                  class="form-control"
+                  id="itemCategoryRate"
+                  placeholder="Enter Item Category Rate"
+                />
+              </div>
+              <div class="actionButtons">
+              <button type="submit" class="btn btn-success" id="submit-btn-updateItemCategories"><i class="fas fa-save"></i>&nbsp; Save changes</button>
             </div>
             </form>
           </div>
