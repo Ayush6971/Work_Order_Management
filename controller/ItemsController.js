@@ -80,8 +80,6 @@ const addItemCategory = async (req, res) => {
     try {
         const currentUser = req.user;
         const { addItemCategoryForm } = req.body;
-        console.log("🚀 ~ file: ItemsController.js ~ line 83 ~ addItemCategory ~ addItemCategoryForm", addItemCategoryForm)
-
         if (!currentUser) return res.status(400).json({ message: "Please login!" });
         const { itemId, itemCategoryName, itemCategoryRate } = addItemCategoryForm;
         const addItemCategoryResult = await createItemCategory(itemId, itemCategoryName, itemCategoryRate);

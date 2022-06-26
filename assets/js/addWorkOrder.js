@@ -38,7 +38,6 @@ function addWorkOrderBasic(event) {
 }
 
 function loadItemCategories(itemCategories) {
-  console.log("🚀 ~ file: addWorkOrder.js ~ line 40 ~ loadItemCategories ~ itemCategories", itemCategories)
   if (itemCategories.length) {
     let appendSelect = `<select class="form-select adjustSelect" name="role">
     <option selected><b>Select Item Category</b></option>`;
