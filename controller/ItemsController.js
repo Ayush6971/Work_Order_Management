@@ -1,4 +1,4 @@
-const { getEstimateItems, getCurrentUserDetails, updateItems, getAllItemCategoriesByItemId, updateItemCategories, deleteItemCategories, createItemCategory } = require("./CommonController");
+const { getEstimateItems, getCurrentUserDetails, updateItems, getAllItemCategoriesByItemId, updateItemCategories, deleteItemCategories, createItemCategory, getItemCategoryById } = require("./CommonController");
 
 const getAllEstimateItems = async (req, res) => {
     const getAllItems = await getEstimateItems();
@@ -133,6 +133,23 @@ const deleteItemCategory = async (req, res) => {
         console.error("🚀 ~ file: ItemsController.js ~ line 126 ~ deleteItemCategory ~ error", error)
     }
 }
+
+const getItemCategoryAmount = async (req, res) => {
+    try {
+
+        const currentUser = req.user;
+        if (!currentUser) return res.status(400).json({ message: "Please login!" });
+
+        const { itemCategoryId } = req.query;
+
+        const getItemCategoryDetails = await getItemCategoryById(itemCategoryId)
+        return res.status(200).json({ status: true, itemCategoryAmount: getItemCategoryDetails.itemCategoryRate });
+
+    } catch (error) {
+        console.error("🚀 ~ file: ItemsController.js ~ line 103 ~ getItemCategories ~ error", error)
+    }
+}
+
 module.exports = {
     getManageItems,
     getAllEstimateItems,
@@ -142,5 +159,6 @@ module.exports = {
     addItemCategory,
     getItemCategories,
     updateItemCategory,
-    deleteItemCategory
+    deleteItemCategory,
+    getItemCategoryAmount
 }

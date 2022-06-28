@@ -38,3 +38,27 @@ function closeModal() {
   $('.modal').fadeOut(300);
   $(".modal-backdrop").remove();
 }
+
+function getItemCategoriesAmount(_this) {
+  show_loader();
+  const itemCategoryId = _this.value;
+  $.ajax({
+    type: "GET",
+    url: "/itemCategoryAmount",
+    data: { itemCategoryId },
+    success: function (response) {
+      hide_loader();
+      $(_this).closest('td').next('td').text(response.itemCategoryAmount)
+      $(_this).closest('tr').find('#itemQuantity').attr('data-itemrate', response.itemCategoryAmount);
+    },
+    error: function (response) {
+      hide_loader();
+      Swal.fire({
+        icon: "error",
+        allowOutsideClick: false,
+        title: "OOPS! Something went Wrong",
+        text: `${response.responseJSON}`,
+      });
+    },
+  });
+}

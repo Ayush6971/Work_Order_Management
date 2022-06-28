@@ -57,3 +57,10 @@ function submitWorkOrderQuotation(event) {
     });
   });
 }
+
+function getAmount(_this) {
+  const quantity = $(_this).val();
+  const amount = $(_this).data('itemrate');
+  const total = amount * quantity;
+  $(_this).closest('td').next('td').find('input').val(total);
+}

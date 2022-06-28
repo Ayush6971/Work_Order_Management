@@ -87,6 +87,9 @@ const updateItems = async (_id, updateObject) => {
 const getItemCategoryByName = async (itemCategoryName) => {
   return await itemCategories.findOne({ itemCategoryName })
 }
+const getItemCategoryById = async (_id) => {
+  return await itemCategories.findOne({ _id });
+}
 
 const createItemCategory = async (itemId, itemCategoryName, itemCategoryRate) => {
   const createItemCategory = await itemCategories.create({ itemId, itemCategoryName, itemCategoryRate })
@@ -123,5 +126,6 @@ module.exports = {
   getItemById,
   getAllItemCategoriesByItemId,
   updateItemCategories,
-  deleteItemCategories
+  deleteItemCategories,
+  getItemCategoryById
 };

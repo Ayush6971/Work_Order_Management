@@ -81,7 +81,11 @@
                       ><%=element.itemName%></b
                     >
                     <%if(element.itemCategories.length){%>
-                    <select class="form-select adjustSelect" name="role">
+                    <select
+                      class="form-select adjustSelect"
+                      name="itemCategories"
+                      onchange="getItemCategoriesAmount(this)"
+                    >
                       <option selected><b>Select Item Category</b></option>
                       <%element.itemCategories.forEach(function(itemCategory)
                       {%>
@@ -92,9 +96,19 @@
                     </select>
                     <%}%>
                   </td>
-                  <td name="itemRate"><%=element.itemRate%></td>
-                  <td name="quantity"><input type="text" /></td>
-                  <td name="amount"><input type="text" /></td>
+                  <td name="itemRate" id="itemRate"><%=element.itemRate%></td>
+                  <td name="quantity">
+                    <input
+                      id="itemQuantity"
+                      data-itemRate="<%=element.itemRate%>"
+                      data-itemName="<%=element.itemName%>"
+                      oninput="getAmount(this)"
+                      type="text"
+                    />
+                  </td>
+                  <td name="amount">
+                    <input type="text" />
+                  </td>
                 </tr>
                 <%})%>
                 <tr>
