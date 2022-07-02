@@ -99,7 +99,7 @@
     font-size: 20px;
   }
 
-  .quotationGrid {
+  .estimateGrid {
     width: 100%;
   }
 
@@ -143,8 +143,9 @@
   .amount {
     display: flex;
   }
-  .amount .fa-rupee-sign {
-    margin: auto 5px;
+
+  .fa-rupee-sign {
+    margin: auto 8px auto 5px;
     width: 5%;
   }
   .amount .inputAmount {

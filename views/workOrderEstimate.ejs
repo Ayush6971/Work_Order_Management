@@ -24,47 +24,50 @@
               reasonable rates <br />
             </p>
             <p class="myAddress">
-              <b>Address:</b> Madan Colony, Sadar Bazar, Narmadapuram (M.P.)
+              <b>Address :</b> Madan Colony, Sadar Bazar, Narmadapuram (M.P.)
             </p>
           </div>
         </div>
         <div class="estimateDetails">
           <div class="serialNo">
             <h4>
-              Estimate Number:&nbsp;&nbsp;<%= workOrderDetails.estimateNumber%>
+              Estimate Number :&nbsp;&nbsp;<%= workOrderDetails.estimateNumber%>
             </h4>
           </div>
           <div class="quotationHeading"><h4>ESTIMATE</h4></div>
-          <div class="quotationDate"><h4>Date:</h4></div>
+          <div class="quotationDate"><h4>Date :</h4></div>
         </div>
         <div class="customerName">
           <h4>
-            Customer Name:&nbsp;&nbsp;<%= workOrderDetails.firstName%> <%=
+            Customer Name :&nbsp;&nbsp;<%= workOrderDetails.firstName%> <%=
             workOrderDetails.lastName%>
           </h4>
+          <input
+            name="workOrderId"
+            value="<%-workOrderDetails._id%>"
+            type="hidden"
+            id="workOrderId"
+          />
         </div>
-        <form
-          onsubmit="submitWorkOrderQuotation(event)"
-          id="addWorkOrderQuotationForm"
-        >
+        <form id="addWorkOrderEstimateForm">
           <%if(itemList.length){%>
-          <div class="quotationGrid" id="loadQuotationGrid">
-            <table id="quotationGrid" class="table table-bordered">
+          <div class="estimateGrid">
+            <table id="estimateGrid" class="table table-bordered">
               <thead>
                 <tr>
-                  <th style="width: 5% !important; height: 32px !important">
-                    ##
+                  <th style="width: 8% !important; height: 32px !important">
+                    S No.
                   </th>
-                  <th style="width: 50% !important; height: 32px !important">
+                  <th style="width: 65% !important; height: 32px !important">
                     Description
                   </th>
-                  <th style="width: 10% !important; height: 32px !important">
+                  <th style="width: 13% !important; height: 32px !important">
                     Rate
                   </th>
-                  <th style="width: 10% !important; height: 32px !important">
+                  <th style="width: 8% !important; height: 32px !important">
                     Quantity
                   </th>
-                  <th style="width: 10% !important; height: 32px !important">
+                  <th style="width: 8% !important; height: 32px !important">
                     Amount
                   </th>
                 </tr>
@@ -73,9 +76,9 @@
                 <%itemList.forEach((element)=>{%>
                 <tr>
                   <td name="itemId" data-itemId="<%-element.itemId%>">
-                    <input type="checkbox" />
+                    <%=element.serialNumber%>
                   </td>
-                  <td name="itemName">
+                  <td name="itemName" class="itemName">
                     <b
                       class="<%-element.itemCategories.length ? 'tableData':''%>"
                       ><%=element.itemName%></b
@@ -96,7 +99,9 @@
                     </select>
                     <%}%>
                   </td>
-                  <td name="itemRate" id="itemRate"><%=element.itemRate%></td>
+                  <td name="itemRate" id="itemRate">
+                    <i class="fas fa-rupee-sign"></i><%=element.itemRate%>
+                  </td>
                   <td name="quantity">
                     <input
                       id="itemQuantity"
@@ -140,7 +145,11 @@
         <button type="button" class="btn btn-primary" onclick="getTotal()">
           <i class="fas fa-rupee-sign"></i> Get Total
         </button>
-        <button type="submit" class="btn btn-success">
+        <button
+          type="submit"
+          class="btn btn-success"
+          onclick="submitWorkOrderEstimate(event)"
+        >
           <i class="fas fa-paper-plane"></i> Submit
         </button>
       </div>

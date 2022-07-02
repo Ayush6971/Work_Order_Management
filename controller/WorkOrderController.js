@@ -95,7 +95,7 @@ const addWorkOrderBasic = async (req, res) => {
   }
 };
 
-const addWorkOrderEstimateGet = async (req, res) => {
+const getWorkOrderEstimate = async (req, res) => {
   try {
     const currentUser = req.user;
     const workOrderId = req.query.workOrderId;
@@ -119,7 +119,10 @@ const addWorkOrderEstimateGet = async (req, res) => {
     const findWorkOrderDetails = await getWorkOrderDetails(workOrderId)
 
     let getAllItems = await getEstimateItems();
-    getAllItems = getAllItems.filter(item => !item.isDisabled)
+    getAllItems = getAllItems.filter(item => !item.isDisabled).map((currentValue, index) => {
+      currentValue.serialNumber = index + 1;
+      return currentValue;
+    });
 
     return res.render("workOrderEstimate", { res, workOrderDetails: findWorkOrderDetails, itemList: getAllItems });
 
@@ -131,8 +134,22 @@ const addWorkOrderEstimateGet = async (req, res) => {
   }
 };
 
+const addWorkOrderEstimate = async (req, res) => {
+  try {
+    const currentUser = req.user;
+    if (!currentUser) return res.status(400).json({ message: "Please login!" });
+
+    const { addWorkOrderEstimateForm } = req.body;
+    console.log("🚀 ~ file: WorkOrderController.js ~ line 141 ~ addWorkOrderEstimate ~ addWorkOrderEstimateForm", addWorkOrderEstimateForm)
+
+  } catch (error) {
+    console.error("🚀 ~ file: WorkOrderController.js ~ line 141 ~ addWorkOrderEstimate ~ error", error)
+  }
+}
+
 module.exports = {
   getAddWorkOrder,
   addWorkOrderBasic,
-  addWorkOrderEstimateGet,
+  getWorkOrderEstimate,
+  addWorkOrderEstimate
 };

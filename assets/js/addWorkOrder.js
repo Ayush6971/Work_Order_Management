@@ -1,15 +1,20 @@
-function addWorkOrderEstimateGet(workOrderId) {
+function getWorkOrderEstimate(workOrderId) {
   show_loader();
   $.ajax({
     type: "GET",
-    url: "/addWorkOrderEstimate",
+    url: "/getWorkOrderEstimate",
     data: { workOrderId },
     success: function (response, xhr) {
       hide_loader();
     },
     error: function (response) {
       hide_loader();
-      notifyMessages("error", "Error", `${response.responseJSON.message}`);
+      Swal.fire({
+        icon: "error",
+        allowOutsideClick: false,
+        title: "OOPS! Something went Wrong",
+        text: `${response.responseJSON.message}`,
+      });
     },
   });
 }
@@ -29,33 +34,89 @@ function addWorkOrderBasic(event) {
     data: { workOrderBasicForm },
     success: function (response) {
       hide_loader();
-      window.location.href = "/addWorkOrderEstimate?workOrderId=" + response.workOrderId
+      window.location.href = "/getWorkOrderEstimate?workOrderId=" + response.workOrderId
     },
     error: function (response) {
       hide_loader();
-      notifyMessages("error", "Error", `${response.responseJSON.message}`);
+      Swal.fire({
+        icon: "error",
+        allowOutsideClick: false,
+        title: "OOPS! Something went Wrong",
+        text: `${response.responseJSON.message}`,
+      });
     },
   });
 }
 
-function submitWorkOrderQuotation(event) {
+function submitWorkOrderEstimate(event) {
   event.preventDefault();
-  $("button[name='workOrderQuotationSubmitBtn']").attr("disabled", "disabled");
+  // const addWorkOrderEstimateForm = [];
+  // $("#estimateGrid tbody tr").each(function (row, tr) {
+  //   $(tr).each(function () {
+  //     const itemId = $(this).find("td:eq(0)").data("itemid");
+  //     if (itemId) {
+  //       addWorkOrderEstimateForm.push({
+  //         workOrderId: $('#workOrderId').val(),
+  //         itemId,
+  //         itemName: $(this).find("td:eq(1)").find('b').html().trim(),
+  //         rate: parseInt($(this).find("td:eq(2)").text() || 0),
+  //         quantity: parseInt($(this).find("td:eq(3)").find('input').val() || 0),
+  //         amount: parseInt($(this).find("td:eq(4)").find('input').val() || 0),
+  //       });
+  //     }
+  //   });
+  // });
+  // console.log("🚀 ~ file: addWorkOrder.js ~ line 65 ~ addWorkOrderEstimateForm", addWorkOrderEstimateForm)
+
+
+  const grandTotal = $('#grandTotal').val();
+  if (!grandTotal || grandTotal < 0) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      allowOutsideClick: false,
+      text: 'Total Amount of the Bill is Empty! Please click on Get Total button for Total Amount.',
+    })
+    return false;
+  }
+  $("button[name='workOrderEstimateSubmitBtn']").attr("disabled", "disabled");
 
   show_loader();
-  const addWorkOrderQuotationForm = [];
+  const addWorkOrderEstimateForm = [];
 
-  $("#quotationGrid tbody tr").each(function (row, tr) {
+  $("#estimateGrid tbody tr").each(function (row, tr) {
     $(tr).each(function () {
-      addWorkOrderQuotationForm.push({
-        isChecked: $(this).find("input").val(),
-        itemId: $(this).find("td:eq(0)").data("itemid"),
-        itemName: $(this).find("td:eq(1)").text(),
-        rate: $(this).find("td:eq(2)").text(),
-        quantity: $(this).find("td:eq(3)").text(),
-        amount: $(this).find("td:eq(4)").text(),
-      });
+      const itemId = $(this).find("td:eq(0)").data("itemid");
+      if (itemId) {
+        addWorkOrderEstimateForm.push({
+          workOrderId: $('#workOrderId').val(),
+          itemId,
+          itemName: $(this).find("td:eq(1)").find('b').html().trim(),
+          rate: parseInt($(this).find("td:eq(2)").text() || 0),
+          quantity: parseInt($(this).find("td:eq(3)").find('input').val() || 0),
+          amount: parseInt($(this).find("td:eq(4)").find('input').val() || 0),
+        });
+      }
     });
+  });
+
+  $.ajax({
+    type: "POST",
+    url: "/addWorkOrderEstimate",
+    data: { addWorkOrderEstimateForm, grandTotal },
+    success: function (response) {
+      hide_loader();
+      window.location.href = "/dashboard"
+    },
+    error: function (response) {
+      hide_loader();
+      Swal.fire({
+        icon: "error",
+        allowOutsideClick: false,
+        title: "OOPS! Something went Wrong",
+        text: `${response.responseJSON.message}`,
+      });
+    },
   });
 }
 

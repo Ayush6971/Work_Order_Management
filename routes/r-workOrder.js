@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const workOrder = require("../controller/WorkOrderController");
+const { getAddWorkOrder, addWorkOrderBasic, getWorkOrderEstimate, addWorkOrderEstimate } = require("../controller/WorkOrderController");
 
-router.get("/addWorkOrder", workOrder.getAddWorkOrder);
-router.post("/addWorkOrderBasic", workOrder.addWorkOrderBasic);
-router.get("/addWorkOrderEstimate", workOrder.addWorkOrderEstimateGet);
+router.get("/addWorkOrder", getAddWorkOrder);
+router.post("/addWorkOrderBasic", addWorkOrderBasic);
+router.get("/getWorkOrderEstimate", getWorkOrderEstimate);
+router.post("/addWorkOrderEstimate", addWorkOrderEstimate)
 module.exports = router;
