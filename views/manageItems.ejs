@@ -77,7 +77,11 @@
               <td name="itemName">
                 <b class="tableData"><%=element.itemName%></b>
                 <%if(element.itemCategories.length){%>
-                <select class="form-select adjustSelect" name="role">
+                  <select
+                  class="form-select adjustSelect"
+                  name="itemCategories"
+                  onchange="getItemCategoriesAmount(this)"
+                >
                   <option selected><b>Select Item Category</b></option>
                   <%element.itemCategories.forEach(function(itemCategory) {%>
                   <option value="<%-itemCategory.id%>">

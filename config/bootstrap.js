@@ -1,9 +1,9 @@
 const user = require("../models/user");
 const item = require("../models/item");
 const role = require("../models/role");
+const itemCategories = require("../models/itemCategories");
 const bcrypt = require("bcrypt");
 const { getItemByName, userFindOne, getItemCategoryByName, createItemCategory } = require("../controller/CommonController");
-const itemCategories = require("../models/itemCategories");
 async function createInitialData() {
   const foundRole = await role.findOne({ authority: "ROLE_SUPERADMIN" })
   if (!foundRole) {
@@ -30,9 +30,8 @@ async function createInitialData() {
     });
   }
 
-  const findFirstItem
-    = await getItemByName("Borewell Digging");
-  if (!findFirstItem) {
+  const findItems = await item.find()
+  if (!findItems || findItems.length === 0) {
     await item.insertMany([
       { itemName: "Borewell Digging", itemRate: 150 },
       { itemName: "Casing Pipe", itemRate: 150 },
@@ -51,8 +50,8 @@ async function createInitialData() {
 
 
   const getpvcPipeId = await getItemByName("Casing Pipe");
-  const getpvcPipeCategoryByName = await getItemCategoryByName("5 inch")
-  if (getpvcPipeId && !getpvcPipeCategoryByName) {
+  const getpvcPipeCategoryByName = await itemCategories.find({ itemId: getpvcPipeId })
+  if (getpvcPipeId && (!getpvcPipeCategoryByName || getpvcPipeCategoryByName.length === 0)) {
     const itemCategoryArray = [
       { itemId: getpvcPipeId._id, itemCategoryName: "5 inch", itemCategoryRate: 200 },
       { itemId: getpvcPipeId._id, itemCategoryName: "6 inch", itemCategoryRate: 220 },
@@ -65,9 +64,9 @@ async function createInitialData() {
   }
 
   const getSubmersibleId = await getItemByName("Submersible Pump");
-  const getSubmersibleCategoryByName = await getItemCategoryByName("Texmo 1hp")
+  const getSubmersibleCategories = await itemCategories.find({ itemId: getSubmersibleId })
 
-  if (getSubmersibleId && !getSubmersibleCategoryByName) {
+  if (getSubmersibleId && (!getSubmersibleCategories || getSubmersibleCategories.length === 0)) {
     const itemCategoryArray = [
       { itemId: getSubmersibleId._id, itemCategoryName: "Texmo 1hp", itemCategoryRate: 10000 },
       { itemId: getSubmersibleId._id, itemCategoryName: "Texmo 1.5hp", itemCategoryRate: 15000 },

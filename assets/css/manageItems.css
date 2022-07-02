@@ -56,4 +56,8 @@
   #itemCategories {
     margin-top: 25px;
   }
+
+  .addItemCategory {
+    margin-right: 20px;
+  }
 }

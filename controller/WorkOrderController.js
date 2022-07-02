@@ -118,7 +118,8 @@ const addWorkOrderEstimateGet = async (req, res) => {
 
     const findWorkOrderDetails = await getWorkOrderDetails(workOrderId)
 
-    const getAllItems = await getEstimateItems();
+    let getAllItems = await getEstimateItems();
+    getAllItems = getAllItems.filter(item => !item.isDisabled)
 
     return res.render("workOrderEstimate", { res, workOrderDetails: findWorkOrderDetails, itemList: getAllItems });
 

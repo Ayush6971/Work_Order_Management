@@ -102,18 +102,22 @@
                       id="itemQuantity"
                       data-itemRate="<%=element.itemRate%>"
                       data-itemName="<%=element.itemName%>"
-                      oninput="getAmount(this)"
+                      onkeyup="getAmount(this)"
                       type="text"
                     />
                   </td>
-                  <td name="amount">
-                    <input type="text" />
+                  <td name="amount" class="amount">
+                    <i class="fas fa-rupee-sign"></i
+                    ><input class="inputAmount" type="text" value="" />
                   </td>
                 </tr>
                 <%})%>
                 <tr>
                   <td colspan="4" class="totalText">TOTAL</td>
-                  <td><input type="text" /></td>
+                  <td class="amount">
+                    <i class="fas fa-rupee-sign"></i
+                    ><input id="grandTotal" type="text" />
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -121,7 +125,7 @@
           <%}%>
         </form>
         <div class="estimateFooter">
-          <div class="right"><h4>Prop. Banti Sahu</h4></div>
+          <div class="right"><h4>Proprietor : Banti Sahu</h4></div>
 
           <div class="left">
             <p>
@@ -133,7 +137,10 @@
       </div>
 
       <div class="addWorkOrderButton" id="workOrderQuotationSubmitBtn">
-        <button type="submit" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" onclick="getTotal()">
+          <i class="fas fa-rupee-sign"></i> Get Total
+        </button>
+        <button type="submit" class="btn btn-success">
           <i class="fas fa-paper-plane"></i> Submit
         </button>
       </div>

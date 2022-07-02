@@ -1,4 +1,5 @@
 function addWorkOrderEstimateGet(workOrderId) {
+  show_loader();
   $.ajax({
     type: "GET",
     url: "/addWorkOrderEstimate",
@@ -58,9 +59,21 @@ function submitWorkOrderQuotation(event) {
   });
 }
 
+function getTotal() {
+  show_loader();
+  let sum = 0
+  $('.inputAmount').each(function () {
+    sum += parseInt($(this).val() || 0);
+  });
+  if (!sum || sum === "") $('#grandTotal').val(0);
+  $('#grandTotal').val(sum);
+  hide_loader();
+}
+
 function getAmount(_this) {
   const quantity = $(_this).val();
   const amount = $(_this).data('itemrate');
   const total = amount * quantity;
   $(_this).closest('td').next('td').find('input').val(total);
 }
+

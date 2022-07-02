@@ -91,7 +91,6 @@
 
   .customerName {
     color: cornflowerblue;
-
     width: 100%;
     margin: 0 0 2% 1.8%;
   }
@@ -129,7 +128,7 @@
   }
 
   .adjustSelect {
-    width: 50%;
+    width: 55%;
     height: 35px;
     float: left;
     background-color: peachpuff;
@@ -137,7 +136,22 @@
   }
 
   .tableData {
-    width: 50%;
+    width: 45%;
     float: left;
+  }
+
+  .amount {
+    display: flex;
+  }
+  .amount .fa-rupee-sign {
+    margin: auto 5px;
+    width: 5%;
+  }
+  .amount .inputAmount {
+    width: 95%;
+    margin: auto 5px;
+  }
+  .addWorkOrderButton .btn-primary {
+    margin-right: 20px;
   }
 }
