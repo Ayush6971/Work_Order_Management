@@ -25,11 +25,12 @@
     "express-jwt": "^6.1.0",
     "express-session": "^1.17.2",
     "express-validator": "^6.13.0",
+    "html-pdf": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.13",
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.2",
-    "nodemon": "^2.0.15",
+    "nodemon": "^1.3.3",
     "passport": "^0.5.0",
     "passport-local": "^1.0.0",
     "uuid-with-v6": "^2.0.0"

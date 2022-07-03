@@ -5,6 +5,8 @@ const item = require("../models/item");
 const itemCategories = require("../models/itemCategories");
 const estimate = require("../models/estimate");
 const estimateTotal = require("../models/estimateTotal");
+const { createPDF } = require("../lib/HtmlToPdf");
+const { render } = require("ejs");
 
 const userInsertOne = async (userObject) => {
   return await user.create(userObject);
@@ -120,6 +122,50 @@ const insertEstimateTotal = async (estimateTotalDetails) => {
   return estimateTotal.create(estimateTotalDetails);
 }
 
+const getEstimateDetailsByWOId = async (workOrderId) => {
+  return estimate.find({ workOrderId })
+}
+
+const getEstimateTotalDetailsByWOId = async (workOrderId) => {
+  return estimateTotal.findOne({ workOrderId })
+}
+
+const getHTML = (filePath, templateParams) => {
+  try {
+    return render(filePath, templateParams);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const convertHTMLToPDF = async (workOrderId) => {
+  try {
+    let estimateDetails, estimateTotalDetails;
+    if (!workOrderId) {
+      return false;
+    }
+    const workOrderDetails = await this.getWorkOrderDetails(workOrderId)
+    if (workOrderDetails) {
+      estimateDetails = await this.getEstimateDetailsByWOId(workOrder)
+      estimateTotalDetails = await this.getEstimateTotalDetailsByWOId(workOrderId)
+    }
+    const data = {
+      workOrderDetails,
+      estimateDetails,
+      estimateTotalDetails
+    }
+    const htmlBody = path.normalize(path.join(__dirname, '../views/generateEstimatePDF.ejs'))
+    const htmlArray = await this.getHTML(htmlBody, data);
+    const fileName = `${workOrderDetails.firstName} ${workOrderDetails.lastName}_estimate_${workOrderDetails.estimateNumber}.pdf`
+    const createEstimatePDF = await createPDF(htmlArray, fileName)
+    if (createEstimatePDF) {
+      return true
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 module.exports = {
   userFindOne,
   userInsertOne,
@@ -141,5 +187,8 @@ module.exports = {
   deleteItemCategories,
   getItemCategoryById,
   insertEstimate,
-  insertEstimateTotal
+  insertEstimateTotal,
+  getEstimateDetailsByWOId,
+  getEstimateTotalDetailsByWOId,
+  convertHTMLToPDF
 };

@@ -1,4 +1,3 @@
-const { reset } = require("nodemon");
 const {
   getCurrentUserDetails,
   createWorkOrder,
@@ -6,8 +5,10 @@ const {
   capitalizeFirstLetter,
   getEstimateItems,
   insertEstimate,
-  insertEstimateTotal
+  insertEstimateTotal,
+  convertHTMLToPDF
 } = require("./CommonController");
+
 
 const getAddWorkOrder = async (req, res) => {
   try {
@@ -143,7 +144,10 @@ const addWorkOrderEstimate = async (req, res) => {
     const currentUser = req.user;
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
 
-    const { addWorkOrderEstimateForm, estimateTotalObj } = req.body;
+    const { workOrderId, addWorkOrderEstimateForm, estimateTotalObj } = req.body;
+
+    if (!workOrderId) return res.status(400).json({ message: "Work Order Not found" })
+
     if (!addWorkOrderEstimateForm || !estimateTotalObj) {
       return res.status(400).json({ message: "Please fill all Mandatory fields." });
     }
@@ -158,6 +162,7 @@ const addWorkOrderEstimate = async (req, res) => {
     if (!estimate || !estimateTotal) {
       return res.status(400).json({ message: "Something went wrong!" });
     }
+    await convertHTMLToPDF(workOrderId)
     return res.status(200).json({ message: "Estimate created successfully." });
   } catch (error) {
     console.error("🚀 ~ file: WorkOrderController.js ~ line 141 ~ addWorkOrderEstimate ~ error", error)
