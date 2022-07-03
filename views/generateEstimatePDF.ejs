@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('./partials/head'); %>
     <link rel="stylesheet" href="css/workOrderEstimate.css" type="text/CSS" />
     <script src="/js/addWorkOrder.js"></script>
   </head>
@@ -48,7 +47,7 @@
           />
         </div>
         <form id="addWorkOrderEstimateForm" autocomplete="off">
-          <%if(itemList.length){%>
+          <%if(estimateDetails.length){%>
           <div class="estimateGrid">
             <table id="estimateGrid" class="table table-bordered">
               <thead>
@@ -71,14 +70,13 @@
                 </tr>
               </thead>
               <tbody>
-                <%itemList.forEach((element)=>{%>
+                <%estimateDetails.forEach((element)=>{%>
                 <tr>
-                  <td name="itemId" data-itemId="<%-element.itemId%>">
-                    <%=element.serialNumber%>
+                  <td>
+                    <!-- <%=element.serialNumber%> -->
                   </td>
                   <td name="itemName" class="itemName">
-                    <b
-                      class="<%-element.itemCategories.length ? 'tableData':''%>"
+                    <b class="<%-element.itemCategories ? 'tableData':''%>"
                       ><%=element.itemName%></b
                     >
                   </td>
@@ -86,19 +84,27 @@
                     <i class="fas fa-rupee-sign"></i><%=element.itemRate%>
                   </td>
                   <td name="quantity">
-                    <input id="itemQuantity" type="text" />
+                    <input
+                      id="itemQuantity"
+                      type="text"
+                      value="<%-element.itemQuantity%>"
+                    />
                   </td>
                   <td name="amount" class="amount">
                     <i class="fas fa-rupee-sign"></i
-                    ><input class="inputAmount" type="text" value="" />
+                    ><input
+                      class="inputAmount"
+                      type="text"
+                      value="<%-element.amount%>"
+                    />
                   </td>
                 </tr>
                 <%})%>
                 <tr>
                   <td colspan="4" class="totalText">TOTAL</td>
                   <td class="amount">
-                    <i class="fas fa-rupee-sign"></i
-                    ><input id="grandTotal" type="text" />
+                    <i class="fas fa-rupee-sign"></i><input id="grandTotal"
+                    type="text" value="<%-estimateTotalDetails.estimateTotal%>/>
                   </td>
                 </tr>
               </tbody>

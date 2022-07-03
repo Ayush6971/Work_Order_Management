@@ -75,9 +75,9 @@ function submitWorkOrderEstimate(event) {
           itemId,
           itemCategoriesId: [$(this).find("td:eq(1)").find('select').val()] || [],
           itemName: $(this).find("td:eq(1)").find('b').html().trim(),
-          rate: parseInt($(this).find("td:eq(2)").text() || 0),
-          quantity: parseInt($(this).find("td:eq(3)").find('input').val() || 0),
-          amount: parseInt($(this).find("td:eq(4)").find('input').val() || 0),
+          itemRate: parseInt($(this).find("td:eq(2)").text() || 0),
+          itemQuantity: parseInt($(this).find("td:eq(3)").find('input').val() || 0),
+          itemAmount: parseInt($(this).find("td:eq(4)").find('input').val() || 0),
         });
       }
     });
@@ -91,7 +91,7 @@ function submitWorkOrderEstimate(event) {
   $.ajax({
     type: "POST",
     url: "/addWorkOrderEstimate",
-    data: { addWorkOrderEstimateForm, estimateTotalObj },
+    data: { addWorkOrderEstimateForm, estimateTotalObj, workOrderId },
     success: function (response) {
       hide_loader();
       Swal.fire({

@@ -7,6 +7,8 @@ const estimate = require("../models/estimate");
 const estimateTotal = require("../models/estimateTotal");
 const { createPDF } = require("../lib/HtmlToPdf");
 const { render } = require("ejs");
+const path = require("path");
+const fs = require("fs");
 
 const userInsertOne = async (userObject) => {
   return await user.create(userObject);
@@ -123,6 +125,7 @@ const insertEstimateTotal = async (estimateTotalDetails) => {
 }
 
 const getEstimateDetailsByWOId = async (workOrderId) => {
+  console.log("🚀 ~ file: CommonController.js ~ line 126 ~ getEstimateDetailsByWOId ~ workOrderId", workOrderId)
   return estimate.find({ workOrderId })
 }
 
@@ -138,24 +141,24 @@ const getHTML = (filePath, templateParams) => {
   }
 };
 
-const convertHTMLToPDF = async (workOrderId) => {
+const convertEstimateHTMLToPDF = async (workOrderId) => {
   try {
     let estimateDetails, estimateTotalDetails;
     if (!workOrderId) {
       return false;
     }
-    const workOrderDetails = await this.getWorkOrderDetails(workOrderId)
+    const workOrderDetails = await getWorkOrderDetails(workOrderId)
     if (workOrderDetails) {
-      estimateDetails = await this.getEstimateDetailsByWOId(workOrder)
-      estimateTotalDetails = await this.getEstimateTotalDetailsByWOId(workOrderId)
+      estimateDetails = await getEstimateDetailsByWOId(workOrderDetails._id)
+      estimateTotalDetails = await getEstimateTotalDetailsByWOId(workOrderDetails._id)
     }
-    const data = {
+    const templateParams = {
       workOrderDetails,
       estimateDetails,
       estimateTotalDetails
     }
-    const htmlBody = path.normalize(path.join(__dirname, '../views/generateEstimatePDF.ejs'))
-    const htmlArray = await this.getHTML(htmlBody, data);
+    const template = fs.readFileSync(path.normalize(path.join(__dirname, '../views/generateEstimatePDF.ejs')), 'utf-8');
+    const htmlArray = getHTML(template, templateParams);
     const fileName = `${workOrderDetails.firstName} ${workOrderDetails.lastName}_estimate_${workOrderDetails.estimateNumber}.pdf`
     const createEstimatePDF = await createPDF(htmlArray, fileName)
     if (createEstimatePDF) {
@@ -190,5 +193,6 @@ module.exports = {
   insertEstimateTotal,
   getEstimateDetailsByWOId,
   getEstimateTotalDetailsByWOId,
-  convertHTMLToPDF
+  getHTML,
+  convertEstimateHTMLToPDF
 };

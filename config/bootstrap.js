@@ -33,18 +33,18 @@ async function createInitialData() {
   const findItems = await item.find()
   if (!findItems || findItems.length === 0) {
     await item.insertMany([
-      { itemName: "Borewell Digging", itemRate: 150 },
-      { itemName: "Casing Pipe", itemRate: 150 },
-      { itemName: "Submersible Pump", itemRate: 150 },
-      { itemName: "Complete Fitting Equipments", itemRate: 150 },
-      { itemName: "Gravel", itemRate: 150 },
-      { itemName: "Yellow Soil", itemRate: 150 },
-      { itemName: "Boring Pit by JCB", itemRate: 150 },
-      { itemName: "Fitting charges", itemRate: 150 },
-      { itemName: "Water tankers", itemRate: 150 },
-      { itemName: "Pipe Slotting Charges", itemRate: 150 },
-      { itemName: "Transportation Charges", itemRate: 150 },
-      { itemName: "Other/Miscellaneous Charges", itemRate: 150 },
+      { itemName: "Borewell Digging", itemRate: 160 },
+      { itemName: "Casing Pipe", itemRate: 0 },
+      { itemName: "Submersible Pump", itemRate: 0 },
+      { itemName: "Complete Fitting Equipments", itemRate: 6000 },
+      { itemName: "Gravel", itemRate: 60 },
+      { itemName: "Yellow Soil", itemRate: 100 },
+      { itemName: "Boring Pit by JCB", itemRate: 2000 },
+      { itemName: "Fitting charges", itemRate: 200 },
+      { itemName: "Water tankers", itemRate: 900 },
+      { itemName: "Pipe Slotting Charges", itemRate: 250 },
+      { itemName: "Transportation Charges", itemRate: 500 },
+      { itemName: "Other/Miscellaneous Charges", itemRate: 0 },
     ]);
   }
 

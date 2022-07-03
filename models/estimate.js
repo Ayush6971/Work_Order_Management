@@ -10,23 +10,23 @@ const estimateSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "Item",
     },
-    itemCategoriesId: {
+    itemCategoriesId: [{
       type: mongoose.Types.ObjectId,
       ref: "ItemCategories",
-    },
+    }],
     itemName: {
       type: String,
       required: true,
     },
-    quantity: {
+    itemQuantity: {
       type: Number,
       required: true,
     },
-    rate: {
+    itemRate: {
       type: Number,
       required: true,
     },
-    amount: {
+    itemAmount: {
       type: Number,
       required: true,
     },
