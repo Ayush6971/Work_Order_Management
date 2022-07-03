@@ -49,7 +49,7 @@
             id="workOrderId"
           />
         </div>
-        <form id="addWorkOrderEstimateForm">
+        <form id="addWorkOrderEstimateForm" autocomplete="off">
           <%if(itemList.length){%>
           <div class="estimateGrid">
             <table id="estimateGrid" class="table table-bordered">
@@ -85,11 +85,12 @@
                     >
                     <%if(element.itemCategories.length){%>
                     <select
+                      id="itemCategoriesSelect"
                       class="form-select adjustSelect"
                       name="itemCategories"
                       onchange="getItemCategoriesAmount(this)"
                     >
-                      <option selected><b>Select Item Category</b></option>
+                      <option><b>Select Item Category</b></option>
                       <%element.itemCategories.forEach(function(itemCategory)
                       {%>
                       <option value="<%-itemCategory.id%>">
@@ -155,5 +156,7 @@
       </div>
     </div>
     <footer><%- include('./partials/footer') %></footer>
+
+    <script></script>
   </body>
 </html>

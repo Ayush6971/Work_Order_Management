@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 
-const estimateSchema = new mongoose.Schema({
-  etimateId: {
+const estimateTotalSchema = new mongoose.Schema({
+  workOrderId: {
     type: mongoose.Types.ObjectId,
-    ref: "Estimate",
+    ref: "WorkOrder",
   },
-  total: {
+  estimateTotal: {
     type: Number,
     required: true,
   },
 });
+
+module.exports = mongoose.model("EstimateTotal", estimateTotalSchema);

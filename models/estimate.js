@@ -10,14 +10,17 @@ const estimateSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "Item",
     },
-    itemDescription: {
+    itemCategoriesId: {
+      type: mongoose.Types.ObjectId,
+      ref: "ItemCategories",
+    },
+    itemName: {
       type: String,
       required: true,
     },
     quantity: {
       type: Number,
       required: true,
-      max: [10, "Max Length is 10 digits"],
     },
     rate: {
       type: Number,

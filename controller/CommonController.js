@@ -3,13 +3,15 @@ const role = require("../models/role");
 const workOrder = require("../models/workOrder");
 const item = require("../models/item");
 const itemCategories = require("../models/itemCategories");
+const estimate = require("../models/estimate");
+const estimateTotal = require("../models/estimateTotal");
+
 const userInsertOne = async (userObject) => {
   return await user.create(userObject);
 };
 
 const userFindOne = async (condition, populate = null) => {
   if (populate) return await user.findOne(condition).populate(populate);
-
   return await user.findOne(condition);
 };
 
@@ -108,6 +110,16 @@ const deleteItemCategories = async (_id) => {
   return await itemCategories.findByIdAndDelete({ _id })
 }
 
+const insertEstimate = async (estimateDetails) => {
+  if (estimateDetails instanceof Array) {
+    return estimate.insertMany(estimateDetails);
+  }
+}
+
+const insertEstimateTotal = async (estimateTotalDetails) => {
+  return estimateTotal.create(estimateTotalDetails);
+}
+
 module.exports = {
   userFindOne,
   userInsertOne,
@@ -127,5 +139,7 @@ module.exports = {
   getAllItemCategoriesByItemId,
   updateItemCategories,
   deleteItemCategories,
-  getItemCategoryById
+  getItemCategoryById,
+  insertEstimate,
+  insertEstimateTotal
 };

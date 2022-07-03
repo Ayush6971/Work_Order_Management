@@ -50,26 +50,8 @@ function addWorkOrderBasic(event) {
 
 function submitWorkOrderEstimate(event) {
   event.preventDefault();
-  // const addWorkOrderEstimateForm = [];
-  // $("#estimateGrid tbody tr").each(function (row, tr) {
-  //   $(tr).each(function () {
-  //     const itemId = $(this).find("td:eq(0)").data("itemid");
-  //     if (itemId) {
-  //       addWorkOrderEstimateForm.push({
-  //         workOrderId: $('#workOrderId').val(),
-  //         itemId,
-  //         itemName: $(this).find("td:eq(1)").find('b').html().trim(),
-  //         rate: parseInt($(this).find("td:eq(2)").text() || 0),
-  //         quantity: parseInt($(this).find("td:eq(3)").find('input').val() || 0),
-  //         amount: parseInt($(this).find("td:eq(4)").find('input').val() || 0),
-  //       });
-  //     }
-  //   });
-  // });
-  // console.log("🚀 ~ file: addWorkOrder.js ~ line 65 ~ addWorkOrderEstimateForm", addWorkOrderEstimateForm)
-
-
   const grandTotal = $('#grandTotal').val();
+  const workOrderId = $('#workOrderId').val();
   if (!grandTotal || grandTotal < 0) {
     Swal.fire({
       icon: "error",
@@ -89,8 +71,9 @@ function submitWorkOrderEstimate(event) {
       const itemId = $(this).find("td:eq(0)").data("itemid");
       if (itemId) {
         addWorkOrderEstimateForm.push({
-          workOrderId: $('#workOrderId').val(),
+          workOrderId,
           itemId,
+          itemCategoriesId: [$(this).find("td:eq(1)").find('select').val()] || [],
           itemName: $(this).find("td:eq(1)").find('b').html().trim(),
           rate: parseInt($(this).find("td:eq(2)").text() || 0),
           quantity: parseInt($(this).find("td:eq(3)").find('input').val() || 0),
@@ -100,13 +83,23 @@ function submitWorkOrderEstimate(event) {
     });
   });
 
+  const estimateTotalObj = {
+    workOrderId: workOrderId,
+    estimateTotal: grandTotal,
+  }
+
   $.ajax({
     type: "POST",
     url: "/addWorkOrderEstimate",
-    data: { addWorkOrderEstimateForm, grandTotal },
+    data: { addWorkOrderEstimateForm, estimateTotalObj },
     success: function (response) {
       hide_loader();
-      window.location.href = "/dashboard"
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        allowOutsideClick: false,
+        text: `${response.message}`,
+      }).then(function () { window.location.href = "/dashboard"; })
     },
     error: function (response) {
       hide_loader();

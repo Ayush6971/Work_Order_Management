@@ -1,9 +1,12 @@
+const { reset } = require("nodemon");
 const {
   getCurrentUserDetails,
   createWorkOrder,
   getWorkOrderDetails,
   capitalizeFirstLetter,
-  getEstimateItems
+  getEstimateItems,
+  insertEstimate,
+  insertEstimateTotal
 } = require("./CommonController");
 
 const getAddWorkOrder = async (req, res) => {
@@ -136,12 +139,26 @@ const getWorkOrderEstimate = async (req, res) => {
 
 const addWorkOrderEstimate = async (req, res) => {
   try {
+    let estimate, estimateTotal
     const currentUser = req.user;
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
 
-    const { addWorkOrderEstimateForm } = req.body;
-    console.log("🚀 ~ file: WorkOrderController.js ~ line 141 ~ addWorkOrderEstimate ~ addWorkOrderEstimateForm", addWorkOrderEstimateForm)
+    const { addWorkOrderEstimateForm, estimateTotalObj } = req.body;
+    if (!addWorkOrderEstimateForm || !estimateTotalObj) {
+      return res.status(400).json({ message: "Please fill all Mandatory fields." });
+    }
 
+    if (addWorkOrderEstimateForm) {
+      estimate = await insertEstimate(addWorkOrderEstimateForm)
+    }
+
+    if (estimateTotalObj)
+      estimateTotal = await insertEstimateTotal(estimateTotalObj);
+
+    if (!estimate || !estimateTotal) {
+      return res.status(400).json({ message: "Something went wrong!" });
+    }
+    return res.status(200).json({ message: "Estimate created successfully." });
   } catch (error) {
     console.error("🚀 ~ file: WorkOrderController.js ~ line 141 ~ addWorkOrderEstimate ~ error", error)
   }
