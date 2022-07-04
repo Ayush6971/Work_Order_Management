@@ -1,128 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="css/workOrderEstimate.css" type="text/CSS" />
+    <style>
+      body {
+        background: rgb(204, 204, 204);
+      }
+
+      page {
+        background: white;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 0.5cm;
+        box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+      }
+      page[size="A4"] {
+        width: 21cm;
+        height: 29.7cm;
+      }
+
+      .workOrderEstimateForm {
+        padding: 0.9cm;
+      }
+
+      .addWorkOrder-form {
+        line-height: 30px;
+      }
+
+      .container {
+        height: 28cm;
+        background: white;
+        border: 3px solid cornflowerblue;
+      }
+
+      .blessings {
+        text-align: center;
+        width: 100%;
+        color: dodgerblue;
+      }
+
+      .image-sec {
+        float: left;
+        color: #de6152;
+        border-right: 2px solid;
+      }
+
+      .image-sec img {
+        height: 150px;
+        width: 210px;
+      }
+
+      .esitmateTitle {
+        display: inline-block;
+        width: 100%;
+        height: 4.5cm;
+        border-bottom: 2px solid cornflowerblue;
+      }
+      .estimateHeader {
+        float: right;
+        margin-top: -35px;
+        padding-right: 3px;
+      }
+
+      .esitmateTitle-h2 {
+        color: #de6152;
+        text-align: center;
+        font-size: 40px;
+      }
+
+      .addWorkOrderButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5%;
+      }
+      .details {
+        color: cornflowerblue;
+        text-align: center;
+      }
+      .myAddress {
+        color: cornflowerblue;
+        text-align: center;
+        margin-top: 3px;
+        font-size: 20px;
+      }
+      .myAddress b {
+        color: black;
+      }
+      .estimateDetails {
+        color: cornflowerblue;
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+      }
+
+      .estimateDetails h4 {
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      .serialNo {
+        width: 40%;
+        margin: 2% auto;
+      }
+
+      .quotationHeading {
+        width: 30%;
+        margin: 1% auto;
+      }
+
+      .quotationDate {
+        width: 20%;
+        margin: 2% auto;
+      }
+
+      .customerName {
+        color: cornflowerblue;
+        width: 100%;
+        margin: 0 0 2% 1.8%;
+      }
+      .customerName h4 {
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      table {
+        border-collapse: separate;
+        border-spacing: 1em;
+      }
+
+      .estimateGrid {
+        width: 100%;
+      }
+
+      .totalText {
+        text-align: center;
+        font-weight: bold;
+        font-size: larger;
+      }
+
+      .estimateFooter {
+        border-top: 2px solid cornflowerblue;
+      }
+
+      .left {
+        color: cornflowerblue;
+        width: 66%;
+      }
+
+      .right {
+        color: cornflowerblue;
+        padding-right: 10px;
+        padding-top: 35px;
+        text-align: right;
+        float: right;
+        width: 34%;
+      }
+
+      .adjustSelect {
+        width: 55%;
+        height: 35px;
+        float: left;
+        background-color: peachpuff;
+        font-weight: 500;
+      }
+
+      .tableData {
+        width: 45%;
+        float: left;
+      }
+
+      .amount {
+        display: flex;
+      }
+
+      .fa-rupee-sign {
+        margin: auto 8px auto 5px;
+        width: 5%;
+      }
+      .amount .inputAmount {
+        width: 95%;
+        margin: auto 5px;
+      }
+      .addWorkOrderButton .btn-primary {
+        margin-right: 20px;
+      }
+    </style>
     <script src="/js/addWorkOrder.js"></script>
   </head>
   <body>
-    <div class="workOrderEstimateForm">
-      <h2>ESTIMATE</h2>
-      <div class="container">
-        <p class="blessings">!! Jai Mata Di !!</p>
-        <div class="esitmateTitle">
-          <div class="image-sec col-md-4">
-            <img src="images/machine_3.jpeg" class="img-fluid" />
+    <page size="A4">
+      <div class="workOrderEstimateForm">
+        <div class="container">
+          <p class="blessings">!! Jai Mata Di !!</p>
+          <div class="esitmateTitle">
+            <div class="image-sec">
+              <img src="images/machine_3.jpeg" class="img-fluid" />
+            </div>
+            <div class="estimateHeader">
+              <div><h2 class="esitmateTitle-h2">UMANG BOREWELL</h2></div>
+              <p class="details">
+                Deal in all types of Tube Well work.<br />
+                Contact for drilling tube wells at plots, houses and farms at
+                reasonable rates <br />
+              </p>
+              <p class="myAddress">
+                <b>Address :</b> Madan Colony, Sadar Bazar, Narmadapuram (M.P.)
+              </p>
+            </div>
           </div>
-          <div class="col-md-8">
-            <h2 class="esitmateTitle-h2">UMANG BOREWELL</h2>
-            <p class="details">
-              Deal in all types of Tube Well work.<br />
-              Contact for drilling tube wells at plots, houses and farms at
-              reasonable rates <br />
-            </p>
-            <p class="myAddress">
-              <b>Address :</b> Madan Colony, Sadar Bazar, Narmadapuram (M.P.)
-            </p>
+          <div class="estimateDetails">
+            <div class="serialNo">
+              <h4>
+                Estimate Number :&nbsp;&nbsp;<%=
+                workOrderDetails.estimateNumber%>
+              </h4>
+            </div>
+            <div class="quotationHeading"><h4>ESTIMATE</h4></div>
+            <div class="quotationDate"><h4>Date :</h4></div>
           </div>
-        </div>
-        <div class="estimateDetails">
-          <div class="serialNo">
+          <div class="customerName">
             <h4>
-              Estimate Number :&nbsp;&nbsp;<%= workOrderDetails.estimateNumber%>
+              Customer Name :&nbsp;&nbsp;<%= workOrderDetails.firstName%> <%=
+              workOrderDetails.lastName%>
             </h4>
+            <input
+              name="workOrderId"
+              value="<%-workOrderDetails._id%>"
+              type="hidden"
+              id="workOrderId"
+            />
           </div>
-          <div class="quotationHeading"><h4>ESTIMATE</h4></div>
-          <div class="quotationDate"><h4>Date :</h4></div>
-        </div>
-        <div class="customerName">
-          <h4>
-            Customer Name :&nbsp;&nbsp;<%= workOrderDetails.firstName%> <%=
-            workOrderDetails.lastName%>
-          </h4>
-          <input
-            name="workOrderId"
-            value="<%-workOrderDetails._id%>"
-            type="hidden"
-            id="workOrderId"
-          />
-        </div>
-        <form id="addWorkOrderEstimateForm" autocomplete="off">
-          <%if(estimateDetails.length){%>
-          <div class="estimateGrid">
-            <table id="estimateGrid" class="table table-bordered">
-              <thead>
-                <tr>
-                  <th style="width: 8% !important; height: 32px !important">
-                    S No.
-                  </th>
-                  <th style="width: 65% !important; height: 32px !important">
-                    Description
-                  </th>
-                  <th style="width: 13% !important; height: 32px !important">
-                    Rate
-                  </th>
-                  <th style="width: 8% !important; height: 32px !important">
-                    Quantity
-                  </th>
-                  <th style="width: 8% !important; height: 32px !important">
-                    Amount
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <%estimateDetails.forEach((element)=>{%>
-                <tr>
-                  <td>
-                    <!-- <%=element.serialNumber%> -->
-                  </td>
-                  <td name="itemName" class="itemName">
-                    <b class="<%-element.itemCategories ? 'tableData':''%>"
-                      ><%=element.itemName%></b
-                    >
-                  </td>
-                  <td name="itemRate" id="itemRate">
-                    <i class="fas fa-rupee-sign"></i><%=element.itemRate%>
-                  </td>
-                  <td name="quantity">
-                    <input
-                      id="itemQuantity"
+          <form id="addWorkOrderEstimateForm" autocomplete="off">
+            <%if(estimateDetails.length){%>
+            <div class="estimateGrid">
+              <table id="estimateGrid" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th style="width: 8% !important; height: 32px !important">
+                      S No.
+                    </th>
+                    <th style="width: 65% !important; height: 32px !important">
+                      Description
+                    </th>
+                    <th style="width: 13% !important; height: 32px !important">
+                      Rate
+                    </th>
+                    <th style="width: 8% !important; height: 32px !important">
+                      Quantity
+                    </th>
+                    <th style="width: 8% !important; height: 32px !important">
+                      Amount
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%estimateDetails.forEach((element)=>{%>
+                  <tr>
+                    <td>
+                      <!-- <%=element.serialNumber%> -->
+                    </td>
+                    <td name="itemName" class="itemName">
+                      <b class="<%-element.itemCategories ? 'tableData':''%>"
+                        ><%=element.itemName%></b
+                      >
+                    </td>
+                    <td name="itemRate" id="itemRate">
+                      <i class="fas fa-rupee-sign"></i><%=element.itemRate%>
+                    </td>
+                    <td name="quantity">
+                      <input
+                        id="itemQuantity"
+                        type="text"
+                        value="<%-element.itemQuantity%>"
+                      />
+                    </td>
+                    <td name="amount" class="amount">
+                      <i class="fas fa-rupee-sign"></i
+                      ><input
+                        class="inputAmount"
+                        type="text"
+                        value="<%-element.itemAmount%>"
+                      />
+                    </td>
+                  </tr>
+                  <%})%>
+                  <tr>
+                    <td colspan="4" class="totalText">TOTAL</td>
+                    <td class="amount">
+                      <i class="fas fa-rupee-sign"></i><input id="grandTotal"
                       type="text"
-                      value="<%-element.itemQuantity%>"
-                    />
-                  </td>
-                  <td name="amount" class="amount">
-                    <i class="fas fa-rupee-sign"></i
-                    ><input
-                      class="inputAmount"
-                      type="text"
-                      value="<%-element.amount%>"
-                    />
-                  </td>
-                </tr>
-                <%})%>
-                <tr>
-                  <td colspan="4" class="totalText">TOTAL</td>
-                  <td class="amount">
-                    <i class="fas fa-rupee-sign"></i><input id="grandTotal"
-                    type="text" value="<%-estimateTotalDetails.estimateTotal%>/>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <%}%>
-        </form>
-        <div class="estimateFooter">
-          <div class="right"><h4>Proprietor : Banti Sahu</h4></div>
+                      value="<%-estimateTotalDetails.estimateTotal%>/>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <%}%>
+          </form>
+          <div class="estimateFooter">
+            <div class="right"><h4>Proprietor : Banti Sahu</h4></div>
 
-          <div class="left">
-            <p>
-              <b>NOTE : 50% advance will have to be paid before work order.</b>
-            </p>
-            <h5>Contact Number : 9755378758, 9827550029</h5>
+            <div class="left">
+              <p>
+                <b
+                  >NOTE : 50% advance will have to be paid before work order.</b
+                >
+              </p>
+              <h5>Contact Number : 9755378758, 9827550029</h5>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </page>
   </body>
 </html>

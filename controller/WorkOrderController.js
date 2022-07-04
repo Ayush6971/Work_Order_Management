@@ -6,8 +6,12 @@ const {
   getEstimateItems,
   insertEstimate,
   insertEstimateTotal,
-  convertEstimateHTMLToPDF
+  convertEstimateHTMLToPDF,
+  getEstimateDetailsByWOId,
+  getEstimateTotalDetailsByWOId
 } = require("./CommonController");
+const path = require("path");
+const fs = require("fs");
 
 
 const getAddWorkOrder = async (req, res) => {
@@ -120,15 +124,28 @@ const getWorkOrderEstimate = async (req, res) => {
 
     res.profile = findCurrentUserDetails;
 
-    const findWorkOrderDetails = await getWorkOrderDetails(workOrderId)
+    const workOrderDetails = await getWorkOrderDetails(workOrderId)
+    console.log("🚀 ~ file: WorkOrderController.js ~ line 128 ~ getWorkOrderEstimate ~ workOrderDetails", workOrderDetails)
+    const estimateDetails = getEstimateDetailsByWOId(workOrderId);
+    const estimateTotalDetails = getEstimateTotalDetailsByWOId(workOrderId);
 
-    let getAllItems = await getEstimateItems();
-    getAllItems = getAllItems.filter(item => !item.isDisabled).map((currentValue, index) => {
-      currentValue.serialNumber = index + 1;
-      return currentValue;
-    });
+    // let getAllItems = await getEstimateItems();
+    // getAllItems = getAllItems.filter(item => !item.isDisabled).map((currentValue, index) => {
+    //   currentValue.serialNumber = index + 1;
+    //   return currentValue;
+    // });
+    const templateParams = {
+      workOrderDetails,
+      estimateDetails: getEstimateDetailsByWOId(workOrderId),
+      estimateTotalDetails: getEstimateTotalDetailsByWOId(workOrderId),
+    }
+    const template = fs.readFileSync(path.normalize(path.join(__dirname, '../views/generateEstimatePDF.ejs')), 'utf-8');
+    const fileName = `ayush.pdf`
+    await convertEstimateHTMLToPDF(templateParams, template, fileName)
 
-    return res.render("workOrderEstimate", { res, workOrderDetails: findWorkOrderDetails, itemList: getAllItems });
+    return res.render("generateEstimatePDF", { res, workOrderDetails, estimateDetails, estimateTotalDetails });
+
+    // return res.render("workOrderEstimate", { res, workOrderDetails, itemList: getAllItems });
 
   } catch (error) {
     console.error(
@@ -140,7 +157,7 @@ const getWorkOrderEstimate = async (req, res) => {
 
 const addWorkOrderEstimate = async (req, res) => {
   try {
-    let estimate, estimateTotal
+    let estimateDetails, estimateTotalDetails
     const currentUser = req.user;
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
 
@@ -155,16 +172,25 @@ const addWorkOrderEstimate = async (req, res) => {
     }
 
     if (addWorkOrderEstimateForm) {
-      estimate = await insertEstimate(addWorkOrderEstimateForm)
+      estimateDetails = await insertEstimate(addWorkOrderEstimateForm)
     }
 
     if (estimateTotalObj)
-      estimateTotal = await insertEstimateTotal(estimateTotalObj);
+      estimateTotalDetails = await insertEstimateTotal(estimateTotalObj);
 
-    if (!estimate || !estimateTotal) {
+    if (!estimateDetails || !estimateTotalDetails) {
       return res.status(400).json({ message: "Something went wrong!" });
     }
-    await convertEstimateHTMLToPDF(workOrderId)
+
+    const templateParams = {
+      workOrderDetails,
+      estimateDetails,
+      estimateTotalDetails
+    }
+    const template = fs.readFileSync(path.normalize(path.join(__dirname, '../views/generateEstimatePDF.ejs')), 'utf-8');
+    const fileName = `${workOrderDetails.firstName} ${workOrderDetails.lastName}_estimate_${workOrderDetails.estimateNumber}.pdf`
+
+    await convertEstimateHTMLToPDF(templateParams, template, fileName)
     // return res.status(200).json({ message: "Estimate created successfully." });
   } catch (error) {
     console.error("🚀 ~ file: WorkOrderController.js ~ line 141 ~ addWorkOrderEstimate ~ error", error)

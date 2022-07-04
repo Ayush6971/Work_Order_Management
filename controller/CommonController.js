@@ -7,8 +7,6 @@ const estimate = require("../models/estimate");
 const estimateTotal = require("../models/estimateTotal");
 const { createPDF } = require("../lib/HtmlToPdf");
 const { render } = require("ejs");
-const path = require("path");
-const fs = require("fs");
 
 const userInsertOne = async (userObject) => {
   return await user.create(userObject);
@@ -141,25 +139,9 @@ const getHTML = (filePath, templateParams) => {
   }
 };
 
-const convertEstimateHTMLToPDF = async (workOrderId) => {
+const convertEstimateHTMLToPDF = async (templateParams, template, fileName) => {
   try {
-    let estimateDetails, estimateTotalDetails;
-    if (!workOrderId) {
-      return false;
-    }
-    const workOrderDetails = await getWorkOrderDetails(workOrderId)
-    if (workOrderDetails) {
-      estimateDetails = await getEstimateDetailsByWOId(workOrderDetails._id)
-      estimateTotalDetails = await getEstimateTotalDetailsByWOId(workOrderDetails._id)
-    }
-    const templateParams = {
-      workOrderDetails,
-      estimateDetails,
-      estimateTotalDetails
-    }
-    const template = fs.readFileSync(path.normalize(path.join(__dirname, '../views/generateEstimatePDF.ejs')), 'utf-8');
     const htmlArray = getHTML(template, templateParams);
-    const fileName = `${workOrderDetails.firstName} ${workOrderDetails.lastName}_estimate_${workOrderDetails.estimateNumber}.pdf`
     const createEstimatePDF = await createPDF(htmlArray, fileName)
     if (createEstimatePDF) {
       return true
