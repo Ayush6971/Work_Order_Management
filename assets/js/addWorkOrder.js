@@ -74,6 +74,7 @@ function submitWorkOrderEstimate(event) {
           workOrderId,
           itemId,
           itemCategoriesId: [$(this).find("td:eq(1)").find('select').val()] || [],
+          itemCategoryName: $(this).find("td:eq(1)").find('select').text(),
           itemName: $(this).find("td:eq(1)").find('b').html().trim(),
           itemRate: parseInt($(this).find("td:eq(2)").text() || 0),
           itemQuantity: parseInt($(this).find("td:eq(3)").find('input').val() || 0),

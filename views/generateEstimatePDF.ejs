@@ -99,28 +99,33 @@
       }
 
       .serialNo {
+        padding-left: 2%;
+        margin-top: -2%;
         width: 40%;
-        margin: 2% auto;
       }
 
       .quotationHeading {
-        width: 30%;
-        margin: 1% auto;
+        margin-top: -3.5%;
       }
 
       .quotationDate {
-        width: 20%;
-        margin: 2% auto;
+        margin: -2% auto 0 auto;
       }
 
-      .customerName {
+      .customerDetails {
         color: cornflowerblue;
         width: 100%;
-        margin: 0 0 2% 1.8%;
+        margin: -5% 0 0 0;
+        border-bottom: 2px solid cornflowerblue;
       }
-      .customerName h4 {
+      .customerDetails h4 {
+        padding-left: 2%;
         font-weight: bold;
         font-size: 20px;
+      }
+
+      .customerAddress {
+        margin-top: -1.5%;
       }
 
       table {
@@ -178,7 +183,6 @@
         width: 5%;
       }
       .amount .inputAmount {
-        width: 95%;
         margin: auto 5px;
       }
       .addWorkOrderButton .btn-primary {
@@ -218,7 +222,7 @@
             <div class="quotationHeading"><h4>ESTIMATE</h4></div>
             <div class="quotationDate"><h4>Date :</h4></div>
           </div>
-          <div class="customerName">
+          <div class="customerDetails">
             <h4>
               Customer Name :&nbsp;&nbsp;<%= workOrderDetails.firstName%> <%=
               workOrderDetails.lastName%>
@@ -229,74 +233,80 @@
               type="hidden"
               id="workOrderId"
             />
+            <h4 class="customerAddress">
+              Customer Phone No. :&nbsp;&nbsp;<%= workOrderDetails.phoneNo%>
+            </h4>
+            <!-- <h4 class="customerAddress">
+              Customer Address :&nbsp;&nbsp;<%=
+              workOrderDetails.presentAddress%>
+            </h4> -->
           </div>
-          <form id="addWorkOrderEstimateForm" autocomplete="off">
-            <%if(estimateDetails.length){%>
-            <div class="estimateGrid">
-              <table id="estimateGrid" class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th style="width: 8% !important; height: 32px !important">
-                      S No.
-                    </th>
-                    <th style="width: 65% !important; height: 32px !important">
-                      Description
-                    </th>
-                    <th style="width: 13% !important; height: 32px !important">
-                      Rate
-                    </th>
-                    <th style="width: 8% !important; height: 32px !important">
-                      Quantity
-                    </th>
-                    <th style="width: 8% !important; height: 32px !important">
-                      Amount
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <%estimateDetails.forEach((element)=>{%>
-                  <tr>
-                    <td>
-                      <!-- <%=element.serialNumber%> -->
-                    </td>
-                    <td name="itemName" class="itemName">
-                      <b class="<%-element.itemCategories ? 'tableData':''%>"
-                        ><%=element.itemName%></b
-                      >
-                    </td>
-                    <td name="itemRate" id="itemRate">
-                      <i class="fas fa-rupee-sign"></i><%=element.itemRate%>
-                    </td>
-                    <td name="quantity">
-                      <input
-                        id="itemQuantity"
-                        type="text"
-                        value="<%-element.itemQuantity%>"
-                      />
-                    </td>
-                    <td name="amount" class="amount">
-                      <i class="fas fa-rupee-sign"></i
-                      ><input
-                        class="inputAmount"
-                        type="text"
-                        value="<%-element.itemAmount%>"
-                      />
-                    </td>
-                  </tr>
-                  <%})%>
-                  <tr>
-                    <td colspan="4" class="totalText">TOTAL</td>
-                    <td class="amount">
-                      <i class="fas fa-rupee-sign"></i><input id="grandTotal"
+          <%if(estimateDetails.length){%>
+          <div class="estimateGrid">
+            <table id="estimateGrid" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 8% !important; height: 32px !important">
+                    S No.
+                  </th>
+                  <th style="width: 65% !important; height: 32px !important">
+                    Description
+                  </th>
+                  <th style="width: 13% !important; height: 32px !important">
+                    Rate
+                  </th>
+                  <th style="width: 8% !important; height: 32px !important">
+                    Quantity
+                  </th>
+                  <th style="width: 8% !important; height: 32px !important">
+                    Amount
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <%estimateDetails.forEach((element)=>{%>
+                <tr>
+                  <td><%=element.serialNumber%></td>
+                  <td name="itemName" class="itemName">
+                    <b class="<%-element.itemCategories ? 'tableData':''%>"
+                      ><%=element.itemName%></b
+                    >
+                  </td>
+                  <td name="itemRate" id="itemRate">
+                    <i class="fas fa-rupee-sign"></i><%=element.itemRate%>
+                  </td>
+                  <td name="quantity">
+                    <input
+                      id="itemQuantity"
                       type="text"
-                      value="<%-estimateTotalDetails.estimateTotal%>/>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <%}%>
-          </form>
+                      value="<%-element.itemQuantity%>"
+                    />
+                  </td>
+                  <td name="amount" class="amount">
+                    <i class="fas fa-rupee-sign"></i
+                    ><input
+                      class="inputAmount"
+                      type="text"
+                      value="<%-element.itemAmount%>"
+                    />
+                  </td>
+                </tr>
+                <%})%>
+                <tr>
+                  <td colspan="4" class="totalText">TOTAL</td>
+                  <td class="amount">
+                    <i class="fas fa-rupee-sign"></i>
+                    <input
+                      id="grandTotal"
+                      type="text"
+                      value="<%-estimateTotalDetails.estimateTotal%>"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <%}%>
           <div class="estimateFooter">
             <div class="right"><h4>Proprietor : Banti Sahu</h4></div>
 

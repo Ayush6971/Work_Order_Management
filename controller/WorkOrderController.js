@@ -125,27 +125,12 @@ const getWorkOrderEstimate = async (req, res) => {
     res.profile = findCurrentUserDetails;
 
     const workOrderDetails = await getWorkOrderDetails(workOrderId)
-    console.log("🚀 ~ file: WorkOrderController.js ~ line 128 ~ getWorkOrderEstimate ~ workOrderDetails", workOrderDetails)
-    const estimateDetails = getEstimateDetailsByWOId(workOrderId);
-    const estimateTotalDetails = getEstimateTotalDetailsByWOId(workOrderId);
-
-    // let getAllItems = await getEstimateItems();
-    // getAllItems = getAllItems.filter(item => !item.isDisabled).map((currentValue, index) => {
-    //   currentValue.serialNumber = index + 1;
-    //   return currentValue;
-    // });
-    const templateParams = {
-      workOrderDetails,
-      estimateDetails: getEstimateDetailsByWOId(workOrderId),
-      estimateTotalDetails: getEstimateTotalDetailsByWOId(workOrderId),
-    }
-    const template = fs.readFileSync(path.normalize(path.join(__dirname, '../views/generateEstimatePDF.ejs')), 'utf-8');
-    const fileName = `ayush.pdf`
-    await convertEstimateHTMLToPDF(templateParams, template, fileName)
-
-    return res.render("generateEstimatePDF", { res, workOrderDetails, estimateDetails, estimateTotalDetails });
-
-    // return res.render("workOrderEstimate", { res, workOrderDetails, itemList: getAllItems });
+    let getAllItems = await getEstimateItems();
+    getAllItems = getAllItems.filter(item => !item.isDisabled).map((currentValue, index) => {
+      currentValue.serialNumber = index + 1;
+      return currentValue;
+    });
+    return res.render("workOrderEstimate", { res, workOrderDetails, itemList: getAllItems });
 
   } catch (error) {
     console.error(
@@ -162,7 +147,6 @@ const addWorkOrderEstimate = async (req, res) => {
     if (!currentUser) return res.status(400).json({ message: "Please login!" });
 
     const { workOrderId, addWorkOrderEstimateForm, estimateTotalObj } = req.body;
-    console.log("🚀 ~ file: WorkOrderController.js ~ line 148 ~ addWorkOrderEstimate ~ addWorkOrderEstimateForm", addWorkOrderEstimateForm)
 
     const workOrderDetails = await getWorkOrderDetails(workOrderId);
     if (!workOrderDetails) return res.status(400).json({ message: "Work Order Not found" })
@@ -182,6 +166,10 @@ const addWorkOrderEstimate = async (req, res) => {
       return res.status(400).json({ message: "Something went wrong!" });
     }
 
+    estimateDetails = estimateDetails.map((currentValue, index) => {
+      currentValue.serialNumber = index + 1;
+      return currentValue;
+    });
     const templateParams = {
       workOrderDetails,
       estimateDetails,
@@ -191,7 +179,7 @@ const addWorkOrderEstimate = async (req, res) => {
     const fileName = `${workOrderDetails.firstName} ${workOrderDetails.lastName}_estimate_${workOrderDetails.estimateNumber}.pdf`
 
     await convertEstimateHTMLToPDF(templateParams, template, fileName)
-    // return res.status(200).json({ message: "Estimate created successfully." });
+    return res.status(200).json({ message: "Estimate created successfully." });
   } catch (error) {
     console.error("🚀 ~ file: WorkOrderController.js ~ line 141 ~ addWorkOrderEstimate ~ error", error)
   }

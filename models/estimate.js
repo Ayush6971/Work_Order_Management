@@ -14,6 +14,9 @@ const estimateSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "ItemCategories",
     }],
+    itemCategoryName: {
+      type: String,
+    },
     itemName: {
       type: String,
       required: true,

@@ -124,7 +124,7 @@ const insertEstimateTotal = async (estimateTotalDetails) => {
 
 const getEstimateDetailsByWOId = async (workOrderId) => {
   console.log("🚀 ~ file: CommonController.js ~ line 126 ~ getEstimateDetailsByWOId ~ workOrderId", workOrderId)
-  return estimate.find({ workOrderId })
+  return estimate.find({ workOrderId }).populate('itemCategoriesId')
 }
 
 const getEstimateTotalDetailsByWOId = async (workOrderId) => {
