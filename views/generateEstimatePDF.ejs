@@ -14,12 +14,12 @@
         box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
       }
       page[size="A4"] {
-        width: 21cm;
-        height: 29.7cm;
+        width: 210mm;
+        height: 297mm;
       }
 
       .workOrderEstimateForm {
-        padding: 0.9cm;
+        padding: 9mm;
       }
 
       .addWorkOrder-form {
@@ -27,7 +27,7 @@
       }
 
       .container {
-        height: 28cm;
+        height: 280mm;
         background: white;
         border: 3px solid cornflowerblue;
       }
@@ -52,7 +52,7 @@
       .esitmateTitle {
         display: inline-block;
         width: 100%;
-        height: 4.5cm;
+        height: 45mm;
         border-bottom: 2px solid cornflowerblue;
       }
       .estimateHeader {
@@ -229,7 +229,7 @@
             </h4>
             <input
               name="workOrderId"
-              value="<%-workOrderDetails._id%>"
+              value="62c465e2f760e629ccabf0cb"
               type="hidden"
               id="workOrderId"
             />
@@ -237,8 +237,7 @@
               Customer Phone No. :&nbsp;&nbsp;<%= workOrderDetails.phoneNo%>
             </h4>
             <!-- <h4 class="customerAddress">
-              Customer Address :&nbsp;&nbsp;<%=
-              workOrderDetails.presentAddress%>
+              Customer Address :&nbsp;&nbsp;Sadar Bazar, Hoshangabad
             </h4> -->
           </div>
           <%if(estimateDetails.length){%>
@@ -266,28 +265,29 @@
               <tbody>
                 <%estimateDetails.forEach((element)=>{%>
                 <tr>
-                  <td><%=element.serialNumber%></td>
+                  <td name="itemId" data-itemId="<%-element.itemId%>">
+                    <%=element.serialNumber%>
+                  </td>
                   <td name="itemName" class="itemName">
-                    <b class="<%-element.itemCategories ? 'tableData':''%>"
-                      ><%=element.itemName%></b
-                    >
+                    <b class=""><%=element.itemName%></b>
                   </td>
                   <td name="itemRate" id="itemRate">
                     <i class="fas fa-rupee-sign"></i><%=element.itemRate%>
                   </td>
                   <td name="quantity">
                     <input
+                      value="<%-element.itemQuantity%>"
                       id="itemQuantity"
                       type="text"
-                      value="<%-element.itemQuantity%>"
                     />
                   </td>
                   <td name="amount" class="amount">
                     <i class="fas fa-rupee-sign"></i
                     ><input
                       class="inputAmount"
-                      type="text"
                       value="<%-element.itemAmount%>"
+                      type="text"
+                      value=""
                     />
                   </td>
                 </tr>
@@ -295,11 +295,11 @@
                 <tr>
                   <td colspan="4" class="totalText">TOTAL</td>
                   <td class="amount">
-                    <i class="fas fa-rupee-sign"></i>
-                    <input
+                    <i class="fas fa-rupee-sign"></i
+                    ><input
                       id="grandTotal"
-                      type="text"
                       value="<%-estimateTotalDetails.estimateTotal%>"
+                      type="text"
                     />
                   </td>
                 </tr>
@@ -307,6 +307,7 @@
             </table>
           </div>
           <%}%>
+
           <div class="estimateFooter">
             <div class="right"><h4>Proprietor : Banti Sahu</h4></div>
 

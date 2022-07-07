@@ -125,12 +125,29 @@ const getWorkOrderEstimate = async (req, res) => {
     res.profile = findCurrentUserDetails;
 
     const workOrderDetails = await getWorkOrderDetails(workOrderId)
-    let getAllItems = await getEstimateItems();
-    getAllItems = getAllItems.filter(item => !item.isDisabled).map((currentValue, index) => {
+    let estimateDetails = await getEstimateDetailsByWOId(workOrderId)
+    const estimateTotalDetails = await getEstimateTotalDetailsByWOId(workOrderId);
+
+    estimateDetails = estimateDetails.map((currentValue, index) => {
       currentValue.serialNumber = index + 1;
       return currentValue;
     });
-    return res.render("workOrderEstimate", { res, workOrderDetails, itemList: getAllItems });
+    const templateParams = {
+      workOrderDetails,
+      estimateDetails,
+      estimateTotalDetails
+    }
+    const template = fs.readFileSync(path.normalize(path.join(__dirname, '../views/generateEstimatePDF.ejs')), 'utf-8');
+    const fileName = `${workOrderDetails.firstName} ${workOrderDetails.lastName}_estimate_${workOrderDetails.estimateNumber}.pdf`
+
+    await convertEstimateHTMLToPDF(templateParams, template, fileName)
+    return res.render("generateEstimatePDF", { workOrderDetails, estimateDetails, estimateTotalDetails });
+    // let getAllItems = await getEstimateItems();
+    // getAllItems = getAllItems.filter(item => !item.isDisabled).map((currentValue, index) => {
+    //   currentValue.serialNumber = index + 1;
+    //   return currentValue;
+    // });
+    // return res.render("workOrderEstimate", { res, workOrderDetails, itemList: getAllItems });
 
   } catch (error) {
     console.error(
